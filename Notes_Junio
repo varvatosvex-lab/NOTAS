@@ -1,18 +1,79 @@
-Hola Evelyn, hola Eze.
+# Línea Base de Ingenieros "Champions" – Proyecto LEAP (Inversiones)
 
-Como seguimiento a los acuerdos de nuestra sesión previa, ¿podrían apoyarnos agendando una sesión el día de hoy (miércoles) o, a más tardar, mañana (jueves), para trabajar un primer bosquejo del proceso del sistema de tickets?
+Este documento define los perfiles, capacidades y responsabilidades de los ingenieros clave (*Champions*) que se integrarán al proyecto **LEAP (Inversiones)**. El objetivo es facilitar el proceso de *handover* (transferencia de conocimiento) y permitir que el cliente identifique claramente qué rol desempeñará cada uno de sus ingenieros dentro del ecosistema tecnológico del banco.
 
-La idea sería revisar juntos:
+---
 
-- El flujo general del proceso.
-- Los pasos que seguirá el usuario desde el registro hasta el cierre del ticket.
-- Un primer sketch de las pantallas o formularios que visualizan para la captura y seguimiento.
-- La información y evidencias que deberán registrarse durante el proceso.
+## 📋 Matriz de Capacidades y Certificaciones Requeridas
 
-Esto nos ayudará a aterrizar los requerimientos funcionales y avanzar con el diseño de la propuesta tecnológica, arquitectura y alternativas de implementación.
+| Rol del Champion | Foco Principal | Certificaciones AWS Deseables | Certificaciones de Programación / Metodología |
+| :--- | :--- | :--- | :--- |
+| **1. Modern FrontEnd & Cloud Deployment Champion** | Capa de presentación, experiencia de usuario institucional y despliegue ágil en contenedores. | AWS Certified Cloud Practitioner / Developer Associate | React Architecture / Frontend Certifications |
+| **2. Quality Assurance, DevSecOps & Operations Champion** | Automatización de despliegues, calidad de código, gobernanza de infraestructura y observabilidad operativa. | AWS Certified SysOps Administrator / DevOps Engineer | SonarQube Certified / Agile / Scrum |
+| **3. Serverless Integration, Data & Observability Champion** | Core de negocio, orquestación de flujos financieros, arquitectura de eventos y persistencia de datos. | AWS Certified Developer / Solutions Architect Associate | Python Advanced / Database Administration |
 
-Adicionalmente, si ya cuentan con documentación, diagramas, procesos actuales, formatos o cualquier material de referencia, les agradeceríamos mucho que nos lo pudieran compartir a través del canal de Microsoft Teams que se creó para este esfuerzo, ya que esto nos permitirá partir de una base común y acelerar la definición de la solución.
+---
 
-Por nuestra parte, ya estamos avanzando en la fase de diseño tecnológico y evaluación de alternativas; sin embargo, necesitamos este insumo funcional para asegurar que la propuesta responda adecuadamente a las necesidades del proceso.
+## 👤 Especificación Detallada de los Perfiles
 
-Muchas gracias por su apoyo y quedamos atentos para coordinar la sesión.
+### 1. Modern FrontEnd & Cloud Deployment Champion
+
+> **Objetivo del Rol:** Liderar la capa de presentación de la plataforma LEAP (Inversiones), garantizando la adopción estricta de las guías de diseño institucionales y coordinando el empaquetado y ejecución óptima sobre infraestructura de contenedores serverless.
+
+* **Responsabilidades Clave en LEAP:**
+    * Desarrollar y mantener los componentes de interfaz garantizando el uso estricto del framework de estilos del banco (**piggy-bank**).
+    * Asegurar la consistencia visual, accesibilidad y performance del FrontEnd del módulo de Inversiones.
+    * Gestionar el ciclo de vida del empaquetado y despliegue de la capa cliente sobre la infraestructura cloud.
+* **Habilidades Técnicas y Stack Requerido:**
+    * **Desarrollo Core:** Experiencia avanzada en **React** y adopción de sistemas de diseño corporativos (ecosistema de estilos **piggy-bank**).
+    * **Cloud & Containers:** Configuración, despliegue y tuning de tareas en **AWS ECS** utilizando **AWS Fargate** como motor de ejecución serverless.
+    * **Despliegue e Infraestructura:** Entendimiento sólido de pipelines de integración continua en **Jenkins** y nociones de **Terraform** para la interpretación y diagnóstico de los recursos donde corre el FrontEnd.
+* **Formación Deseable:**
+    * Ingeniería en Sistemas, Computación, Informática o carrera afín.
+
+---
+
+### 2. Quality Assurance, DevSecOps & Operations Champion
+
+> **Objetivo del Rol:** Actuar como el guardián de la calidad de software, la automatización y la estabilidad en producción del proyecto LEAP, implementando las herramientas de gobernanza corporativas del banco y asegurando la visibilidad total de la salud del aplicativo.
+
+* **Responsabilidades Clave en LEAP:**
+    * Definir, instrumentar y auditar los *Quality Gates* normativos exigidos por el banco para el código fuente de Inversiones.
+    * Liderar la automatización y ejecución de despliegues (tanto de la aplicación como de sus pruebas) a través de las plataformas oficiales de la organización.
+    * Garantizar el cumplimiento de las políticas de seguridad (DevSecOps) y estructurar la estrategia de **Observabilidad** del aplicativo en entornos productivos.
+* **Habilidades Técnicas y Stack Requerido:**
+    * **Calidad y Pruebas:** Gobierno, reglas y configuración de **SonarQube** para análisis estático, cobertura de pruebas automatizadas (*testing*) y detección temprana de deuda técnica o vulnerabilidades de seguridad.
+    * **Automatización de Despliegues:** Uso, configuración y creación de playbooks en **Ansible Automation Platform** para la orquestación del ciclo de vida de la aplicación, integrado con pipelines en **Jenkins**.
+    * **Infraestructura como Código (IaC):** Dominio y entendimiento profundo de **Terraform** para auditar y gestionar la infraestructura base.
+    * **Observabilidad y Operaciones:** Configuración avanzada de tableros de control (dashboards), alarmas proactivas, métricas y agregación de logs a través de **AWS CloudWatch**.
+* **Formación Deseable:**
+    * Profesional en Tecnologías de la Información, Telecomunicaciones o afín, con fuerte orientación a la cultura DevOps/SRE.
+
+---
+
+### 3. Serverless Integration, Data & Observability Champion
+
+> **Objetivo del Rol:** Diseñar, mantener y optimizar los flujos de trabajo core, la mensajería distribuida y la capa de datos del proyecto LEAP (Inversiones), operando bajo arquitecturas guiadas por eventos, microservicios serverless y con un estricto control de seguridad bancaria.
+
+* **Responsabilidades Clave en LEAP:**
+    * Diseñar, mantener y evolucionar las máquinas de estado que gobiernan los *workflows* y procesos financieros complejos de Inversiones.
+    * Garantizar el correcto flujo de integración de datos, la persistencia óptima y el procesamiento asíncrono y resiliente entre módulos.
+    * Velar por el aislamiento de componentes, la seguridad a nivel datos (cifrado) y la aplicación estricta del principio de menor privilegio.
+* **Habilidades Técnicas y Stack Requerido:**
+    * **Orquestación y Cómputo:** Diseño avanzado de flujos distribuidos utilizando **AWS Step Functions** y desarrollo de lógica de negocio serverless mediante funciones **AWS Lambda** utilizando **Python** como lenguaje principal.
+    * **Arquitectura Guiada por Eventos y Mensajería:** Configuración e integración de **AWS EventBridge** para el enrutamiento inteligente de eventos de negocio y **AWS SQS** para el desacoplamiento mediante colas de mensajería.
+    * **Bases de Datos (SQL & NoSQL):** Modelado, optimización y consumo de bases de datos relacionales en **Amazon Aurora PostgreSQL** y persistencia clave-valor de baja latencia con **AWS DynamoDB**.
+    * **Seguridad Cloud:** Implementación rigurosa de políticas de acceso mediante **AWS IAM**, control de variables de entorno y resguardo de secretos bancarios.
+    * **Monitoreo y Trazabilidad:** Diagnóstico de flujos de datos y trazas distribuidas utilizando las capacidades nativas de **AWS CloudWatch** y herramientas de observabilidad de backend.
+* **Formación Deseable:**
+    * Ingeniería en Sistemas, Ciencias de la Computación o perfil especializado en Arquitectura de Datos / Backend Serverless con dominio de desarrollo con Python.
+
+---
+
+## 📈 Plan de Acción Inmediato para el Handover
+
+1.  **Mapeo de Nombres:** Entregar esta matriz en formato Markdown/Word al líder del cliente para que asigne los ingenieros de su equipo que cumplan con estos perfiles.
+2.  **Sesiones de Transferencia Temáticas:** Organizar los bloques de handover alineados a estas especialidades:
+    * *Sesión FrontEnd:* Código React + Integración de estilos **piggy-bank** + Despliegue en **ECS/Fargate**.
+    * *Sesión Ciclo de Vida y Gobierno:* Repositorios + Pipelines de **Jenkins** + Validaciones en **SonarQube** + Despliegues con **Ansible** y **Terraform** + Monitoreo en **CloudWatch**.
+    * *Sesión Core Backend:* Arquitectura de **Step Functions** + Código **Python/Lambda** + Flujos en **EventBridge/SQS** + Estructuras en **DynamoDB/Aurora**.
