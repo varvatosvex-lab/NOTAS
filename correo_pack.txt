@@ -1,0 +1,39 @@
+Regulatory Knowledge Base Initiative – Arranque de Actividades y Próximos Pasos
+Hola Lucía, Montserrat,
+
+Como acordamos, les comparto el documento inicial de la iniciativa Regulatory Knowledge Base (RKB), así como la estructura base del repositorio que estaremos utilizando para centralizar el conocimiento relacionado con el Pack Regulatorio.
+
+El objetivo de esta primera fase no es diseñar una solución ni iniciar desarrollo. Nuestro foco es construir una fuente única de verdad que nos permita entender el proceso actual, consolidar conocimiento disperso y preparar la información necesaria para las siguientes etapas de análisis, diseño funcional y definición de requerimientos.
+
+Dentro del documento encontrarán:
+
+* Objetivos y alcance de la iniciativa.
+* Estructura propuesta para el repositorio.
+* Guía de organización de información.
+* Uso esperado de Inteligencia Artificial.
+* Recomendaciones para conversión de contenido a Markdown.
+* Framework de trabajo propuesto.
+* Próximas fases y entregables esperados.
+
+Adicionalmente, ya se encuentra creada la estructura inicial del repositorio en OneDrive para comenzar a concentrar la información disponible.
+
+Solicitud para esta semana
+
+Me gustaría que nos apoyaran con las siguientes actividades iniciales:
+
+1. Revisar el documento y proponer cualquier ajuste que consideren necesario.
+2. Comenzar a identificar y recopilar las principales fuentes de información disponibles.
+3. Iniciar la conversión de conocimiento relevante a formato Markdown.
+4. Identificar grabaciones, documentos, Confluence, procesos y material que consideren importante incorporar.
+5. Documentar cualquier duda, inconsistencia o tema pendiente dentro de la sección correspondiente.
+
+La intención es que para el cierre de esta semana podamos contar con una primera base organizada de información y una estructura inicial de conocimiento que nos permita acelerar las siguientes fases.
+
+Posteriormente utilizaremos esta información para realizar sesiones colaborativas de análisis apoyadas por Inteligencia Artificial, construir Functional Designs, generar SPECS y preparar paquetes de información que eventualmente podrán compartirse con proveedores para estimación y desarrollo.
+
+Muchas gracias por el apoyo. Considero que esta fase será fundamental para el éxito de todo el proyecto y nos permitirá construir una base mucho más sólida para las decisiones que tomaremos más adelante.
+
+Quedo atento a cualquier comentario o sugerencia.
+
+Saludos,
+Jonatan
