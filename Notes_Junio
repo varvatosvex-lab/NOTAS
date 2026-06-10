@@ -1,14 +1,11 @@
-Hola equipo,
+Hola Corina, ¿cómo estás?
 
-Les comparto un aviso previo para que lo vayan considerando.
+Quería pedirte un apoyo. Estamos piloteando un concepto utilizando GitHub Copilot e IA Generativa para evaluar CRs (Change Requests) con base en reglas y nos gustaría realizar algunas pruebas con CRs reales que ya se encuentren en estado Scheduled.
 
-Mañana está programada la entrega de los equipos Mac para el equipo. La entrega será fuera de las oficinas y muy probablemente nos estaremos viendo en Sendero, posiblemente en el Starbucks, aunque el lugar exacto todavía está por confirmarse.
+No necesitamos permisos para modificarlos ni ejecutar ninguna acción; únicamente los consultaríamos desde ServiceNow para validar el comportamiento del modelo y nuestro proceso de evaluación. No vamos a interferir con ningún cambio ni afectar la operación.
 
-Durante la entrega nos estarán proporcionando las cartas responsivas correspondientes, las cuales tendremos que revisar y firmar para recibir los equipos.
+¿Nos podrías ayudar con algunos IDs de CRs en estado Scheduled o indicarnos con quién podríamos acercarnos para obtener un listado de próximos cambios programados?
 
-Por el momento les pido que consideren disponibilidad para asistir. En cuanto tenga confirmado el lugar y horario exactos, se los compartiré de inmediato.
+La idea es únicamente validar el concepto y generar algunas pruebas controladas.
 
-Gracias y quedo pendiente de la confirmación final.
-
-Saludos,
-Jonatan
+¡Muchas gracias por el apoyo!
