@@ -1,11 +1,135 @@
-Hola Corina, ¿cómo estás?
+# Full Stack Engineer – Expected Deliverables & Professional Expectations
 
-Quería pedirte un apoyo. Estamos piloteando un concepto utilizando GitHub Copilot e IA Generativa para evaluar CRs (Change Requests) con base en reglas y nos gustaría realizar algunas pruebas con CRs reales que ya se encuentren en estado Scheduled.
+## Purpose
 
-No necesitamos permisos para modificarlos ni ejecutar ninguna acción; únicamente los consultaríamos desde ServiceNow para validar el comportamiento del modelo y nuestro proceso de evaluación. No vamos a interferir con ningún cambio ni afectar la operación.
+This document defines the expected deliverables, behaviors, engineering practices, and professional standards for Full Stack Engineers participating in modern software delivery initiatives.
 
-¿Nos podrías ayudar con algunos IDs de CRs en estado Scheduled o indicarnos con quién podríamos acercarnos para obtener un listado de próximos cambios programados?
+The objective is to establish a common framework for execution across Spec-Driven Development (SDD), MVP delivery, Agile practices, AI-assisted engineering, quality assurance, and continuous improvement.
 
-La idea es únicamente validar el concepto y generar algunas pruebas controladas.
+---
 
-¡Muchas gracias por el apoyo!
+# Core Principle
+
+A Full Stack Engineer is expected to deliver business capabilities from concept to production-ready MVPs.
+
+The expectation extends beyond coding and includes:
+
+- Requirements understanding
+- Solution design
+- Development
+- Testing
+- Documentation
+- Deployment readiness
+- Knowledge sharing
+- Continuous improvement
+
+Success is measured by business value delivered with quality, speed, accountability, and collaboration.
+
+---
+
+# Technical Deliverables
+
+| Category | Deliverable | Description |
+|-----------|-------------|-------------|
+| Requirements Analysis | Technical Analysis | Interpretation of business requirements, assumptions, dependencies, and risks |
+| Specification Refinement | Technical Specification | Conversion of functional requirements into technical implementation details |
+| Architecture | Solution Design | Architecture diagrams, workflows, integrations, and component definitions |
+| Frontend Development | User Interface | Functional and reusable frontend components following established standards |
+| Backend Development | Services & APIs | Business logic, APIs, integrations, validation, and error handling |
+| Data Design | Data Model | Database schemas, entities, relationships, and persistence strategy |
+| Workflow Design | Process Orchestration | Business process flows and state management |
+| Cloud Integration | Platform Components | Integration with approved cloud services and enterprise platforms |
+| Security | Security Controls | Authentication, authorization, validation, and secure coding practices |
+| Testing | Automated Validation | Unit, Integration, and End-to-End testing |
+| Documentation | Technical Documentation | Installation, configuration, architecture, and operational documentation |
+| Delivery | MVP Demonstration | Demonstrable functionality aligned with business requirements |
+| Knowledge Transfer | Handover | Walkthroughs, demos, and operational knowledge sharing |
+
+---
+
+# AI-Assisted Engineering Expectations
+
+## Approved Tooling
+
+- Open Code
+- Open Cloud
+- GitHub Copilot
+- Productivity Suite
+- Internal AI Platform capabilities
+
+## Expected Usage
+
+- Requirement Analysis
+- Specification Refinement
+- Architecture Support
+- Code Generation
+- Testing
+- Documentation
+- Refactoring
+- Troubleshooting
+
+---
+
+# Soft Skills Expectations
+
+## Communication
+- Clear status updates
+- Early blocker communication
+- Effective stakeholder engagement
+
+## Critical Thinking
+- Challenge assumptions respectfully
+- Analyze risks and dependencies
+- Evaluate alternatives
+
+## Ownership
+- Drive work to completion
+- Escalate risks appropriately
+- Ensure production readiness
+
+## Collaboration
+- Work effectively with Product, BA, QA, Architects, and Engineers
+- Participate in reviews and design discussions
+
+## Design Thinking Mindset
+- Understand user journeys
+- Focus on business outcomes
+- Propose improvements
+
+---
+
+# Agile Delivery Expectations
+
+- Sprint Planning
+- Daily Standups
+- Backlog Refinement
+- Sprint Reviews
+- Retrospectives
+- Incremental Delivery
+
+---
+
+# Testing Expectations
+
+- Unit Testing
+- Integration Testing
+- End-to-End Testing
+- Test Evidence and Reporting
+
+---
+
+# Definition of Done (DoD)
+
+- Requirements implemented
+- Acceptance criteria satisfied
+- Code reviewed
+- Automated tests passed
+- Documentation updated
+- Pipeline successful
+- Demo completed
+
+---
+
+# Success Formula
+
+SPEC → Analysis → Design → Build → Test → Document → Demo → Improve
