@@ -1,0 +1,3096 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITSO Companion - Panel Ejecutivo</title>
+    <!-- Meta Descriptions and SEO -->
+    <meta name="description" content="Dashboard ejecutivo de seguimiento para el plan de ejecución del proyecto ITSO Companion / Change Intelligence Assistant.">
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <style>
+/* ==========================================================================
+   DESIGN SYSTEM & CUSTOM PROPERTIES
+   ========================================================================== */
+:root {
+    /* Color Palette - McKinsey-Style Exec Corporate Indigo & Slate */
+    --color-primary: #0f172a;       /* Slate 900 */
+    --color-primary-light: #1e293b; /* Slate 800 */
+    --color-secondary: #4f46e5;     /* Indigo 600 */
+    --color-secondary-hover: #4338ca;
+    --color-accent: #06b6d4;        /* Cyan 500 */
+    
+    /* Semantic Status Colors */
+    --color-status-notstart: #64748b; /* Slate 500 */
+    --color-status-progress: #3b82f6; /* Blue 500 */
+    --color-status-completed: #10b981;/* Emerald 500 */
+    --color-status-risk: #f59e0b;     /* Amber 500 */
+    --color-status-blocked: #ef4444;  /* Red 500 */
+    
+    /* Status Background Fills (Soft Opacities for Cards/Badges) */
+    --bg-status-notstart: rgba(100, 116, 139, 0.1);
+    --bg-status-progress: rgba(59, 130, 246, 0.1);
+    --bg-status-completed: rgba(16, 185, 129, 0.1);
+    --bg-status-risk: rgba(245, 158, 11, 0.1);
+    --bg-status-blocked: rgba(239, 68, 68, 0.1);
+
+    /* Backgrounds and Surfaces */
+    --color-bg-base: #f8fafc;       /* Slate 50 */
+    --color-bg-surface: #ffffff;    /* White */
+    --color-bg-surface-glass: rgba(255, 255, 255, 0.85);
+    
+    /* Typography & Hierarchy */
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    /* Layout Tokens */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --shadow-premium: 0 20px 25px -5px rgba(15, 23, 42, 0.05), 0 10px 10px -5px rgba(15, 23, 42, 0.02);
+    
+    --border-color: #e2e8f0;        /* Slate 200 */
+    --border-light: #f1f5f9;        /* Slate 100 */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --header-height: 70px;
+}
+
+/* Dark-Friendly Elements Overlay */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg-base: #0b0f19;
+        --color-bg-surface: #131c2e;
+        --color-bg-surface-glass: rgba(19, 28, 46, 0.85);
+        --border-color: #1e293b;
+        --border-light: #162032;
+        --color-primary: #f8fafc;
+        --color-primary-light: #cbd5e1;
+        
+        --bg-status-notstart: rgba(100, 116, 139, 0.2);
+        --bg-status-progress: rgba(59, 130, 246, 0.2);
+        --bg-status-completed: rgba(16, 185, 129, 0.2);
+        --bg-status-risk: rgba(245, 158, 11, 0.2);
+        --bg-status-blocked: rgba(239, 68, 68, 0.2);
+    }
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--color-bg-base);
+    color: var(--color-primary-light);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    padding-top: var(--header-height);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+a:hover {
+    color: var(--color-secondary-hover);
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-status-notstart);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   SHARED UI COMPONENTS
+   ========================================================================== */
+.card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    transition: var(--transition-smooth);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    width: fit-content;
+}
+
+.badge-completed {
+    background-color: var(--bg-status-completed);
+    color: var(--color-status-completed);
+}
+
+.badge-progress {
+    background-color: var(--bg-status-progress);
+    color: var(--color-status-progress);
+}
+
+.badge-notstart {
+    background-color: var(--bg-status-notstart);
+    color: var(--color-status-notstart);
+}
+
+.badge-risk {
+    background-color: var(--bg-status-risk);
+    color: var(--color-status-risk);
+}
+
+.badge-blocked {
+    background-color: var(--bg-status-blocked);
+    color: var(--color-status-blocked);
+}
+
+/* Progress Bars */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: var(--border-light);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.progress-bar-container.mini {
+    height: 4px;
+    margin-top: 0.25rem;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+    transition: width 0.8s ease-in-out;
+}
+
+.progress-bar-fill.status-completed { background: var(--color-status-completed); }
+.progress-bar-fill.status-progress { background: var(--color-status-progress); }
+.progress-bar-fill.status-notstart { background: var(--color-status-notstart); }
+.progress-bar-fill.status-risk { background: var(--color-status-risk); }
+.progress-bar-fill.status-blocked { background: var(--color-status-blocked); }
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Data Tables */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.data-table th, .data-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    background-color: var(--border-light);
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background-color: var(--border-light);
+}
+
+/* Shared Titles */
+.section-container {
+    max-width: 1300px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+.section-container.highlight-bg {
+    background-color: var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.section-subtitle {
+    display: block;
+    color: var(--color-secondary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.section-title {
+    font-size: 1.85rem;
+    color: var(--color-primary);
+}
+
+.sub-section-title {
+    font-size: 1.25rem;
+    margin: 2rem 0 1rem;
+    color: var(--color-primary);
+    border-left: 4px solid var(--color-secondary);
+    padding-left: 0.75rem;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 3rem;
+    color: var(--color-status-notstart);
+    font-family: var(--font-heading);
+    font-weight: 500;
+}
+
+.margin-top-md {
+    margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   STICKY NAVIGATION HEADER
+   ========================================================================== */
+.app-header {
+    background-color: var(--color-bg-surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+}
+
+.header-container {
+    max-width: 1400px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.brand-icon {
+    font-size: 1.75rem;
+    color: var(--color-secondary);
+}
+
+.brand-text h1 {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
+.brand-text span {
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+    font-weight: 500;
+    letter-spacing: 0.025em;
+}
+
+.header-nav {
+    display: flex;
+    gap: 0.5rem;
+    height: 100%;
+    align-items: center;
+    overflow-x: auto;
+}
+
+/* Hide navigation scrollbars */
+.header-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary-light);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background-color: var(--border-light);
+    color: var(--color-secondary);
+}
+
+.nav-link.active {
+    background-color: var(--bg-status-progress);
+    color: var(--color-secondary);
+}
+
+/* ==========================================================================
+   SECTION 1: HERO & EXECUTIVE SUMMARY
+   ========================================================================== */
+.hero-section {
+    max-width: 1400px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-premium);
+    padding: 2.5rem;
+}
+
+.hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hero-tag {
+    background-color: var(--bg-status-progress);
+    color: var(--color-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    width: fit-content;
+}
+
+.hero-title {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    color: var(--color-primary);
+}
+
+.hero-description {
+    font-size: 0.95rem;
+    color: var(--color-primary-light);
+}
+
+.hero-meta {
+    display: flex;
+    gap: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+    margin-top: 1rem;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.meta-label {
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    color: var(--color-status-notstart);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.meta-val {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* KPI Tiles Grid */
+.kpis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.kpi-card {
+    background-color: var(--border-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition-smooth);
+}
+
+.kpi-card.wide {
+    grid-column: span 2;
+}
+
+.kpi-card:hover {
+    background-color: var(--color-bg-surface);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.kpi-icon {
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.kpi-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.kpi-label {
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    color: var(--color-status-notstart);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.kpi-value {
+    font-size: 1.05rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   SECTION 2: STRATEGIC CONTEXT
+   ========================================================================== */
+.context-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.intro-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.intro-card h4 {
+    margin-bottom: 0.75rem;
+    font-size: 1.15rem;
+    color: var(--color-primary);
+}
+
+.intro-card.main-intro {
+    border-left: 5px solid var(--color-secondary);
+}
+
+.intro-card.secondary-intro {
+    border-left: 5px solid var(--color-accent);
+}
+
+/* Platforms Grid */
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.platform-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.platform-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-secondary);
+}
+
+.platform-logo {
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+    background-color: var(--border-light);
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.platform-card h5 {
+    font-size: 1.05rem;
+}
+
+.platform-card p {
+    font-size: 0.85rem;
+    color: var(--color-status-notstart);
+}
+
+/* ==========================================================================
+   SECTION 3: ARCHITECTURE
+   ========================================================================== */
+.architecture-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.architecture-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.arch-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    background-color: var(--border-light);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arch-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Premium Placeholder for missing images */
+.arch-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-status-notstart);
+    padding: 1.5rem;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.arch-placeholder i {
+    font-size: 2.25rem;
+    color: var(--color-secondary);
+    opacity: 0.6;
+}
+
+.arch-placeholder span {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+}
+
+.arch-placeholder small {
+    font-size: 0.7rem;
+    font-family: monospace;
+    opacity: 0.7;
+    word-break: break-all;
+}
+
+.arch-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex-grow: 1;
+}
+
+.arch-info h5 {
+    font-size: 1.05rem;
+}
+
+.arch-info p {
+    font-size: 0.85rem;
+    color: var(--color-status-notstart);
+}
+
+/* ==========================================================================
+   SECTION 4: EXECUTION PHASES
+   ========================================================================== */
+.phases-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.phase-row-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 120px 2.2fr 1.8fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.phase-row-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--color-secondary);
+}
+
+.phase-badge-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.phase-id {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-secondary);
+    line-height: 1;
+}
+
+.phase-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-status-notstart);
+}
+
+.phase-main h5 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+}
+
+.phase-objective {
+    font-size: 0.85rem;
+    color: var(--color-status-notstart);
+    margin-bottom: 0.75rem;
+}
+
+.phase-activities {
+    font-size: 0.8rem;
+    padding-left: 1rem;
+}
+
+.phase-activities li {
+    margin-bottom: 0.25rem;
+}
+
+.phase-deliverables h6 {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary-light);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.phase-deliverables ul {
+    font-size: 0.8rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.phase-deliverables li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+}
+
+.phase-deliverables i {
+    color: var(--color-status-completed);
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+}
+
+.phase-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.phase-owner {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.phase-dates {
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+}
+
+.progress-text {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    align-self: flex-end;
+}
+
+/* ==========================================================================
+   SECTION 5: AGILE GANTT CHART (PURE CSS GRID / DYNAMIC POSITIONING)
+   ========================================================================== */
+.gantt-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.legend-completed { background-color: var(--color-status-completed); }
+.legend-progress { background-color: var(--color-status-progress); }
+.legend-notstart { background-color: var(--color-status-notstart); }
+.legend-risk { background-color: var(--color-status-risk); }
+
+.gantt-wrapper {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.gantt-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 900px;
+    position: relative;
+}
+
+/* Header Row (Months/Weeks) */
+.gantt-header-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--border-light);
+}
+
+.gantt-label-header {
+    padding: 1rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    border-right: 1px solid var(--border-color);
+}
+
+.gantt-timeline-header {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    height: 100%;
+}
+
+.gantt-header-cell {
+    padding: 1rem 0.5rem;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    border-right: 1px solid var(--border-color);
+}
+
+.gantt-header-cell:last-child {
+    border-right: none;
+}
+
+/* Group row for phase */
+.gantt-group-row {
+    background-color: var(--border-light);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    border-bottom: 1px solid var(--border-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Task Row */
+.gantt-task-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+}
+
+.gantt-task-row:hover {
+    background-color: var(--border-light);
+}
+
+.gantt-task-label {
+    padding: 0.75rem 1rem;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.gantt-task-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gantt-task-meta {
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Timeline grid cells overlay in row background */
+.gantt-task-timeline {
+    position: relative;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.gantt-grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    pointer-events: none;
+}
+
+.gantt-grid-cell {
+    border-right: 1px solid var(--border-light);
+    height: 100%;
+}
+
+.gantt-grid-cell:last-child {
+    border-right: none;
+}
+
+/* Interactive Timeline Bar */
+.gantt-bar-wrapper {
+    position: absolute;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+.gantt-bar {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+}
+
+.gantt-bar.status-completed { background-color: var(--color-status-completed); }
+.gantt-bar.status-progress { background-color: var(--color-status-progress); }
+.gantt-bar.status-notstart { background-color: var(--color-status-notstart); }
+.gantt-bar.status-risk { background-color: var(--color-status-risk); }
+
+/* Internal progress inside the bar */
+.gantt-bar-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gantt-bar-text {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Today indicator vertical line */
+.gantt-today-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-status-blocked);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.gantt-today-line::after {
+    content: 'Hoy';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-status-blocked);
+    color: #ffffff;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   SECTION 6: ROLES & RESPONSIBILITIES
+   ========================================================================== */
+.responsibles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.responsible-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.responsible-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--border-color);
+}
+
+.responsible-card.involvement-high::before {
+    background-color: var(--color-secondary);
+}
+
+.responsible-card.involvement-medium::before {
+    background-color: var(--color-accent);
+}
+
+.resp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.resp-avatar-info h5 {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.resp-avatar-info span {
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.resp-tag {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.45rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    border-radius: var(--radius-full);
+}
+
+.resp-tag-high { background-color: var(--bg-status-blocked); color: var(--color-status-blocked); }
+.resp-tag-medium { background-color: var(--bg-status-risk); color: var(--color-status-risk); }
+
+.resp-body {
+    font-size: 0.8rem;
+    color: var(--color-primary-light);
+    margin-top: 0.5rem;
+    flex-grow: 1;
+}
+
+.resp-footer {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+    border-top: 1px solid var(--border-light);
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   SECTION 7: STATUS DASHBOARD (KPI PROGRESS CARDS)
+   ========================================================================== */
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.status-row-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.status-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-card-header h5 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.status-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.status-card-desc {
+    font-size: 0.8rem;
+    color: var(--color-status-notstart);
+}
+
+.status-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--color-primary-light);
+}
+
+.status-card-owner {
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   SECTION 8: EXECUTIVE CHECKLIST
+   ========================================================================== */
+.checklist-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.checklist-progress-card {
+    background-color: var(--border-light);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.checklist-progress-card span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.checklist-progress-card strong {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+}
+
+.checklist-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+}
+
+.checklist-group {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+}
+
+.checklist-group h5 {
+    font-size: 1.1rem;
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checklist-group-progress {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    background-color: var(--bg-status-progress);
+    color: var(--color-secondary);
+    padding: 0.1rem 0.5rem;
+    border-radius: var(--radius-full);
+}
+
+.checklist-items-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.chk-status-icon {
+    font-size: 1rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.chk-status-icon.completed { color: var(--color-status-completed); }
+.chk-status-icon.progress { color: var(--color-status-progress); }
+.chk-status-icon.notstart { color: var(--color-status-notstart); }
+.chk-status-icon.risk { color: var(--color-status-risk); }
+
+.chk-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.chk-title {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.chk-comments {
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+    line-height: 1.3;
+}
+
+.chk-owner-tag {
+    font-size: 0.7rem;
+    color: var(--color-secondary);
+    font-weight: 500;
+    margin-top: 0.15rem;
+}
+
+.disclaimer-alert {
+    background-color: var(--bg-status-risk);
+    border-left: 4px solid var(--color-status-risk);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-sm);
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-primary-light);
+    font-size: 0.85rem;
+}
+
+.disclaimer-alert i {
+    color: var(--color-status-risk);
+    font-size: 1.25rem;
+}
+
+/* ==========================================================================
+   SECTION 9: RISKS & BLOCKERS
+   ========================================================================== */
+.risks-critical-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.risk-danger-card {
+    background-color: var(--bg-status-blocked);
+    border: 1px solid var(--color-status-blocked);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+}
+
+.risk-danger-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.risk-danger-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.risk-danger-header h5 {
+    color: var(--color-status-blocked);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.risk-danger-body {
+    font-size: 0.85rem;
+    color: var(--color-primary-light);
+}
+
+.risk-danger-mitigation {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+    .risk-danger-mitigation {
+        background-color: rgba(0, 0, 0, 0.4);
+        color: var(--color-primary-light);
+    }
+}
+
+.risk-danger-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--color-status-notstart);
+    border-top: 1px solid rgba(239, 68, 68, 0.2);
+    padding-top: 0.5rem;
+}
+
+/* ==========================================================================
+   APP FOOTER
+   ========================================================================== */
+.app-footer {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 2.5rem 2rem;
+    margin-top: 5rem;
+    border-top: 1px solid var(--color-primary-light);
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--color-status-notstart);
+}
+
+.footer-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.footer-divider {
+    opacity: 0.3;
+}
+
+.text-success { color: var(--color-status-completed); }
+.text-warning { color: var(--color-status-risk); }
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+@media (max-width: 1100px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+    }
+    
+    .architecture-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .phase-row-card {
+        grid-template-columns: 100px 1.5fr 1.5fr;
+        gap: 1.5rem;
+    }
+    
+    .phase-row-card > *:last-child {
+        grid-column: span 3;
+        border-top: 1px solid var(--border-light);
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        padding-top: calc(var(--header-height) + 30px);
+    }
+    
+    .header-container {
+        flex-direction: column;
+        height: auto;
+        padding: 0.75rem 1rem;
+    }
+    
+    .header-nav {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 0.5rem 0;
+    }
+    
+    .header-actions {
+        display: none; /* Hide print actions on small devices */
+    }
+    
+    .context-intro {
+        grid-template-columns: 1fr;
+    }
+    
+    .architecture-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .phase-row-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .phase-row-card > *:last-child {
+        grid-column: span 1;
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES (@media print) FOR EXECUTIVE PDF REPORTS
+   ========================================================================== */
+@media print {
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding-top: 0 !important;
+    }
+    
+    .app-header, .header-actions, .app-footer, .gantt-legend, .disclaimer-alert {
+        display: none !important; /* Hide navigation and actions */
+    }
+    
+    .section-container {
+        max-width: 100% !important;
+        margin: 1rem 0 !important;
+        padding: 0 !important;
+        page-break-inside: avoid;
+    }
+    
+    .section-container.highlight-bg {
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+    
+    .hero-grid {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .hero-kpis {
+        page-break-inside: avoid;
+    }
+    
+    .kpis-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .kpi-card {
+        border: 1px solid #000000 !important;
+        background-color: transparent !important;
+    }
+    
+    .kpi-card.wide {
+        grid-column: span 3 !important;
+    }
+    
+    .platform-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .platform-card {
+        border: 1px solid #000000 !important;
+        page-break-inside: avoid;
+    }
+    
+    .architecture-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .architecture-card {
+        border: 1px solid #000000 !important;
+        page-break-inside: avoid;
+    }
+    
+    .arch-placeholder {
+        border: 1px dashed #000000 !important;
+        background-color: transparent !important;
+    }
+    
+    .phase-row-card {
+        grid-template-columns: 100px 2.5fr 1.5fr !important;
+        border: 1px solid #000000 !important;
+        page-break-inside: avoid;
+    }
+    
+    .phase-row-card > *:last-child {
+        grid-column: span 1 !important;
+        border-top: none !important;
+        padding-top: 0 !important;
+    }
+    
+    .gantt-wrapper {
+        border: 1px solid #000000 !important;
+        overflow: visible !important;
+    }
+    
+    .gantt-container {
+        min-width: 100% !important;
+    }
+    
+    .gantt-task-row {
+        page-break-inside: avoid;
+    }
+    
+    .responsibles-grid, .status-grid, .checklist-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .responsible-card, .status-row-card, .checklist-group, .risk-danger-card {
+        border: 1px solid #000000 !important;
+        page-break-inside: avoid;
+        background-color: transparent !important;
+    }
+    
+    .data-table {
+        border: 1px solid #000000 !important;
+    }
+    
+    .data-table th {
+        background-color: #f0f0f0 !important;
+        border-bottom: 2px solid #000000 !important;
+        color: #000000 !important;
+    }
+    
+    .data-table td {
+        border-bottom: 1px solid #000000 !important;
+    }
+    
+    /* Ensure clean page breaks for executives printing reports */
+    .section-container:nth-of-type(4),
+    .section-container:nth-of-type(6),
+    .section-container:nth-of-type(8) {
+        page-break-before: always;
+    }
+}
+
+</style>
+</head>
+<body>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <i class="fa-solid fa-circle-nodes brand-icon"></i>
+                <div class="brand-text">
+                    <h1>ITSO Companion</h1>
+                    <span>Change Intelligence Assistant</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="#hero" class="nav-link active"><i class="fa-solid fa-house"></i> Resumen</a>
+                <a href="#context" class="nav-link"><i class="fa-solid fa-shapes"></i> Contexto</a>
+                <a href="#architecture" class="nav-link"><i class="fa-solid fa-network-wired"></i> Arquitectura</a>
+                <a href="#phases" class="nav-link"><i class="fa-solid fa-layer-group"></i> Fases</a>
+                <a href="#gantt" class="nav-link"><i class="fa-solid fa-chart-gantt"></i> Gantt</a>
+                <a href="#responsibles" class="nav-link"><i class="fa-solid fa-users"></i> Equipo</a>
+                <a href="#status" class="nav-link"><i class="fa-solid fa-signal"></i> Estado</a>
+                <a href="#checklist" class="nav-link"><i class="fa-solid fa-list-check"></i> Checklist</a>
+                <a href="#risks" class="nav-link"><i class="fa-solid fa-triangle-exclamation"></i> Riesgos</a>
+                <a href="#decisions" class="nav-link"><i class="fa-solid fa-gavel"></i> Decisiones</a>
+            </nav>
+            <div class="header-actions">
+                <button id="btn-print" class="btn-primary" onclick="window.print()">
+                    <i class="fa-solid fa-file-pdf"></i> Exportar PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+        <!-- SECTION 1: Hero / Executive Summary -->
+        <section id="hero" class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-info">
+                    <span class="hero-tag">Plan de Ejecución – POC a Producción</span>
+                    <h2 class="hero-title">ITSO Companion & Change Intelligence Assistant</h2>
+                    <p class="hero-description">
+                        Este dashboard presenta la hoja de ruta estratégica, técnica y de gobierno para el Change Intelligence Assistant. 
+                        Diseñado para evaluar y agilizar de forma automatizada las solicitudes de cambio (Change Requests) de ServiceNow, 
+                        utilizando las capacidades cognitivas de AI Platform y la infraestructura de Agent Hub y MCP Servers de forma integrada.
+                    </p>
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Última Actualización</span>
+                            <span class="meta-val" id="kpi-last-updated">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">ID del Proyecto</span>
+                            <span class="meta-val">ITSO-COMP-01</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-kpis">
+                    <h3 class="visually-hidden">Métricas de Alto Nivel</h3>
+                    <div class="kpis-grid">
+                        <div class="kpi-card" id="kpi-current-phase-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-calendar-day"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Fase Actual</span>
+                                <span class="kpi-value" id="kpi-current-phase">-</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" id="kpi-progress-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Avance General</span>
+                                <span class="kpi-value" id="kpi-progress">-</span>
+                                <div class="progress-bar-container mini">
+                                    <div class="progress-bar-fill" id="kpi-progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card" id="kpi-end-date-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Fecha Objetivo</span>
+                                <span class="kpi-value" id="kpi-end-date">-</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" id="kpi-risk-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Riesgo Actual</span>
+                                <span class="kpi-value" id="kpi-risk">-</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card wide" id="kpi-next-milestone-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-forward-step"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Siguiente Milestone</span>
+                                <span class="kpi-value" id="kpi-next-milestone">-</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" id="kpi-gov-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-building-shield"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Gobierno</span>
+                                <span class="kpi-value" id="kpi-gov">-</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card" id="kpi-tech-card">
+                            <div class="kpi-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="kpi-content">
+                                <span class="kpi-label">Estado Técnico</span>
+                                <span class="kpi-value" id="kpi-tech">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Strategic Context -->
+        <section id="context" class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Por qué y Para qué</span>
+                <h3 class="section-title">Contexto Estratégico</h3>
+            </div>
+            
+            <div class="context-intro">
+                <div class="intro-card main-intro">
+                    <h4>El Problema & La Oportunidad</h4>
+                    <p>La evaluación manual de las solicitudes de cambio (CRs) en ServiceNow genera cuellos de botella operativos y variabilidad en la aplicación de las políticas corporativas del banco. El proyecto **ITSO Companion / Change Intelligence Assistant** soluciona esto a través de automatización inteligente, analizando el riesgo de manera consistente e instantánea.</p>
+                </div>
+                <div class="intro-card secondary-intro">
+                    <h4>Objetivo de la POC</h4>
+                    <p>Validar la viabilidad de la integración segura entre ServiceNow y los modelos cognitivos de la AI Platform usando un servidor MCP (Model Context Protocol), operando de forma controlada sobre ambientes aislados en GCP antes de proceder a la industrialización multi-asistente.</p>
+                </div>
+            </div>
+
+            <h4 class="sub-section-title">Plataformas y Componentes Participantes</h4>
+            <div class="platform-grid">
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-solid fa-brain"></i></div>
+                    <h5>AI Platform</h5>
+                    <p>Ecosistema corporativo de inteligencia artificial. Alojamiento de modelos y orquestación de prompts autorizados.</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-solid fa-robot"></i></div>
+                    <h5>Agent Hub</h5>
+                    <p>Orquestador centralizado de agentes autónomos y asistentes inteligentes aprobados para uso en el banco.</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-solid fa-plug"></i></div>
+                    <h5>MCP Server</h5>
+                    <p>Model Context Protocol Server. Habilita una interfaz estándar para que el LLM consuma datos de ServiceNow de forma segura.</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-solid fa-ticket-simple"></i></div>
+                    <h5>ServiceNow</h5>
+                    <p>Sistema de registro origen de las Change Requests (CRs) evaluadas contra las políticas de TI.</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-cloud fa-brands"></i></div>
+                    <h5>Google Cloud Run</h5>
+                    <p>Hospeda la interfaz ejecutiva y el backend del microservicio mediante arquitectura serverless, ágil y escalable.</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-solid fa-database"></i></div>
+                    <h5>Firestore & Cloud Storage</h5>
+                    <p>Persistencia NoSQL ligera para metadatos/auditoría y buckets seguros de políticas y documentos de referencia.</p>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-logo"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h5>DSP / Active Directory</h5>
+                    <p>Infraestructura de identidad y accesos para la autenticación única corporativa del personal evaluador.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Proposed Architecture -->
+        <section id="architecture" class="section-container highlight-bg">
+            <div class="section-header">
+                <span class="section-subtitle">Diseño Técnico y Flujos</span>
+                <h3 class="section-title">Arquitectura Propuesta</h3>
+            </div>
+            
+            <div class="architecture-grid">
+                <!-- Architecture Card 1 -->
+                <div class="architecture-card">
+                    <div class="arch-image-wrapper">
+                        <img src="assets/images/architecture-mvp.png" alt="Arquitectura MVP" class="arch-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="arch-placeholder">
+                            <i class="fa-solid fa-drafting-compass"></i>
+                            <span>Architecture image pending</span>
+                            <small>assets/images/architecture-mvp.png</small>
+                        </div>
+                    </div>
+                    <div class="arch-info">
+                        <h5>1. Arquitectura MVP</h5>
+                        <p>Infraestructura serverless en GCP (Cloud Run, Firestore, Storage) que sustenta el flujo funcional del Change Intelligence Assistant.</p>
+                    </div>
+                </div>
+
+                <!-- Architecture Card 2 -->
+                <div class="architecture-card">
+                    <div class="arch-image-wrapper">
+                        <img src="assets/images/mcp-servicenow-flow.png" alt="Flujo MCP / ServiceNow" class="arch-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="arch-placeholder">
+                            <i class="fa-solid fa-exchange-alt"></i>
+                            <span>Architecture image pending</span>
+                            <small>assets/images/mcp-servicenow-flow.png</small>
+                        </div>
+                    </div>
+                    <div class="arch-info">
+                        <h5>2. Flujo MCP / ServiceNow</h5>
+                        <p>Protocolo estandarizado de comunicación entre el LLM, el servidor MCP y las APIs de ServiceNow para la obtención segura de CRs.</p>
+                    </div>
+                </div>
+
+                <!-- Architecture Card 3 -->
+                <div class="architecture-card">
+                    <div class="arch-image-wrapper">
+                        <img src="assets/images/target-architecture.png" alt="Arquitectura Objetivo Reutilizable" class="arch-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="arch-placeholder">
+                            <i class="fa-solid fa-server"></i>
+                            <span>Architecture image pending</span>
+                            <small>assets/images/target-architecture.png</small>
+                        </div>
+                    </div>
+                    <div class="arch-info">
+                        <h5>3. Arquitectura Objetivo</h5>
+                        <p>Plataforma corporativa unificada ("AI Companion Platform") escalable para múltiples asistentes cognitivos reutilizando MCP e Infra.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Execution Phases -->
+        <section id="phases" class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Roadmap Detallado</span>
+                <h3 class="section-title">Fases de Ejecución</h3>
+            </div>
+            
+            <div class="phases-cards-container" id="phases-container">
+                <!-- Rendered dynamically via JS -->
+                <div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando fases...</div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Agile Gantt -->
+        <section id="gantt" class="section-container highlight-bg">
+            <div class="section-header">
+                <span class="section-subtitle">Cronograma Planificado</span>
+                <h3 class="section-title">Gantt Ejecutivo</h3>
+            </div>
+            
+            <div class="gantt-legend">
+                <div class="legend-item"><span class="legend-color legend-completed"></span> Completado</div>
+                <div class="legend-item"><span class="legend-color legend-progress"></span> En Progreso</div>
+                <div class="legend-item"><span class="legend-color legend-notstart"></span> No Iniciado</div>
+                <div class="legend-item"><span class="legend-color legend-risk"></span> Riesgo / Bloqueado</div>
+            </div>
+
+            <div class="gantt-wrapper">
+                <div class="gantt-container" id="gantt-chart">
+                    <!-- Rendered dynamically via JS -->
+                    <div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando cronograma...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Roles & Responsibilities -->
+        <section id="responsibles" class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Gente & Gobernanza</span>
+                <h3 class="section-title">Roles y Responsabilidades</h3>
+            </div>
+
+            <div class="responsibles-grid" id="responsibles-cards">
+                <!-- Rendered dynamically via JS -->
+                <div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando equipo...</div>
+            </div>
+
+            <div class="table-responsive margin-top-md">
+                <table class="data-table" id="responsibles-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Rol en Proyecto</th>
+                            <th>Área / Dirección</th>
+                            <th>Responsabilidad Principal</th>
+                            <th>Involucramiento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="responsibles-table-body">
+                        <!-- Rendered dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Status Dashboard -->
+        <section id="status" class="section-container highlight-bg">
+            <div class="section-header">
+                <span class="section-subtitle">Seguimiento de Hitos</span>
+                <h3 class="section-title">Dashboard de Estado Ejecutivo</h3>
+            </div>
+
+            <div class="status-grid" id="status-dashboard-container">
+                <!-- Rendered dynamically via JS -->
+                <div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando estado...</div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: Executive Checklist -->
+        <section id="checklist" class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Control de Entregables</span>
+                <h3 class="section-title">Checklist Ejecutivo</h3>
+            </div>
+
+            <div class="checklist-summary-grid" id="checklist-progress-bars">
+                <!-- Progress bars rendered dynamically via JS -->
+            </div>
+
+            <div class="checklist-container" id="checklist-container">
+                <!-- Groups and lists rendered dynamically via JS -->
+                <div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando checklist...</div>
+            </div>
+
+            <div class="disclaimer-alert">
+                <i class="fa-solid fa-circle-info"></i>
+                <p><strong>Disclaimer:</strong> Este tablero muestra tracking ejecutivo de alto nivel. El seguimiento formal, detallado y auditable del proyecto debe mantenerse en Jira.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 9: Risks & Blockers -->
+        <section id="risks" class="section-container highlight-bg">
+            <div class="section-header">
+                <span class="section-subtitle">Mitigación de Impedimentos</span>
+                <h3 class="section-title">Riesgos y Bloqueadores</h3>
+            </div>
+
+            <div class="risks-critical-container" id="critical-risks-cards">
+                <!-- Critical risks highlighted here dynamically -->
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table" id="risks-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">ID</th>
+                            <th>Descripción del Riesgo</th>
+                            <th style="width: 110px;">Impacto</th>
+                            <th style="width: 110px;">Probabilidad</th>
+                            <th style="width: 180px;">Dueño</th>
+                            <th>Plan de Mitigación</th>
+                            <th style="width: 120px;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="risks-table-body">
+                        <!-- Rendered dynamically via JS -->
+                        <tr class="loading-row"><td colspan="7"><div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando riesgos...</div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 10: Decisions Log -->
+        <section id="decisions" class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Registro de Acuerdos</span>
+                <h3 class="section-title">Decisions Log</h3>
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table" id="decisions-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">ID</th>
+                            <th style="width: 120px;">Fecha</th>
+                            <th>Decisión Tomada</th>
+                            <th style="width: 180px;">Proponente / Dueño</th>
+                            <th>Racional / Justificación</th>
+                            <th style="width: 120px;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="decisions-table-body">
+                        <!-- Rendered dynamically via JS -->
+                        <tr class="loading-row"><td colspan="6"><div class="loading-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando decisiones...</div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Banco ITSO - Companion Program. Todos los derechos reservados.</p>
+            <div class="footer-meta">
+                <span>Estado: <strong class="text-success">Activo</strong></span>
+                <span class="footer-divider">|</span>
+                <span>Clasificación: <strong class="text-warning">Confidencial</strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic -->
+    <script>
+/**
+ * DATOS CSV EMBEBIDOS EN LÍNEA PARA EVITAR CORS
+ */
+const CSV_DATA = {
+    responsibles: `name,role,area,responsibility,involvement
+Jonathan García,AI / MCP / Plataforma,Plataforma AI,Diseño técnico del MCP Server; prompts y habilitación en Agent Hub,High
+Ana María Rangel,Coordinación Funcional,PMO / Gobierno,Coordinación general; onboarding en AI Platform y aprobaciones,High
+Daniel Hernández,Arquitectura Técnica,Arquitectura,Definición de estándares de integración y seguridad de datos,Medium
+Juan José Acevedo,Arquitectura Empresarial,Arquitectura,Alineación con el roadmap de transformación digital del banco,Medium
+Raymundo,Seguridad de Información,Seguridad,Revisión y aprobación de políticas de accesos e IAM en GCP,High
+Liliana García,DevOps,Operaciones / Infra,Pipeline de CI/CD; scripts de Terraform y automatización,High
+Cuauhtémoc Morales,Infraestructura y Operaciones,Infraestructura,Habilitación de proyectos GCP; conectividad y presupuestos,Medium
+José Armando,Desarrollador Frontend,Desarrollo,Construcción de la interfaz web en React,High
+Gustavo,Desarrollador Backend,Desarrollo,Lógica del backend; API de ServiceNow y persistencia en Firestore,High
+`,
+    checklist: `category,item,status,progress,owner,comments
+Gobierno,Registrar caso de uso en AI Platform,Not Started,0,Ana María Rangel,Pendiente aprobación de sponsor.
+Gobierno,Onboarding en Agent Hub,Not Started,0,Ana María Rangel,Se realiza en Fase 3.
+Gobierno,Crear AppID oficial,Not Started,0,Virgilio Patiño,AppID generado y guardado en el inventario.
+Gobierno,Presupuesto y asignación de budget,Not Started,0,Virgilio Patiño,Asignado presupuesto inicial para la POC.
+Arquitectura,Arquitectura lógica y física del MVP,Not Started,0,Daniel Hernández,Aprobada por el comité de arquitectura.
+Arquitectura,Integración con MCP Server,Not Started,0,José Armando,Modelo de mensajería y schema definido.
+Arquitectura,Modelo de datos en Firestore,Not Started,0,Daniel Hernández,Esquema simple NoSQL aprobado.
+Seguridad,Definición de clasificación de datos,Not Started,0,Raymundo,Definido como Información Confidencial.
+Seguridad,Security Review inicial,Not Started,0,Raymundo,Aprobado con observaciones mínimas.
+Seguridad,Autenticación DSP / Active Directory,Not Started,0,Gustavo,Requiere integración con librería del banco en Fase 3.
+Infraestructura,Creación de proyectos GCP POC/DEV,Not Started,0,Liliana García,Proyectos listos en consola.
+Infraestructura,Configuración IAM y accesos,Not Started,0,Liliana García,Accesos iniciales del equipo asignados.
+Infraestructura,Configuración de Cloud Run y red,Not Started,0,Liliana García,Pendiente habilitación de túnel hacia ServiceNow.
+Desarrollo,Desarrollo de Login Corporativo,Not Started,0,Gustavo,En planeación.
+Desarrollo,Desarrollo de Dashboard Principal (UI),Not Started,0,José Armando,Estructura HTML base lista.
+Desarrollo,Integración con ServiceNow y MCP,Not Started,0,Gustavo,Se utilizará mock para pruebas iniciales.
+Validación,Pruebas de evaluación de CRs,Not Started,0,Ana María Rangel,Plan de pruebas en preparación.
+Producción,Pipeline de despliegue productivo,Not Started,0,Liliana García,Se definirá tras el Go del MVP.`,
+    phases: `id,phase,title,objective,key_activities,deliverables,owner,status,start_date,end_date,progress
+0,Fase 0,Descubrimiento y Gobierno POC,Entender y documentar todos los requisitos necesarios para operar dentro del ecosistema corporativo de AI Platform y Agent Hub.,Registrar el caso de uso en AI Platform; Identificar proceso de onboarding de MCP Server; Identificar proceso de publicación en Agent Hub; Definir clasificación de datos; Revisar requerimientos de seguridad; Revisar requerimientos de arquitectura; Revisar requerimientos operativos; Identificar proceso de promoción entre ambientes; Identificar proceso de creación de nuevo AppID; Identificar proceso de asignación de presupuesto; Identificar aprobaciones requeridas para POC; desarrollo y producción,Documento de requisitos; Checklist de onboarding; Arquitectura inicial; Estimación de infraestructura; Definición de AppID; Definición de budget; Ruta de aprobación POC a Desarrollo a Producción,Ana María Rangel,Not Started,2026-06-22,2026-07-03,0
+1,Fase 1,Arquitectura MVP,Definir una arquitectura mínima viable para validar el caso de uso.,Definición de componentes (React; Cloud Run; DSP / AD; Firestore; GCS; AI Platform; Agent Hub; MCP Server; ServiceNow); Diseño de diagramas de arquitectura e integración; Estimación de costos; Decisiones arquitectónicas; Identificación de riesgos y supuestos,Diagrama de arquitectura; Diagrama de integración; Estimación de costos; Definición de componentes; Decisiones arquitectónicas; Riesgos y supuestos,Daniel Hernández,Not Started,2026-06-29,2026-07-10,0
+2,Fase 2,Infraestructura POC,Habilitar ambiente técnico para desarrollo y pruebas.,Crear proyecto/cuenta GCP para POC; Crear AppID; Configurar IAM; Configurar Cloud Run; Configurar Firestore; Configurar Cloud Storage; Configurar networking; Configurar observabilidad; Configurar presupuesto y límites de consumo; Definir estrategia de despliegue,Ambiente funcional; Pipeline inicial; Infraestructura desplegada; Presupuesto estimado; Evidencias técnicas,Liliana García,Not Started,2026-07-06,2026-07-24,0
+3,Fase 3,Desarrollo MVP (POC Funcional),Construir primera versión funcional del asistente ServiceNow.,Desarrollar login corporativo; Pantalla principal tipo dashboard; Chat o interfaz de consulta; Administración simple de políticas; Consulta y evaluación de CRs; Recomendaciones automáticas; Historial de evaluaciones; Semáforo de riesgo; Registro de auditoría funcional; Integrar AI Platform; Integrar MCP Server; Integrar ServiceNow,MVP funcional; Integración con AI Platform; Integración con MCP Server; Integración con ServiceNow; Evidencia de evaluación de CRs,José Armando,Not Started,2026-07-13,2026-08-14,0
+4,Fase 4,Validación y Promoción a DEV,Preparar la transición hacia ambiente de desarrollo corporativo y obtener aprobaciones oficiales.,Security Review; Architecture Review; Operational Review; Cost Review; Compliance Review; Risk Assessment; Validación de datos; Validación de logging; Validación de monitoreo; Definición de soporte operativo; Definición de ruta a producción; Promoción de POC a DEV,Evidencias técnicas aprobadas; Aprobaciones de comités; Observaciones resueltas; Plan de remediación; Decisión Go / No-Go; Despliegue en ambiente DEV,Raymundo,Not Started,2026-08-17,2026-10-09,0
+5,Fase 5,Industrialización y Producción,Convertir el MVP en una plataforma reusable para múltiples asistentes e implementar en ambiente productivo.,Evolución del MVP a AI Companion Platform; Soporte para casos futuros (Capacity; Risk; Regulatory; Operations); Publicación en Agent Hub; Configuración de pipelines productivos (PROD); Liberación oficial,Plataforma corporativa escalable; Framework de agentes reusables; Pipeline productivo Terraform; Despliegue en PROD; Onboarding final en Agent Hub,Jonathan García,Not Started,2026-10-12,2026-11-30,0
+`,
+    risks: `id,risk,impact,probability,owner,mitigation,status
+R1,Retraso en aprobación de AppID,High,Low,Ana María Rangel,Iniciar trámite de forma anticipada. Aprobado hoy.,Mitigated
+R2,Falta de claridad en onboarding de MCP Server,High,Medium,Jonathan García,Reunión técnica semanal con equipo de Agent Hub para resolver dudas.,Active
+R3,Dependencias de integración ServiceNow,High,Medium,Gustavo,Usar mocks de datos durante el desarrollo del MVP para no bloquear al equipo.,Active
+R4,Presupuesto de infraestructura no aprobado,High,Low,Ana María Rangel,Documentar ROI funcional del Change Intelligence para justificar el gasto.,Mitigated
+R5,Requisitos de seguridad restringidos (DSP/AD),Medium,High,Raymundo,Involucrar al equipo de identidad y accesos desde la Fase 2.,Active
+R6,Alineación con políticas internas AI,Medium,Medium,Jonathan García,Revisar las directrices de seguridad de IA del banco con Raymundo.,Active
+`,
+    status: `item,category,status,progress,owner,notes
+Gobierno General,Gobierno,Not Started,0,Ana María Rangel,En onboarding de caso de uso en AI Platform. No iniciado.
+Arquitectura de Persistencia,Arquitectura,Not Started,0,Daniel Hernández,Diseño con Cloud Storage y Firestore aprobado.
+Seguridad de Información,Seguridad,Not Started,0,Raymundo,Definición preliminar de clasificación de datos lista.
+Creación de AppID,Gobierno,Not Started,0,Ana María Rangel,AppID corporativo generado correctamente.
+Presupuesto (Budget),Gobierno,Not Started,0,Ana María Rangel,Límite mensual del sandbox configurado.
+Onboarding AI Platform,Plataforma,Not Started,0,Jonathan García,Solicitud de acceso enviada al comité de AI Platform.
+Onboarding MCP,Plataforma,Not Started,0,Jonathan García,Evaluando el SDK de ServiceNow para el conector MCP.
+Desarrollo MVP,Técnico,Not Started,0,José Armando,Esperando a que la infraestructura de desarrollo esté lista.
+Infraestructura POC,Técnico,Not Started,0,Liliana García,Proyectos GCP configurados; habilitando Cloud Run.
+Last Updated,Metadata,Completed,100,System,2026-06-17
+`,
+    timeline: `id,phase,task,start_date,end_date,owner,status,progress,dependency
+T01,Fase 0,Registrar caso de uso en AI Platform,2026-06-22,2026-06-26,Ana María Rangel,Not Started,0,
+T02,Fase 0,Identificar onboarding de MCP y Agent Hub,2026-06-25,2026-07-01,José Armando,Not Started,0,T01
+T03,Fase 0,Definir AppID y Budget inicial,2026-06-24,2026-06-30,Ana María Rangel,Not Started,0,T01
+T04,Fase 0,Identificar ruta de aprobaciones del banco,2026-06-29,2026-07-03,Ana María Rangel,Not Started,0,T03
+T05,Fase 1,Definir arquitectura de persistencia y servicios,2026-06-29,2026-07-05,Daniel Hernández,Not Started,0,T04
+T06,Fase 1,Diseñar flujos de integración ServiceNow / MCP,2026-07-03,2026-07-09,José Armando,Not Started,0,T05
+T07,Fase 1,Presentar arquitectura en comité para aprobación,2026-07-08,2026-07-10,Daniel Hernández,Not Started,0,T06
+T08,Fase 2,Crear proyectos GCP POC sandbox y configurar IAM,2026-07-06,2026-07-15,Liliana García,Not Started,0,T07
+T09,Fase 2,Configurar Cloud Run y Firestore sandbox,2026-07-14,2026-07-21,Cuauhtémoc Morales,Not Started,0,T08
+T10,Fase 2,Configurar networking; seguridad y alertas POC,2026-07-18,2026-07-24,Liliana García,Not Started,0,T08
+T11,Fase 3,Desarrollar interfaz frontend (dashboard de consulta),2026-07-13,2026-07-31,José Armando,Not Started,0,T10
+T12,Fase 3,Desarrollar backend en Cloud Run y evaluación de CRs,2026-07-20,2026-08-08,Gustavo,Not Started,0,T09
+T13,Fase 3,Implementar autenticación corporativa DSP / AD,2026-07-27,2026-08-12,Gustavo,Not Started,0,T11
+T14,Fase 3,Integrar MCP Server y ServiceNow (POC Funcional),2026-08-01,2026-08-14,José Armando,Not Started,0,T12
+T15,Fase 4,Ejecutar Security y Architecture Review (POC a DEV),2026-08-17,2026-09-04,Raymundo,Not Started,0,T14
+T16,Fase 4,Validar logging; monitoreo y costos proyectados,2026-09-01,2026-09-18,Liliana García,Not Started,0,T15
+T17,Fase 4,Obtener aprobación Go/No-Go y promover a DEV,2026-09-15,2026-10-09,Ana María Rangel,Not Started,0,T16
+T18,Fase 5,Configurar pipeline de despliegue productivo (PROD),2026-10-12,2026-11-06,Liliana García,Not Started,0,T17
+T19,Fase 5,Publicación oficial en Agent Hub y liberación PROD,2026-11-03,2026-11-30,Gustavo,Not Started,0,T18
+`,
+    decisions: `id,date,decision,owner,rationale,status
+D1,2026-05-15,Usar Firestore como persistencia NoSQL,Daniel Hernández,Permite iterar de forma ágil sin necesidad de definir un modelo relacional pesado para el MVP.,Approved
+D2,2026-05-18,Usar Cloud Storage para políticas y documentos,Daniel Hernández,Facilita el almacenamiento de PDFs de políticas de ServiceNow para análisis vectorial.,Approved
+D3,2026-05-22,Usar Cloud Run para frontend y backend,Jonathan García,Escalabilidad automática, bajo costo en inactividad y facilidad de despliegue mediante contenedores.,Approved
+D4,2026-06-05,Mantener tracking formal en Jira y este dashboard estático,Ana María Rangel,Jira es la herramienta oficial del banco. Este dashboard es para consumo ejecutivo.,Approved
+D5,2026-06-10,Usar archivos CSV como base de datos de este dashboard,Jonathan García,Permite actualizar el roadmap y avances sin necesidad de reconstruir la aplicación o tener bases de datos.,Approved
+`,
+};
+
+/**
+ * ITSO Companion Executive Dashboard - Application Logic
+ * Pure JavaScript, offline-friendly, parsing CSV files dynamically.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    initDashboard();
+    setupNavigationHighlighting();
+    // startAutoRefresh(); // Desactivado para reporte estático
+});
+
+/**
+ * Main Initialization function
+ */
+async function initDashboard() {
+    // 1. Fetch all CSV resources in parallel with error handling
+    const dataSources = {
+        phases: await fetchCSVData('data/phases.csv'),
+        timeline: await fetchCSVData('data/timeline.csv'),
+        responsibles: await fetchCSVData('data/responsibles.csv'),
+        status: await fetchCSVData('data/status.csv'),
+        checklist: await fetchCSVData('data/checklist.csv'),
+        risks: await fetchCSVData('data/risks.csv'),
+        decisions: await fetchCSVData('data/decisions.csv')
+    };
+
+    // 2. Calculate and render Hero KPIs
+    renderHeroKPIs(dataSources);
+
+    // 3. Render each dashboard component
+    renderPhases(dataSources.phases);
+    renderGanttChart(dataSources.timeline, dataSources.phases);
+    renderResponsibles(dataSources.responsibles);
+    renderStatusDashboard(dataSources.status);
+    renderChecklist(dataSources.checklist);
+    renderRisks(dataSources.risks);
+    renderDecisions(dataSources.decisions);
+}
+
+/**
+ * Robust CSV Parser (RFC 4180 compliant)
+ * Handles commas in quotes, escaped quotes (""), and multiple newlines.
+ * @param {string} text Raw CSV text
+ * @returns {Array<Object>} parsed rows as key-value objects
+ */
+function parseCSV(text) {
+    if (!text || text.trim() === '') return [];
+    
+    const lines = [];
+    let row = [""];
+    let inQuotes = false;
+    
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+        
+        if (char === '"') {
+            if (inQuotes && nextChar === '"') {
+                row[row.length - 1] += '"';
+                i++; // skip next quote
+            } else {
+                inQuotes = !inQuotes;
+            }
+        } else if (char === ',' && !inQuotes) {
+            row.push("");
+        } else if ((char === '\r' || char === '\n') && !inQuotes) {
+            if (char === '\r' && nextChar === '\n') {
+                i++; // skip LF on CRLF
+            }
+            lines.push(row);
+            row = [""];
+        } else {
+            row[row.length - 1] += char;
+        }
+    }
+    
+    // Push final row if not empty
+    if (row.length > 1 || row[0] !== "") {
+        lines.push(row);
+    }
+    
+    if (lines.length === 0) return [];
+    
+    // Map lines to objects using the first line as headers
+    const headers = lines[0].map(h => h.trim());
+    const result = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+        const values = lines[i];
+        // Skip incomplete or empty rows
+        if (values.length === 0 || (values.length === 1 && values[0].trim() === '')) continue;
+        
+        const obj = {};
+        for (let j = 0; j < headers.length; j++) {
+            // Safe assignment (fill with empty string if cell missing)
+            obj[headers[j]] = values[j] ? values[j].trim() : "";
+        }
+        result.push(obj);
+    }
+    
+    return result;
+}
+
+/**
+ * Fetch and Parse CSV helper
+ * Returns an empty array if loading fails, preventing application crash.
+ * @param {string} url Path to CSV file
+ * @returns {Promise<Array<Object>>}
+ */
+async function fetchCSVData(url) {
+    const key = url.replace('data/', '').replace('.csv', '');
+    if (typeof CSV_DATA !== 'undefined' && CSV_DATA[key] !== undefined) {
+        return parseCSV(CSV_DATA[key]);
+    }
+    console.warn(`[Dashboard Warning] Datos locales no encontrados en memoria para ${url}`);
+    return [];
+}
+
+/**
+ * Helper to get clean status badge HTML
+ * @param {string} status Status text
+ * @returns {string} styled span HTML
+ */
+function getStatusBadge(status) {
+    const s = status ? status.trim().toLowerCase() : '';
+    let label = status || 'Sin Estado';
+    let cls = 'notstart';
+
+    if (s.includes('completed') || s.includes('completado') || s.includes('finalizado') || s.includes('mitigated') || s.includes('mitigado') || s.includes('approved') || s.includes('aprobado')) {
+        cls = 'completed';
+        label = s.includes('mitigated') || s.includes('mitigado') ? 'Mitigado' : (s.includes('approved') || s.includes('aprobado') ? 'Aprobado' : 'Completado');
+    } else if (s.includes('progress') || s.includes('progreso') || s.includes('desarrollo') || s.includes('active') || s.includes('activo') || s.includes('proposed') || s.includes('propuesto')) {
+        cls = 'progress';
+        label = s.includes('active') || s.includes('activo') ? 'Activo' : (s.includes('proposed') || s.includes('propuesto') ? 'Propuesto' : 'En Progreso');
+    } else if (s.includes('risk') || s.includes('riesgo') || s.includes('review') || s.includes('revisión')) {
+        cls = 'risk';
+        label = s.includes('review') || s.includes('revisión') ? 'En Revisión' : 'En Riesgo';
+    } else if (s.includes('blocked') || s.includes('bloqueado')) {
+        cls = 'blocked';
+        label = 'Bloqueado';
+    } else {
+        cls = 'notstart';
+        label = 'No Iniciado';
+    }
+
+    return `<span class="badge badge-${cls}">${label}</span>`;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: HERO & EXEC SUMMARY KPIs
+ * ==========================================================================
+ */
+function renderHeroKPIs(sources) {
+    // 1. Last Updated Metadata
+    const lastUpdatedRow = sources.status.find(r => r.item.toLowerCase().includes('last updated'));
+    const lastUpdated = lastUpdatedRow ? lastUpdatedRow.notes : new Date().toLocaleDateString('es-MX');
+    document.getElementById('kpi-last-updated').textContent = lastUpdated;
+
+    // 2. Average Progress Calculation
+    let avgProgress = 0;
+    if (sources.phases.length > 0) {
+        const sum = sources.phases.reduce((acc, row) => acc + (parseFloat(row.progress) || 0), 0);
+        avgProgress = Math.round(sum / sources.phases.length);
+    } else if (sources.timeline.length > 0) {
+        const sum = sources.timeline.reduce((acc, row) => acc + (parseFloat(row.progress) || 0), 0);
+        avgProgress = Math.round(sum / sources.timeline.length);
+    }
+    document.getElementById('kpi-progress').textContent = `${avgProgress}%`;
+    document.getElementById('kpi-progress-bar').style.width = `${avgProgress}%`;
+
+    // 3. Current Active Phase
+    let currentPhase = 'Sin iniciar';
+    if (sources.phases.length > 0) {
+        // Find first In Progress or the last Completed
+        const inProgress = sources.phases.find(p => p.status.toLowerCase().includes('progress') || p.status.toLowerCase().includes('progreso'));
+        if (inProgress) {
+            currentPhase = `${inProgress.phase}: ${inProgress.title}`;
+        } else {
+            const completed = [...sources.phases].reverse().find(p => p.status.toLowerCase().includes('completed') || p.status.toLowerCase().includes('completado'));
+            if (completed) {
+                currentPhase = `${completed.phase}: ${completed.title}`;
+            } else {
+                currentPhase = `${sources.phases[0].phase}: ${sources.phases[0].title}`;
+            }
+        }
+    }
+    document.getElementById('kpi-current-phase').textContent = currentPhase;
+    document.getElementById('kpi-current-phase').title = currentPhase;
+
+    // 4. End Date (Latest Date)
+    let endDate = 'N/D';
+    if (sources.phases.length > 0) {
+        const dates = sources.phases.map(p => new Date(p.end_date)).filter(d => !isNaN(d));
+        if (dates.length > 0) {
+            const maxDate = new Date(Math.max(...dates));
+            endDate = maxDate.toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+    }
+    document.getElementById('kpi-end-date').textContent = endDate;
+
+    // 5. Current Risk Level
+    let riskLevel = 'Bajo';
+    let riskCls = 'text-success';
+    if (sources.risks.length > 0) {
+        const activeRisks = sources.risks.filter(r => r.status.toLowerCase().includes('active') || r.status.toLowerCase().includes('activo'));
+        const highImpactCount = activeRisks.filter(r => r.impact.toLowerCase().includes('high') || r.impact.toLowerCase().includes('alto')).length;
+        const medImpactCount = activeRisks.filter(r => r.impact.toLowerCase().includes('medium') || r.impact.toLowerCase().includes('medio')).length;
+        
+        if (highImpactCount > 0) {
+            riskLevel = 'Crítico / Alto';
+            riskCls = 'badge badge-blocked';
+        } else if (medImpactCount > 0) {
+            riskLevel = 'Moderado';
+            riskCls = 'badge badge-risk';
+        } else {
+            riskLevel = 'Bajo / Controlado';
+            riskCls = 'badge badge-completed';
+        }
+    }
+    const riskEl = document.getElementById('kpi-risk');
+    riskEl.innerHTML = riskLevel;
+    riskEl.className = `kpi-value ${riskCls}`;
+
+    // 6. Next Milestone
+    let nextMilestone = 'Ninguno pendiente';
+    if (sources.timeline.length > 0) {
+        // Find first incomplete task chronologically
+        const sortedTasks = [...sources.timeline].sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
+        const pendingTask = sortedTasks.find(t => (parseFloat(t.progress) || 0) < 100);
+        if (pendingTask) {
+            nextMilestone = pendingTask.task;
+        }
+    }
+    document.getElementById('kpi-next-milestone').textContent = nextMilestone;
+    document.getElementById('kpi-next-milestone').title = nextMilestone;
+
+    // 7. Government Status Track
+    let govStatus = 'Estable';
+    let govCls = 'badge badge-completed';
+    if (sources.checklist.length > 0) {
+        const govItems = sources.checklist.filter(c => c.category.toLowerCase().includes('gobierno'));
+        if (govItems.length > 0) {
+            const avgGovProgress = Math.round(govItems.reduce((acc, r) => acc + (parseFloat(r.progress) || 0), 0) / govItems.length);
+            govStatus = `${avgGovProgress}%`;
+            govCls = avgGovProgress > 70 ? 'badge badge-completed' : (avgGovProgress > 30 ? 'badge badge-risk' : 'badge badge-blocked');
+        }
+    }
+    const govEl = document.getElementById('kpi-gov');
+    govEl.innerHTML = govStatus;
+    govEl.className = `kpi-value ${govCls}`;
+
+    // 8. Technical Status Track
+    let techStatus = 'Estable';
+    let techCls = 'badge badge-completed';
+    if (sources.checklist.length > 0) {
+        const techItems = sources.checklist.filter(c => 
+            c.category.toLowerCase().includes('desarrollo') || 
+            c.category.toLowerCase().includes('arquitectura') || 
+            c.category.toLowerCase().includes('infraestructura')
+        );
+        if (techItems.length > 0) {
+            const avgTechProgress = Math.round(techItems.reduce((acc, r) => acc + (parseFloat(r.progress) || 0), 0) / techItems.length);
+            techStatus = `${avgTechProgress}%`;
+            techCls = avgTechProgress > 70 ? 'badge badge-completed' : (avgTechProgress > 30 ? 'badge badge-risk' : 'badge badge-blocked');
+        }
+    }
+    const techEl = document.getElementById('kpi-tech');
+    techEl.innerHTML = techStatus;
+    techEl.className = `kpi-value ${techCls}`;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: ROADMAP PHASES
+ * ==========================================================================
+ */
+function renderPhases(phases) {
+    const container = document.getElementById('phases-container');
+    if (!phases || phases.length === 0) {
+        container.innerHTML = `
+            <div class="card" style="text-align: center; padding: 3rem;">
+                <i class="fa-solid fa-folder-open" style="font-size: 3rem; color: var(--color-status-notstart); margin-bottom: 1rem;"></i>
+                <h5>Fases no configuradas</h5>
+                <p>Crea el archivo <strong>data/phases.csv</strong> para comenzar a registrar el roadmap del proyecto.</p>
+            </div>`;
+        return;
+    }
+
+    let html = '';
+    phases.forEach(phase => {
+        // Convert semicolon-separated lists to HTML list items
+        const activities = phase.key_activities.split(';').map(act => `<li>${act.trim()}</li>`).join('');
+        const deliverables = phase.deliverables.split(';').map(del => `<li><i class="fa-solid fa-circle-check"></i> ${del.trim()}</li>`).join('');
+        
+        html += `
+        <div class="phase-row-card">
+            <div class="phase-badge-wrapper">
+                <span class="phase-id">${phase.phase}</span>
+                <span class="phase-tag">Fase</span>
+                ${getStatusBadge(phase.status)}
+            </div>
+            <div class="phase-main">
+                <h5>${phase.title}</h5>
+                <p class="phase-objective">${phase.objective}</p>
+                <ul class="phase-activities">
+                    ${activities}
+                </ul>
+            </div>
+            <div class="phase-deliverables">
+                <h6><i class="fa-solid fa-box-open"></i> Entregables Clave</h6>
+                <ul>
+                    ${deliverables}
+                </ul>
+            </div>
+            <div class="phase-status">
+                <span class="phase-owner"><i class="fa-solid fa-user-tie"></i> ${phase.owner}</span>
+                <span class="phase-dates"><i class="fa-solid fa-calendar-days"></i> ${phase.start_date} al ${phase.end_date}</span>
+                <div style="width: 100%; display: flex; flex-direction: column; gap: 0.25rem;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="progress-text">${phase.progress}%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: ${phase.progress}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: GANTT TIMELINE CHART (PURE CSS GRID / DATE OFFSET CALCULATION)
+ * ==========================================================================
+ */
+function renderGanttChart(tasks, phases) {
+    const container = document.getElementById('gantt-chart');
+    if (!tasks || tasks.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 3rem; background: var(--color-bg-surface);">
+                <i class="fa-solid fa-clock-rotate-left" style="font-size: 3rem; color: var(--color-status-notstart); margin-bottom: 1rem;"></i>
+                <h5>Cronograma de Tareas Vacío</h5>
+                <p>Carga tareas válidas en <strong>data/timeline.csv</strong> para mostrar el diagrama de Gantt.</p>
+            </div>`;
+        return;
+    }
+
+    // 1. Calculate the global timeline boundaries (min and max dates)
+    const dates = [];
+    tasks.forEach(t => {
+        const start = new Date(t.start_date);
+        const end = new Date(t.end_date);
+        if (!isNaN(start)) dates.push(start);
+        if (!isNaN(end)) dates.push(end);
+    });
+
+    if (dates.length === 0) return;
+
+    // Buffer dates slightly (e.g. alignment to month start/end)
+    const minDate = new Date(Math.min(...dates));
+    minDate.setDate(1); // Set to start of the earliest month
+    
+    const maxDate = new Date(Math.max(...dates));
+    maxDate.setMonth(maxDate.getMonth() + 1);
+    maxDate.setDate(0); // Set to end of latest month
+
+    const totalMs = maxDate.getTime() - minDate.getTime();
+
+    // 2. Generate Months Header columns
+    const months = [];
+    let curr = new Date(minDate);
+    while (curr <= maxDate) {
+        months.push(new Date(curr));
+        curr.setMonth(curr.getMonth() + 1);
+    }
+
+    const gridColCount = months.length;
+
+    // Build the Gantt Grid Layout
+    let ganttHtml = `
+        <div class="gantt-header-row">
+            <div class="gantt-label-header">Línea de Tareas & Responsable</div>
+            <div class="gantt-timeline-header" style="grid-template-columns: repeat(${gridColCount}, 1fr)">
+                ${months.map(m => `
+                    <div class="gantt-header-cell">
+                        ${m.toLocaleDateString('es-MX', { month: 'short', year: '2-digit' }).toUpperCase()}
+                    </div>
+                `).join('')}
+            </div>
+        </div>`;
+
+    // 3. Group tasks by Phase
+    const taskGroups = {};
+    tasks.forEach(t => {
+        if (!taskGroups[t.phase]) {
+            taskGroups[t.phase] = [];
+        }
+        taskGroups[t.phase].push(t);
+    });
+
+    // 4. Render Group and Task rows
+    // Read phases from phases.csv if available to preserve order, else use found keys
+    const phaseOrder = phases.length > 0 ? phases.map(p => p.phase) : Object.keys(taskGroups);
+
+    phaseOrder.forEach(phaseKey => {
+        const groupTasks = taskGroups[phaseKey];
+        if (!groupTasks || groupTasks.length === 0) return;
+
+        // Render phase divider label row
+        ganttHtml += `<div class="gantt-group-row">${phaseKey}</div>`;
+
+        // Render each task in this phase
+        groupTasks.forEach(task => {
+            const start = new Date(task.start_date);
+            const end = new Date(task.end_date);
+            
+            // Calculate CSS positioning offsets
+            const offsetMs = start.getTime() - minDate.getTime();
+            const durationMs = end.getTime() - start.getTime();
+
+            let leftPercent = (offsetMs / totalMs) * 100;
+            let widthPercent = (durationMs / totalMs) * 100;
+
+            // Constrain percentages inside bounds
+            if (leftPercent < 0) leftPercent = 0;
+            if (leftPercent + widthPercent > 100) widthPercent = 100 - leftPercent;
+            if (widthPercent <= 0) widthPercent = 2; // Minimum bar width
+
+            const taskProgress = parseFloat(task.progress) || 0;
+            const taskStatus = task.status ? task.status.toLowerCase().trim() : '';
+            
+            // Map status color class
+            let statusCls = 'status-notstart';
+            if (taskStatus.includes('completed') || taskStatus.includes('completado') || taskStatus.includes('finalizado')) {
+                statusCls = 'status-completed';
+            } else if (taskStatus.includes('progress') || taskStatus.includes('progreso') || taskStatus.includes('desarrollo')) {
+                statusCls = 'status-progress';
+            } else if (taskStatus.includes('risk') || taskStatus.includes('riesgo') || taskStatus.includes('blocked') || taskStatus.includes('bloqueado')) {
+                statusCls = 'status-risk';
+            }
+
+            ganttHtml += `
+            <div class="gantt-task-row">
+                <div class="gantt-task-label">
+                    <span class="gantt-task-name" title="${task.task}">${task.task}</span>
+                    <div class="gantt-task-meta">
+                        <span>${task.owner}</span>
+                        <span>${task.progress}%</span>
+                    </div>
+                </div>
+                <div class="gantt-task-timeline">
+                    <!-- Column background dividers -->
+                    <div class="gantt-grid-overlay" style="grid-template-columns: repeat(${gridColCount}, 1fr)">
+                        ${Array.from({ length: gridColCount }).map(() => '<div class="gantt-grid-cell"></div>').join('')}
+                    </div>
+                    <!-- Task Bar -->
+                    <div class="gantt-bar-wrapper" style="left: ${leftPercent}%; width: ${widthPercent}%" title="${task.task} (${task.start_date} al ${task.end_date}) - Progreso: ${task.progress}%">
+                        <div class="gantt-bar ${statusCls}">
+                            <div class="gantt-bar-progress" style="width: ${taskProgress}%"></div>
+                            <span class="gantt-bar-text">${taskProgress}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        });
+    });
+
+    // 5. Render "Today" vertical indicator line if active
+    const today = new Date();
+    // Use simulated date since system logs show 2026-06-17
+    const dashboardToday = new Date('2026-06-17'); 
+
+    if (dashboardToday >= minDate && dashboardToday <= maxDate) {
+        const todayOffsetMs = dashboardToday.getTime() - minDate.getTime();
+        const todayPercent = (todayOffsetMs / totalMs) * 100;
+        
+        // Add vertical line element inside timeline headers
+        ganttHtml += `
+            <div class="gantt-today-line" style="left: calc(280px + (100% - 280px) * ${todayPercent / 100})"></div>`;
+    }
+
+    container.innerHTML = ganttHtml;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: ROLES & RESPONSIBILITIES
+ * ==========================================================================
+ */
+function renderResponsibles(responsibles) {
+    const cardsContainer = document.getElementById('responsibles-cards');
+    const tableBody = document.getElementById('responsibles-table-body');
+    
+    if (!responsibles || responsibles.length === 0) {
+        cardsContainer.innerHTML = `<p style="padding:2rem; text-align:center;">No hay responsables asignados.</p>`;
+        return;
+    }
+
+    // 1. Render Executive cards
+    let cardsHtml = '';
+    responsibles.forEach(r => {
+        const involvementCls = r.involvement.toLowerCase() === 'high' ? 'involvement-high' : 'involvement-medium';
+        const badgeCls = r.involvement.toLowerCase() === 'high' ? 'resp-tag-high' : 'resp-tag-medium';
+        const badgeLabel = r.involvement.toLowerCase() === 'high' ? 'Crítico / High' : 'Medio / Medium';
+
+        cardsHtml += `
+        <div class="responsible-card ${involvementCls}">
+            <div class="resp-header">
+                <div class="resp-avatar-info">
+                    <h5>${r.name}</h5>
+                    <span>${r.area}</span>
+                </div>
+                <span class="resp-tag ${badgeCls}">${badgeLabel}</span>
+            </div>
+            <div class="resp-body">
+                <strong>Responsabilidad:</strong> ${r.responsibility}
+            </div>
+            <div class="resp-footer">
+                <i class="fa-solid fa-briefcase"></i> <span>${r.role}</span>
+            </div>
+        </div>`;
+    });
+    cardsContainer.innerHTML = cardsHtml;
+
+    // 2. Render Table body
+    let tableHtml = '';
+    responsibles.forEach(r => {
+        tableHtml += `
+        <tr>
+            <td><strong>${r.name}</strong></td>
+            <td>${r.role}</td>
+            <td><span style="font-size:0.8rem; color:var(--color-status-notstart);">${r.area}</span></td>
+            <td>${r.responsibility}</td>
+            <td><span class="badge badge-${r.involvement.toLowerCase() === 'high' ? 'blocked' : 'risk'}">${r.involvement}</span></td>
+        </tr>`;
+    });
+    tableBody.innerHTML = tableHtml;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: STATUS DASHBOARD
+ * ==========================================================================
+ */
+function renderStatusDashboard(statusList) {
+    const container = document.getElementById('status-dashboard-container');
+    if (!statusList || statusList.length === 0) {
+        container.innerHTML = `<p style="padding:2rem; text-align:center;">No hay métricas de estado disponibles.</p>`;
+        return;
+    }
+
+    let html = '';
+    // Exclude metadata rows (e.g. Last Updated)
+    const renderableStatus = statusList.filter(s => s.category.toLowerCase() !== 'metadata');
+
+    renderableStatus.forEach(s => {
+        const progress = parseFloat(s.progress) || 0;
+        
+        // Match fill class
+        let fillCls = '';
+        const statusText = s.status.toLowerCase();
+        if (statusText.includes('completed') || statusText.includes('completado')) fillCls = 'status-completed';
+        else if (statusText.includes('progress') || statusText.includes('progreso')) fillCls = 'status-progress';
+        else if (statusText.includes('risk') || statusText.includes('riesgo')) fillCls = 'status-risk';
+        else if (statusText.includes('blocked') || statusText.includes('bloqueado')) fillCls = 'status-blocked';
+        else fillCls = 'status-notstart';
+
+        html += `
+        <div class="status-row-card">
+            <div class="status-card-header">
+                <h5>${s.item}</h5>
+                ${getStatusBadge(s.status)}
+            </div>
+            <div class="status-card-body">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="status-card-desc">${s.notes}</span>
+                    <span style="font-family:var(--font-heading); font-size:0.85rem; font-weight:700;">${progress}%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill ${fillCls}" style="width: ${progress}%"></div>
+                </div>
+            </div>
+            <div class="status-card-footer">
+                <span>Dueño: <strong class="status-card-owner">${s.owner}</strong></span>
+                <span>Track: <strong>${s.category}</strong></span>
+            </div>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: CHECKLIST & DISCLOSURES
+ * ==========================================================================
+ */
+function renderChecklist(checklistItems) {
+    const progressBarsContainer = document.getElementById('checklist-progress-bars');
+    const checklistContainer = document.getElementById('checklist-container');
+    
+    if (!checklistItems || checklistItems.length === 0) {
+        checklistContainer.innerHTML = `<p style="padding:2rem; text-align:center;">No hay items de checklist configurados.</p>`;
+        return;
+    }
+
+    // 1. Group checklist items by category
+    const grouped = {};
+    checklistItems.forEach(item => {
+        if (!grouped[item.category]) {
+            grouped[item.category] = [];
+        }
+        grouped[item.category].push(item);
+    });
+
+    // 2. Render summary progress bars per category
+    let barsHtml = '';
+    let totalItems = 0;
+    let completedItems = 0;
+
+    Object.keys(grouped).forEach(cat => {
+        const items = grouped[cat];
+        const count = items.length;
+        const comp = items.filter(i => i.status.toLowerCase().includes('completed') || i.status.toLowerCase().includes('completado')).length;
+        
+        totalItems += count;
+        completedItems += comp;
+        
+        const catProgress = Math.round((comp / count) * 100);
+        
+        barsHtml += `
+        <div class="checklist-progress-card">
+            <span>${cat}</span>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <strong>${catProgress}%</strong>
+                <small style="font-size:0.7rem; color:var(--color-status-notstart);">${comp}/${count} items</small>
+            </div>
+            <div class="progress-bar-container mini">
+                <div class="progress-bar-fill" style="width: ${catProgress}%"></div>
+            </div>
+        </div>`;
+    });
+    progressBarsContainer.innerHTML = barsHtml;
+
+    // 3. Render checklist category details list
+    let listHtml = '';
+    Object.keys(grouped).forEach(cat => {
+        const items = grouped[cat];
+        const comp = items.filter(i => i.status.toLowerCase().includes('completed') || i.status.toLowerCase().includes('completado')).length;
+        const progress = Math.round((comp / items.length) * 100);
+
+        listHtml += `
+        <div class="checklist-group">
+            <h5>
+                <span>${cat}</span>
+                <span class="checklist-group-progress">${progress}%</span>
+            </h5>
+            <ul class="checklist-items-list">
+                ${items.map(i => {
+                    const statusText = i.status.toLowerCase();
+                    let icon = '';
+                    let stateCls = '';
+                    
+                    if (statusText.includes('completed') || statusText.includes('completado')) {
+                        icon = '<i class="fa-solid fa-circle-check chk-status-icon completed"></i>';
+                        stateCls = 'completed';
+                    } else if (statusText.includes('progress') || statusText.includes('progreso')) {
+                        icon = '<i class="fa-solid fa-circle-notch fa-spin chk-status-icon progress"></i>';
+                        stateCls = 'progress';
+                    } else if (statusText.includes('risk') || statusText.includes('riesgo') || statusText.includes('blocked') || statusText.includes('bloqueado')) {
+                        icon = '<i class="fa-solid fa-triangle-exclamation chk-status-icon risk"></i>';
+                        stateCls = 'risk';
+                    } else {
+                        icon = '<i class="fa-regular fa-circle chk-status-icon notstart"></i>';
+                        stateCls = 'notstart';
+                    }
+
+                    return `
+                    <li class="checklist-item">
+                        ${icon}
+                        <div class="chk-details">
+                            <span class="chk-title ${stateCls === 'completed' ? 'text-muted-strikethrough' : ''}">${i.item}</span>
+                            ${i.comments ? `<span class="chk-comments">${i.comments}</span>` : ''}
+                            <span class="chk-owner-tag"><i class="fa-solid fa-user-circle"></i> ${i.owner}</span>
+                        </div>
+                    </li>`;
+                }).join('')}
+            </ul>
+        </div>`;
+    });
+    checklistContainer.innerHTML = listHtml;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: RISKS & BLOCKERS
+ * ==========================================================================
+ */
+function renderRisks(risks) {
+    const criticalContainer = document.getElementById('critical-risks-cards');
+    const tableBody = document.getElementById('risks-table-body');
+    
+    if (!risks || risks.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No hay riesgos registrados.</td></tr>`;
+        return;
+    }
+
+    // 1. Render critical risks (Impact = High, Status = Active/Active-equivalent)
+    // Filter active risks that have high impact
+    const criticalRisks = risks.filter(r => 
+        (r.impact.toLowerCase().includes('high') || r.impact.toLowerCase().includes('alto')) &&
+        (r.status.toLowerCase().includes('active') || r.status.toLowerCase().includes('activo'))
+    );
+
+    if (criticalRisks.length > 0) {
+        let critHtml = '';
+        criticalRisks.forEach(r => {
+            critHtml += `
+            <div class="risk-danger-card">
+                <div class="risk-danger-header">
+                    <h5><i class="fa-solid fa-radiation text-danger animate-pulse"></i> RIESGO CRÍTICO [${r.id}]</h5>
+                    <span class="badge badge-blocked">Impacto Alto</span>
+                </div>
+                <div class="risk-danger-body">
+                    <strong>Riesgo:</strong> ${r.risk}
+                </div>
+                <div class="risk-danger-mitigation">
+                    <strong>Plan de Contingencia:</strong> ${r.mitigation}
+                </div>
+                <div class="risk-danger-footer">
+                    <span>Dueño: <strong>${r.owner}</strong></span>
+                    <span>Probabilidad: <strong>${r.probability}</strong></span>
+                </div>
+            </div>`;
+        });
+        criticalContainer.innerHTML = critHtml;
+        criticalContainer.style.display = 'grid';
+    } else {
+        criticalContainer.style.display = 'none';
+    }
+
+    // 2. Render all risks in Table
+    let tableHtml = '';
+    risks.forEach(r => {
+        const imp = r.impact.trim();
+        const prob = r.probability.trim();
+        
+        let impCls = 'progress'; // default
+        if (imp.toLowerCase().includes('high') || imp.toLowerCase().includes('alto')) impCls = 'blocked';
+        else if (imp.toLowerCase().includes('low') || imp.toLowerCase().includes('bajo')) impCls = 'notstart';
+        else impCls = 'risk'; // medium
+
+        let probCls = 'progress';
+        if (prob.toLowerCase().includes('high') || prob.toLowerCase().includes('alto')) probCls = 'blocked';
+        else if (prob.toLowerCase().includes('low') || prob.toLowerCase().includes('bajo')) probCls = 'notstart';
+        else probCls = 'risk'; // medium
+
+        tableHtml += `
+        <tr>
+            <td><strong>${r.id}</strong></td>
+            <td>${r.risk}</td>
+            <td><span class="badge badge-${impCls}">${imp}</span></td>
+            <td><span class="badge badge-${probCls}">${prob}</span></td>
+            <td><span style="font-weight:600; color:var(--color-primary);">${r.owner}</span></td>
+            <td style="font-size:0.85rem; color:var(--color-primary-light);">${r.mitigation}</td>
+            <td>${getStatusBadge(r.status)}</td>
+        </tr>`;
+    });
+    tableBody.innerHTML = tableHtml;
+}
+
+/**
+ * ==========================================================================
+ * RENDERING: DECISIONS LOG
+ * ==========================================================================
+ */
+function renderDecisions(decisions) {
+    const tableBody = document.getElementById('decisions-table-body');
+    if (!decisions || decisions.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No hay decisiones registradas en la bitácora.</td></tr>`;
+        return;
+    }
+
+    let html = '';
+    decisions.forEach(d => {
+        html += `
+        <tr>
+            <td><strong>${d.id}</strong></td>
+            <td><span style="font-size:0.8rem; color:var(--color-status-notstart); white-space:nowrap;"><i class="fa-solid fa-clock"></i> ${d.date}</span></td>
+            <td><strong>${d.decision}</strong></td>
+            <td><span style="font-weight:600; color:var(--color-primary);">${d.owner}</span></td>
+            <td style="font-size:0.85rem; color:var(--color-primary-light);">${d.rationale}</td>
+            <td>${getStatusBadge(d.status)}</td>
+        </tr>`;
+    });
+    tableBody.innerHTML = html;
+}
+
+/**
+ * ==========================================================================
+ * INTERACTIVE NAVIGATION & SCROLL HIGHLIGHTING
+ * ==========================================================================
+ */
+function setupNavigationHighlighting() {
+    const sections = document.querySelectorAll('main > section');
+    const navLinks = document.querySelectorAll('.header-nav .nav-link');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            // Highlight link if the scroll position is past section top minus offset header height
+            if (window.scrollY >= (sectionTop - 120)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+/**
+ * ==========================================================================
+ * AUTO-REFRESH ON CSV MODIFICATION (POLLING CHECK)
+ * ==========================================================================
+ */
+function startAutoRefresh() {
+    const csvUrls = [
+        'data/phases.csv',
+        'data/timeline.csv',
+        'data/responsibles.csv',
+        'data/status.csv',
+        'data/checklist.csv',
+        'data/risks.csv',
+        'data/decisions.csv'
+    ];
+    
+    const lastModifiedMap = {};
+    
+    // Initial fetch of HEAD headers to seed the modifications map
+    async function initMap() {
+        for (const url of csvUrls) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    lastModifiedMap[url] = response.headers.get('Last-Modified') || '';
+                }
+            } catch (e) {
+                // Ignore initial load network errors
+            }
+        }
+    }
+    
+    // Periodic check to compare header change
+    async function checkUpdates() {
+        let hasChanges = false;
+        for (const url of csvUrls) {
+            try {
+                const response = await fetch(url, { method: 'HEAD', headers: { 'Cache-Control': 'no-cache' } });
+                if (response.ok) {
+                    const newModified = response.headers.get('Last-Modified') || '';
+                    if (lastModifiedMap[url] !== undefined && lastModifiedMap[url] !== newModified) {
+                        hasChanges = true;
+                        lastModifiedMap[url] = newModified;
+                    } else if (lastModifiedMap[url] === undefined) {
+                        lastModifiedMap[url] = newModified;
+                    }
+                }
+            } catch (e) {
+                // Keep quiet during regular network drops or browser sleep
+            }
+        }
+        if (hasChanges) {
+            console.log('[Dashboard Auto-Refresh] CSV files updated on disk. Reloading view...');
+            window.location.reload();
+        }
+    }
+    
+    initMap().then(() => {
+        // Poll for modifications every 2 seconds
+        setInterval(checkUpdates, 2000);
+    });
+}
+
+</script>
+</body>
+</html>
