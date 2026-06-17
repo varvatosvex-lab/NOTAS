@@ -1,158 +1,70 @@
-You are acting as an Engineering Review Data Normalization Engine.
+You are acting as an Engineering Review Board.
 
-Your objective is to transform multiple repository review reports into a single normalized JSON document.
-
-Input Documents:
-
-* review-regpack-api.md
-* review-regpack-ui.md
-* review-regpack-rag-api.md
-* review-regpack-ods-client.md
-* review-regpack-scott-client.md
-
-==================================================
-OBJECTIVE
-
-Convert all findings, scores, risks, recommendations, questions, and observations into a structured machine-readable JSON document.
-
-Do not summarize.
-
-Do not omit findings.
-
-Preserve all evidence references.
-
-==================================================
-NORMALIZATION RULES
-
-1. Every finding must have:
-
-id
-repository
-severity
-category
-title
-description
-technical_impact
-business_impact
-recommendation
-evidence
-
-2. Normalize severities into:
-
-Critical
-High
-Medium
-Low
-Observation
-
-3. Normalize categories into:
-
-Architecture
-Security
-Testing
-Observability
-Integration
-Performance
-Maintainability
-Prompt Engineering
-RAG
-Responsible AI
-Governance
-Documentation
-Configuration
-Dependency Management
-UX
-Accessibility
-
-4. Preserve repository scorecards.
-5. Preserve GenAI scorecards.
-
-==================================================
-OUTPUT
-
-Generate a single JSON file:
+Input:
 
 engineering-review-normalized.json
 
-Use the following schema:
+Objective:
+
+Create a dashboard-ready executive JSON.
+
+Generate:
+
+executive-review-dashboard.json
+
+Structure:
 
 {
-“review_metadata”: {
-“review_name”: “Regulatory Pack Phase 1.5 Engineering Review”,
-“vendor”: “Hexaware”,
-“review_type”: “Engineering Review”,
-“generated_date”: “”,
-“repositories_reviewed”: []
+“executive_summary”: {
+“overall_engineering_score”: 0,
+“overall_genai_score”: 0,
+“overall_risk_score”: 0,
+“repositories_reviewed”: 0,
+“total_findings”: 0,
+“critical_findings”: 0,
+“high_findings”: 0,
+“medium_findings”: 0,
+“low_findings”: 0
 },
 
-“repositories”: [
-{
-“repository_name”: “”,
-“repository_type”: “”,
-“overall_score”: 0,
+“severity_distribution”: [],
 
-  "scorecard": {
-    "architecture": 0,
-    "maintainability": 0,
-    "security": 0,
-    "testing": 0,
-    "observability": 0,
-    "performance": 0,
-    "documentation": 0
-  },
-  "genai_scorecard": {
-    "prompt_engineering": 0,
-    "grounding": 0,
-    "hallucination_controls": 0,
-    "citation_strategy": 0,
-    "prompt_security": 0,
-    "governance": 0,
-    "explainability": 0
-  },
-  "summary": {
-    "strengths": [],
-    "concerns": [],
-    "recommended_actions": []
-  },
-  "findings": []
-}
+“repository_scores”: [],
 
-],
+“genai_scores”: [],
 
-“findings”: [
-{
-“id”: “”,
-“repository”: “”,
-“severity”: “”,
-“category”: “”,
-“title”: “”,
-“description”: “”,
-“technical_impact”: “”,
-“business_impact”: “”,
-“recommendation”: “”,
-“evidence”: []
-}
-],
+“risk_matrix”: [],
 
-“questions_for_vendor”: [],
+“top_risks”: [],
 
-“recommendations”: {
+“architecture_summary”: {},
+
+“security_summary”: {},
+
+“testing_summary”: {},
+
+“genai_summary”: {},
+
+“rag_summary”: {},
+
+“responsible_ai_summary”: {},
+
+“questions_for_hexaware”: [],
+
+“recommended_actions”: {
 “immediate”: [],
-“short_term”: [],
-“medium_term”: []
+“next_30_days”: [],
+“next_90_days”: []
 }
 }
 
-==================================================
-QUALITY REQUIREMENTS
+Requirements:
 
+* Calculate all totals.
+* Calculate severity distribution.
+* Calculate category distribution.
+* Calculate repository maturity.
+* Calculate GenAI maturity.
+* Create risk matrix entries.
+* Prepare data specifically for HTML dashboards.
 * Output valid JSON only.
-* No markdown.
-* No explanations.
-* No comments.
-* No placeholders.
-* Preserve all findings.
-* Preserve all scores.
-* Preserve all repository names.
-* Preserve all evidence references.
-* Ensure JSON can be consumed directly by a dashboard application.
