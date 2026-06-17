@@ -1,176 +1,387 @@
-You are acting as a Principal Backend Engineer, GenAI Architect, Security Reviewer, and Software Quality Reviewer.
+You are acting as a Principal Front-End Engineer, Enterprise Architect, UX Reviewer, Security Reviewer, and Software Quality Reviewer.
 
 Context:
 This repository is part of the Regulatory Pack Phase 1.5 delivery reviewed by HSBC Engineering.
 The vendor team is Hexaware.
-This is NOT a formal audit.
-The objective is to perform a constructive technical review and generate clear engineering feedback, risks, observations, and recommendations.
+
+This review is NOT a formal audit.
+
+The objective is to perform a constructive technical review and generate actionable feedback, risks, observations, and recommendations.
 
 Repository to review:
-regpack-api
+
+regpack-ui
 
 Primary focus:
-- Backend API quality
-- Business logic maintainability
-- Clean Code practices
-- Security considerations
-- Error handling
-- Logging and observability
-- Configuration management
-- Testing strategy
-- GenAI prompt configuration for Annex Rephrasing
 
-Important file to review:
-- core/prompt_config.py
+- Front-End Architecture
+- User Experience
+- Code Quality
+- Security
+- Maintainability
+- Accessibility
+- Performance
+- API Integration Quality
+- GenAI User Experience Integration
 
-Please analyze the entire repository, with special attention to the following areas:
+Analyze the entire repository.
 
+Review the following areas:
+
+--------------------------------------------------
 1. Repository Structure
+--------------------------------------------------
+
 Evaluate:
+
 - Folder organization
+- Component structure
 - Separation of concerns
-- Naming conventions
-- Entry points
-- Configuration files
-- Dependency files
-- Deployment-related files
+- Feature modularization
+- Shared libraries/components
+- Routing organization
+- State management organization
+- Reusability patterns
 
-2. Backend/API Design
-Evaluate:
-- API routing structure
-- Request/response models
-- Input validation
-- Error responses
-- HTTP status code usage
-- API consistency
-- API contract clarity
-- Backward compatibility risks
+--------------------------------------------------
+2. Front-End Architecture
+--------------------------------------------------
 
-3. Clean Code & Maintainability
 Evaluate:
-- Function/class size
-- Cyclomatic complexity
-- Duplicated logic
-- Naming quality
-- Modularity
-- Reusability
-- Dead code
-- Hardcoded values
-- Comments quality
+
+- Overall architecture quality
+- Component hierarchy
+- Smart vs dumb components
+- Coupling between UI and services
+- Scalability
+- Extensibility
+- Maintainability
+
+Identify:
+
+- Architecture smells
+- Tight coupling
+- Over-complex components
+- Feature ownership concerns
+
+--------------------------------------------------
+3. UI Component Quality
+--------------------------------------------------
+
+Evaluate:
+
+- Component size
 - Readability
+- Reusability
+- Naming conventions
+- Styling consistency
+- Form implementations
+- Validation logic
+- User interaction quality
 
-4. Security Review
-Evaluate:
-- Secrets or credentials in code
-- Sensitive data exposure
-- PII handling
-- Authentication and authorization assumptions
-- Input sanitization
-- Injection risks
-- Insecure logging
-- Dependency vulnerabilities if visible
-- Environment variable usage
+Identify:
 
-5. Configuration Management
-Evaluate:
-- Use of environment variables
-- Hardcoded environment-specific values
-- Config separation by environment
-- Model/config/prompt parameters
-- Safe defaults
-- Risk of configuration drift
+- Duplicated UI logic
+- Anti-patterns
+- Large components
+- Repeated code
 
-6. Error Handling & Observability
+--------------------------------------------------
+4. State Management
+--------------------------------------------------
+
 Evaluate:
-- Exception handling patterns
+
+- State handling strategy
+- Local state usage
+- Global state usage
+- State consistency
+- Data flow clarity
+
+Identify:
+
+- State duplication
+- Unnecessary complexity
+- Potential synchronization issues
+
+--------------------------------------------------
+5. API Integration Review
+--------------------------------------------------
+
+Identify all integrations with:
+
+- regpack-api
+- regpack-rag-api
+- regpack-ods-client
+- regpack-scott-client
+
+Evaluate:
+
+- Service abstraction
+- Error handling
 - Retry logic
 - Timeout handling
-- Logging quality
-- Correlation IDs or traceability
-- User-safe error messages
-- Operational troubleshooting readiness
+- Response validation
+- User feedback behavior
+- API dependency coupling
 
-7. Testing Strategy
+Identify:
+
+- Fragile integrations
+- Missing validation
+- Error propagation issues
+
+--------------------------------------------------
+6. User Experience Review
+--------------------------------------------------
+
 Evaluate:
+
+- Navigation flow
+- User guidance
+- Error messaging
+- Loading states
+- Empty states
+- Confirmation messages
+- Accessibility of workflows
+
+Identify:
+
+- Confusing experiences
+- Missing feedback
+- High-friction workflows
+
+--------------------------------------------------
+7. Accessibility Review
+--------------------------------------------------
+
+Evaluate:
+
+- Accessibility readiness
+- Semantic HTML usage
+- Keyboard navigation
+- Form accessibility
+- Screen-reader friendliness
+- Color dependency risks
+- Focus management
+
+Classify findings.
+
+--------------------------------------------------
+8. Performance Review
+--------------------------------------------------
+
+Evaluate:
+
+- Large bundles
+- Lazy loading
+- Code splitting
+- Rendering efficiency
+- Network request efficiency
+- Caching opportunities
+
+Identify:
+
+- Performance bottlenecks
+- Unnecessary re-renders
+- Heavy components
+
+--------------------------------------------------
+9. Security Review
+--------------------------------------------------
+
+Evaluate:
+
+- Token handling
+- Session handling
+- Local storage usage
+- Sensitive data exposure
+- XSS risks
+- Injection risks
+- Unsafe rendering
+- Client-side validation assumptions
+
+Identify:
+
+- Security weaknesses
+- Sensitive information exposure
+
+--------------------------------------------------
+10. GenAI User Experience Review
+--------------------------------------------------
+
+Identify any UI functionality related to:
+
+- AI responses
+- Prompt submission
+- Search experience
+- RAG results
+- Generated content
+- Citations
+- AI recommendations
+
+Evaluate:
+
+- Explainability
+- User trust
+- Transparency
+- Error handling
+- Hallucination visibility
+- Source attribution
+- Feedback mechanisms
+
+Determine whether the UI provides enough information for users to understand AI-generated outputs.
+
+--------------------------------------------------
+11. Logging & Observability
+--------------------------------------------------
+
+Evaluate:
+
+- Client-side logging
+- Error tracking
+- Monitoring readiness
+- Traceability
+
+Identify:
+
+- Missing telemetry
+- Missing diagnostics
+
+--------------------------------------------------
+12. Testing Strategy
+--------------------------------------------------
+
+Evaluate:
+
 - Unit tests
+- Component tests
+- UI tests
 - Integration tests
-- Mocking strategy
-- Negative test cases
-- Regression tests
-- Test coverage indicators
-- Missing critical tests
+- End-to-end tests
 
-8. GenAI / Prompt Configuration Review
-Focus especially on:
-- core/prompt_config.py
+Identify:
+
+- Missing critical coverage
+- Untested workflows
+- High-risk areas
+
+--------------------------------------------------
+13. Dependency Review
+--------------------------------------------------
 
 Evaluate:
-- Prompt clarity
-- Prompt purpose
-- Prompt maintainability
-- Prompt structure
-- Prompt variables
-- Hardcoded prompt content
-- Prompt versioning readiness
-- Prompt rollback readiness
-- Prompt injection risks
-- Jailbreak resistance
-- Data leakage risks
-- Regulatory wording risks
-- Whether the prompt may alter the legal/regulatory meaning of annex content
-- Determinism and consistency
-- Testing readiness for prompt changes
-- Whether there are evaluation cases for prompt quality
 
-9. Annex Rephrasing Specific Review
-Evaluate:
-- Whether the rephrasing logic preserves meaning
-- Whether the prompt instructs the model not to invent content
-- Whether source-grounding is enforced
-- Whether the model is instructed to maintain regulatory/legal intent
-- Whether the output format is controlled
-- Whether there is a human review checkpoint
-- Whether there are safeguards for ambiguous source content
-- Whether there are controls for hallucination
+- Dependency management
+- Unused libraries
+- Outdated packages
+- Front-End security concerns
 
-10. Dependency & Runtime Review
-Evaluate:
-- Dependency hygiene
-- Pinning/versioning
-- Unused dependencies
-- Runtime assumptions
-- Startup behavior
-- Packaging/deployment readiness
+Identify:
 
-Output requirements:
+- Risks
+- Technical debt
+
+--------------------------------------------------
+Output Requirements
+--------------------------------------------------
+
 Generate a Markdown report named:
 
-review-regpack-api.md
+review-regpack-ui.md
 
 The report must include:
 
-# regpack-api – Engineering & GenAI Review
+# regpack-ui – Front-End Engineering Review
 
 ## 1. Executive Summary
-Brief summary of repository quality, main concerns, and recommended priority actions.
+
+Provide:
+
+- Overall assessment
+- Front-End maturity level
+- Main strengths
+- Main risks
+- Recommended priority actions
+
+--------------------------------------------------
 
 ## 2. Scope Reviewed
-List the folders, files, and areas reviewed. Mention if something could not be evaluated.
 
-## 3. Repository Overview
-Explain the apparent purpose of the repository and its main components.
+List:
 
-## 4. Key Findings Summary
-Create a table with:
-- ID
+- Main folders reviewed
+- Components reviewed
+- Services reviewed
+- Integrations identified
+
+--------------------------------------------------
+
+## 3. Front-End Architecture Assessment
+
+Assess:
+
+- Architecture quality
+- Scalability
+- Maintainability
+- Extensibility
+
+Provide findings.
+
+--------------------------------------------------
+
+## 4. User Experience Assessment
+
+Evaluate:
+
+- Navigation
+- Usability
+- Feedback mechanisms
+- Error handling
+- Accessibility
+
+--------------------------------------------------
+
+## 5. API Integration Assessment
+
+Document:
+
+- Backend dependencies
+- Integration quality
+- Risks
+
+--------------------------------------------------
+
+## 6. Security Assessment
+
+Document:
+
+- Security findings
 - Severity
-- Category
-- Finding
-- Impact
-- Recommendation
-- Evidence
+- Recommendations
 
-Severity values:
+--------------------------------------------------
+
+## 7. GenAI Experience Assessment
+
+Evaluate:
+
+- AI interaction patterns
+- Source attribution
+- User transparency
+- Explainability
+- Trustworthiness
+
+--------------------------------------------------
+
+## 8. Key Findings Summary
+
+Create a table:
+
+| ID | Severity | Category | Finding | Impact | Recommendation | Evidence |
+
+Severity:
+
 - Critical
 - High
 - Medium
@@ -178,73 +389,66 @@ Severity values:
 - Observation
 
 Categories:
+
 - Architecture
-- API Design
-- Clean Code
+- UX
+- Accessibility
 - Security
-- Configuration
-- Observability
+- Performance
 - Testing
-- GenAI
-- Prompt Engineering
-- Annex Rephrasing
+- API Integration
+- GenAI Experience
 - Dependency Management
 
-## 5. Detailed Findings
-For each finding include:
+--------------------------------------------------
+
+## 9. Detailed Findings
+
+For every finding include:
+
 - Finding ID
 - Severity
 - Category
-- Title
 - Description
 - Technical Impact
-- Business/Operational Impact
+- Business Impact
 - Recommendation
-- Evidence: file path, function/class name, or config reference
+- Evidence
 
-## 6. GenAI & Prompt Engineering Assessment
-Specifically review core/prompt_config.py.
-Include:
-- Prompt purpose
-- Strengths
-- Weaknesses
-- Risks
-- Recommendations
-- Suggested test cases
+--------------------------------------------------
 
-## 7. Annex Rephrasing Risk Assessment
-Evaluate risks around:
-- Meaning drift
-- Hallucination
-- Unsupported rewording
-- Missing citations/evidence
-- Ambiguous source content
-- Regulatory wording changes
-- Human-in-the-loop needs
+## 10. Testing Gaps
 
-## 8. Testing Gaps
-List missing or weak tests, especially for:
-- API behavior
-- Error handling
-- Prompt regression
-- Annex rephrasing
-- Negative scenarios
-- Security scenarios
+Identify:
 
-## 9. Questions for Hexaware
-List clear questions that HSBC should ask the vendor team.
+- Missing tests
+- Weak coverage
+- High-risk workflows
 
-## 10. Recommended Next Steps
-Prioritize actions into:
+--------------------------------------------------
+
+## 11. Questions for Hexaware
+
+Create a list of questions requiring clarification.
+
+--------------------------------------------------
+
+## 12. Recommended Next Steps
+
+Classify actions:
+
 - Immediate
 - Short Term
 - Medium Term
 
-Important instructions:
-- Do not modify source code.
-- Do not create code fixes.
-- Do not make assumptions without evidence.
-- If something is not visible in the repository, explicitly say "Not evident from repository".
-- Be constructive and professional.
-- Focus on actionable findings.
-- Use precise file references wherever possible.
+--------------------------------------------------
+
+Important Instructions
+
+- Do not modify code.
+- Do not create fixes.
+- Do not speculate.
+- If evidence is not present, state:
+  "Not evident from repository."
+- Use file references whenever possible.
+- Keep feedback professional and constructive.
