@@ -1,135 +1,250 @@
-# Full Stack Engineer – Expected Deliverables & Professional Expectations
+You are acting as a Principal Backend Engineer, GenAI Architect, Security Reviewer, and Software Quality Reviewer.
 
-## Purpose
+Context:
+This repository is part of the Regulatory Pack Phase 1.5 delivery reviewed by HSBC Engineering.
+The vendor team is Hexaware.
+This is NOT a formal audit.
+The objective is to perform a constructive technical review and generate clear engineering feedback, risks, observations, and recommendations.
 
-This document defines the expected deliverables, behaviors, engineering practices, and professional standards for Full Stack Engineers participating in modern software delivery initiatives.
+Repository to review:
+regpack-api
 
-The objective is to establish a common framework for execution across Spec-Driven Development (SDD), MVP delivery, Agile practices, AI-assisted engineering, quality assurance, and continuous improvement.
+Primary focus:
+- Backend API quality
+- Business logic maintainability
+- Clean Code practices
+- Security considerations
+- Error handling
+- Logging and observability
+- Configuration management
+- Testing strategy
+- GenAI prompt configuration for Annex Rephrasing
 
----
+Important file to review:
+- core/prompt_config.py
 
-# Core Principle
+Please analyze the entire repository, with special attention to the following areas:
 
-A Full Stack Engineer is expected to deliver business capabilities from concept to production-ready MVPs.
+1. Repository Structure
+Evaluate:
+- Folder organization
+- Separation of concerns
+- Naming conventions
+- Entry points
+- Configuration files
+- Dependency files
+- Deployment-related files
 
-The expectation extends beyond coding and includes:
+2. Backend/API Design
+Evaluate:
+- API routing structure
+- Request/response models
+- Input validation
+- Error responses
+- HTTP status code usage
+- API consistency
+- API contract clarity
+- Backward compatibility risks
 
-- Requirements understanding
-- Solution design
-- Development
+3. Clean Code & Maintainability
+Evaluate:
+- Function/class size
+- Cyclomatic complexity
+- Duplicated logic
+- Naming quality
+- Modularity
+- Reusability
+- Dead code
+- Hardcoded values
+- Comments quality
+- Readability
+
+4. Security Review
+Evaluate:
+- Secrets or credentials in code
+- Sensitive data exposure
+- PII handling
+- Authentication and authorization assumptions
+- Input sanitization
+- Injection risks
+- Insecure logging
+- Dependency vulnerabilities if visible
+- Environment variable usage
+
+5. Configuration Management
+Evaluate:
+- Use of environment variables
+- Hardcoded environment-specific values
+- Config separation by environment
+- Model/config/prompt parameters
+- Safe defaults
+- Risk of configuration drift
+
+6. Error Handling & Observability
+Evaluate:
+- Exception handling patterns
+- Retry logic
+- Timeout handling
+- Logging quality
+- Correlation IDs or traceability
+- User-safe error messages
+- Operational troubleshooting readiness
+
+7. Testing Strategy
+Evaluate:
+- Unit tests
+- Integration tests
+- Mocking strategy
+- Negative test cases
+- Regression tests
+- Test coverage indicators
+- Missing critical tests
+
+8. GenAI / Prompt Configuration Review
+Focus especially on:
+- core/prompt_config.py
+
+Evaluate:
+- Prompt clarity
+- Prompt purpose
+- Prompt maintainability
+- Prompt structure
+- Prompt variables
+- Hardcoded prompt content
+- Prompt versioning readiness
+- Prompt rollback readiness
+- Prompt injection risks
+- Jailbreak resistance
+- Data leakage risks
+- Regulatory wording risks
+- Whether the prompt may alter the legal/regulatory meaning of annex content
+- Determinism and consistency
+- Testing readiness for prompt changes
+- Whether there are evaluation cases for prompt quality
+
+9. Annex Rephrasing Specific Review
+Evaluate:
+- Whether the rephrasing logic preserves meaning
+- Whether the prompt instructs the model not to invent content
+- Whether source-grounding is enforced
+- Whether the model is instructed to maintain regulatory/legal intent
+- Whether the output format is controlled
+- Whether there is a human review checkpoint
+- Whether there are safeguards for ambiguous source content
+- Whether there are controls for hallucination
+
+10. Dependency & Runtime Review
+Evaluate:
+- Dependency hygiene
+- Pinning/versioning
+- Unused dependencies
+- Runtime assumptions
+- Startup behavior
+- Packaging/deployment readiness
+
+Output requirements:
+Generate a Markdown report named:
+
+review-regpack-api.md
+
+The report must include:
+
+# regpack-api – Engineering & GenAI Review
+
+## 1. Executive Summary
+Brief summary of repository quality, main concerns, and recommended priority actions.
+
+## 2. Scope Reviewed
+List the folders, files, and areas reviewed. Mention if something could not be evaluated.
+
+## 3. Repository Overview
+Explain the apparent purpose of the repository and its main components.
+
+## 4. Key Findings Summary
+Create a table with:
+- ID
+- Severity
+- Category
+- Finding
+- Impact
+- Recommendation
+- Evidence
+
+Severity values:
+- Critical
+- High
+- Medium
+- Low
+- Observation
+
+Categories:
+- Architecture
+- API Design
+- Clean Code
+- Security
+- Configuration
+- Observability
 - Testing
-- Documentation
-- Deployment readiness
-- Knowledge sharing
-- Continuous improvement
+- GenAI
+- Prompt Engineering
+- Annex Rephrasing
+- Dependency Management
 
-Success is measured by business value delivered with quality, speed, accountability, and collaboration.
+## 5. Detailed Findings
+For each finding include:
+- Finding ID
+- Severity
+- Category
+- Title
+- Description
+- Technical Impact
+- Business/Operational Impact
+- Recommendation
+- Evidence: file path, function/class name, or config reference
 
----
+## 6. GenAI & Prompt Engineering Assessment
+Specifically review core/prompt_config.py.
+Include:
+- Prompt purpose
+- Strengths
+- Weaknesses
+- Risks
+- Recommendations
+- Suggested test cases
 
-# Technical Deliverables
+## 7. Annex Rephrasing Risk Assessment
+Evaluate risks around:
+- Meaning drift
+- Hallucination
+- Unsupported rewording
+- Missing citations/evidence
+- Ambiguous source content
+- Regulatory wording changes
+- Human-in-the-loop needs
 
-| Category | Deliverable | Description |
-|-----------|-------------|-------------|
-| Requirements Analysis | Technical Analysis | Interpretation of business requirements, assumptions, dependencies, and risks |
-| Specification Refinement | Technical Specification | Conversion of functional requirements into technical implementation details |
-| Architecture | Solution Design | Architecture diagrams, workflows, integrations, and component definitions |
-| Frontend Development | User Interface | Functional and reusable frontend components following established standards |
-| Backend Development | Services & APIs | Business logic, APIs, integrations, validation, and error handling |
-| Data Design | Data Model | Database schemas, entities, relationships, and persistence strategy |
-| Workflow Design | Process Orchestration | Business process flows and state management |
-| Cloud Integration | Platform Components | Integration with approved cloud services and enterprise platforms |
-| Security | Security Controls | Authentication, authorization, validation, and secure coding practices |
-| Testing | Automated Validation | Unit, Integration, and End-to-End testing |
-| Documentation | Technical Documentation | Installation, configuration, architecture, and operational documentation |
-| Delivery | MVP Demonstration | Demonstrable functionality aligned with business requirements |
-| Knowledge Transfer | Handover | Walkthroughs, demos, and operational knowledge sharing |
+## 8. Testing Gaps
+List missing or weak tests, especially for:
+- API behavior
+- Error handling
+- Prompt regression
+- Annex rephrasing
+- Negative scenarios
+- Security scenarios
 
----
+## 9. Questions for Hexaware
+List clear questions that HSBC should ask the vendor team.
 
-# AI-Assisted Engineering Expectations
+## 10. Recommended Next Steps
+Prioritize actions into:
+- Immediate
+- Short Term
+- Medium Term
 
-## Approved Tooling
-
-- Open Code
-- Open Cloud
-- GitHub Copilot
-- Productivity Suite
-- Internal AI Platform capabilities
-
-## Expected Usage
-
-- Requirement Analysis
-- Specification Refinement
-- Architecture Support
-- Code Generation
-- Testing
-- Documentation
-- Refactoring
-- Troubleshooting
-
----
-
-# Soft Skills Expectations
-
-## Communication
-- Clear status updates
-- Early blocker communication
-- Effective stakeholder engagement
-
-## Critical Thinking
-- Challenge assumptions respectfully
-- Analyze risks and dependencies
-- Evaluate alternatives
-
-## Ownership
-- Drive work to completion
-- Escalate risks appropriately
-- Ensure production readiness
-
-## Collaboration
-- Work effectively with Product, BA, QA, Architects, and Engineers
-- Participate in reviews and design discussions
-
-## Design Thinking Mindset
-- Understand user journeys
-- Focus on business outcomes
-- Propose improvements
-
----
-
-# Agile Delivery Expectations
-
-- Sprint Planning
-- Daily Standups
-- Backlog Refinement
-- Sprint Reviews
-- Retrospectives
-- Incremental Delivery
-
----
-
-# Testing Expectations
-
-- Unit Testing
-- Integration Testing
-- End-to-End Testing
-- Test Evidence and Reporting
-
----
-
-# Definition of Done (DoD)
-
-- Requirements implemented
-- Acceptance criteria satisfied
-- Code reviewed
-- Automated tests passed
-- Documentation updated
-- Pipeline successful
-- Demo completed
-
----
-
-# Success Formula
-
-SPEC → Analysis → Design → Build → Test → Document → Demo → Improve
+Important instructions:
+- Do not modify source code.
+- Do not create code fixes.
+- Do not make assumptions without evidence.
+- If something is not visible in the repository, explicitly say "Not evident from repository".
+- Be constructive and professional.
+- Focus on actionable findings.
+- Use precise file references wherever possible.
