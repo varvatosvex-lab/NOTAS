@@ -1,4 +1,4 @@
-You are acting as a Principal Integration Engineer, Backend Architect, Security Reviewer, and Software Quality Reviewer.
+You are acting as a Principal Integration Engineer, Backend Architect, Security Reviewer, Data Integration Reviewer, and Software Quality Reviewer.
 
 Context:
 
@@ -13,14 +13,14 @@ The objective is to perform a constructive technical review of this integration 
 
 Repository under review:
 
-regpack-ods-client
+regpack-scott-client
 
 Assumption:
-This repository appears to act as an integration/client layer for ODS or external data services. Validate this assumption from the repository. If this is not evident, explicitly state it.
+This repository appears to act as an integration/client layer for SCOTT or an external source system. Validate this assumption from the repository. If this is not evident, explicitly state it.
 
 Primary objective:
 
-Evaluate the quality, robustness, maintainability, security, and enterprise readiness of the integration client.
+Evaluate the quality, robustness, maintainability, security, data handling, and enterprise readiness of the SCOTT integration client.
 
 Analyze the entire repository.
 
@@ -55,6 +55,7 @@ Evaluate:
 - API contract clarity
 - Coupling with upstream/downstream systems
 - Reusability of client logic
+- Ownership of data transformation logic
 
 Identify:
 
@@ -64,21 +65,22 @@ Identify:
 - Maintainability concerns
 
 ==================================================
-3. API Client Quality Review
+3. SCOTT Client Quality Review
 ==================================================
 
 Evaluate:
 
 - Request construction
 - Response parsing
-- HTTP method usage
+- HTTP method usage or protocol usage
 - Headers management
 - Status code handling
 - Error response handling
 - Timeout configuration
 - Retry strategy
-- Circuit breaker or fallback mechanisms, if any
+- Circuit breaker/fallback mechanisms, if any
 - Pagination handling, if applicable
+- Large response handling
 
 Identify:
 
@@ -88,7 +90,7 @@ Identify:
 - Risky assumptions
 
 ==================================================
-4. Data Mapping & Transformation Review
+4. Data Contract & Mapping Review
 ==================================================
 
 Evaluate:
@@ -101,10 +103,13 @@ Evaluate:
 - Optional fields
 - Type safety
 - Data normalization
+- Backward compatibility assumptions
+- Data quality controls
 
 Identify:
 
 - Mapping risks
+- Schema drift risks
 - Data quality issues
 - Potential runtime failures
 - Ambiguous transformations
@@ -121,7 +126,8 @@ Evaluate:
 - Sensitive data exposure
 - PII handling
 - TLS/SSL assumptions
-- Auth headers
+- Authentication headers
+- Authorization assumptions
 - Logging of sensitive information
 - Input validation
 - Injection risks
@@ -167,6 +173,7 @@ Evaluate:
 - Timeout handling
 - Downstream failure behavior
 - Graceful degradation
+- Partial failure behavior
 
 Identify:
 
@@ -186,6 +193,7 @@ Evaluate:
 - Traceability across services
 - Metrics readiness
 - Diagnostics for failed integrations
+- Whether sensitive data could be logged
 
 Identify:
 
@@ -205,6 +213,7 @@ Evaluate:
 - Large payload handling
 - Memory usage risks
 - Latency impact
+- Concurrency handling
 
 Identify:
 
@@ -225,6 +234,7 @@ Evaluate:
 - Timeout/retry tests
 - Error scenario tests
 - Data mapping tests
+- Schema drift tests
 
 Identify:
 
@@ -249,16 +259,34 @@ Identify:
 - Upgrade risks
 
 ==================================================
+12. Operational Readiness Review
+==================================================
+
+Evaluate:
+
+- Readiness for production support
+- Runbook indicators
+- Troubleshooting guidance
+- Failure modes
+- Alerting assumptions
+- Operational ownership clarity
+
+Identify:
+
+- Support risks
+- Missing documentation
+
+==================================================
 OUTPUT REQUIREMENTS
 ==================================================
 
 Generate:
 
-review-regpack-ods-client.md
+review-regpack-scott-client.md
 
 Structure:
 
-# regpack-ods-client – Integration Client Engineering Review
+# regpack-scott-client – Integration Client Engineering Review
 
 ## 1 Executive Summary
 
@@ -268,8 +296,6 @@ Provide:
 - Main strengths
 - Main concerns
 - Recommended priority actions
-
---------------------------------------------------
 
 ## 2 Scope Reviewed
 
@@ -281,8 +307,6 @@ List:
 - Test files reviewed
 - External integrations identified
 
---------------------------------------------------
-
 ## 3 Repository Overview
 
 Describe:
@@ -290,8 +314,6 @@ Describe:
 - Purpose
 - Main components
 - How the client appears to work
-
---------------------------------------------------
 
 ## 4 Integration Architecture Assessment
 
@@ -301,21 +323,28 @@ Assess:
 - Coupling
 - Maintainability
 - Reusability
+- Operational readiness
 
---------------------------------------------------
-
-## 5 API Client & Contract Assessment
+## 5 API / Protocol Client Assessment
 
 Assess:
 
-- API calling patterns
+- Calling patterns
 - Contract handling
-- Status code handling
+- Status/error handling
 - Request/response validation
 
---------------------------------------------------
+## 6 Data Contract & Mapping Assessment
 
-## 6 Security Assessment
+Assess:
+
+- Mapping quality
+- Null handling
+- Type safety
+- Schema validation
+- Schema drift risks
+
+## 7 Security Assessment
 
 Assess:
 
@@ -324,31 +353,18 @@ Assess:
 - PII
 - Logging risks
 - Input validation
+- Authentication/authorization assumptions
 
---------------------------------------------------
-
-## 7 Resilience & Observability Assessment
+## 8 Resilience & Observability Assessment
 
 Assess:
 
 - Timeouts
 - Retries
-- Error handling
+- Failure behavior
 - Logging
 - Traceability
-
---------------------------------------------------
-
-## 8 Data Mapping Assessment
-
-Assess:
-
-- Mapping quality
-- Null handling
-- Type safety
-- Schema validation
-
---------------------------------------------------
+- Supportability
 
 ## 9 Key Findings Summary
 
@@ -377,8 +393,7 @@ Categories:
 - Performance
 - Testing
 - Dependency Management
-
---------------------------------------------------
+- Operational Readiness
 
 ## 10 Detailed Findings
 
@@ -394,8 +409,6 @@ For every finding include:
 - Recommendation
 - Evidence
 
---------------------------------------------------
-
 ## 11 Testing Gaps
 
 Identify missing or weak tests, especially for:
@@ -406,23 +419,23 @@ Identify missing or weak tests, especially for:
 - Data mapping
 - Invalid response schemas
 - Authentication failures
+- Authorization failures
 - Rate limiting
 - Large payloads
-
---------------------------------------------------
+- Schema drift
 
 ## 12 Questions for Hexaware
 
 Create questions HSBC should ask the vendor team, such as:
 
-- What ODS endpoints are consumed?
-- Are API contracts formally documented?
+- What SCOTT endpoints or services are consumed?
+- Are API/data contracts formally documented?
 - Are retries/timeouts aligned with platform standards?
-- How are downstream failures handled?
-- Are there contract tests against ODS?
+- What happens if SCOTT is unavailable?
+- Are there contract tests against SCOTT?
 - How is sensitive data protected in logs?
-
---------------------------------------------------
+- Are schema changes from SCOTT backward compatible?
+- Is there a runbook for SCOTT integration failures?
 
 ## 13 Recommended Next Steps
 
