@@ -1,382 +1,381 @@
-You are acting as a Principal Front-End Engineer, Enterprise Architect, UX Reviewer, Security Reviewer, and Software Quality Reviewer.
+You are acting as a Principal GenAI Architect, Enterprise AI Reviewer, Responsible AI Specialist, RAG Architect, and LLM Security Reviewer.
 
 Context:
+
 This repository is part of the Regulatory Pack Phase 1.5 delivery reviewed by HSBC Engineering.
-The vendor team is Hexaware.
 
-This review is NOT a formal audit.
+Vendor:
+Hexaware
 
-The objective is to perform a constructive technical review and generate actionable feedback, risks, observations, and recommendations.
+This is NOT a formal audit.
 
-Repository to review:
+The objective is to perform a deep technical review of the Retrieval Augmented Generation (RAG) implementation and provide engineering feedback, risks, observations, and recommendations.
 
-regpack-ui
+Repository under review:
 
-Primary focus:
+regpack-rag-api
 
-- Front-End Architecture
-- User Experience
-- Code Quality
-- Security
-- Maintainability
-- Accessibility
-- Performance
-- API Integration Quality
-- GenAI User Experience Integration
+Primary objective:
+
+Evaluate the quality, robustness, maintainability, governance readiness, and enterprise suitability of the complete RAG implementation.
+
+Important review target:
+
+core/preamble_config.py
 
 Analyze the entire repository.
 
-Review the following areas:
-
---------------------------------------------------
-1. Repository Structure
---------------------------------------------------
-
-Evaluate:
-
-- Folder organization
-- Component structure
-- Separation of concerns
-- Feature modularization
-- Shared libraries/components
-- Routing organization
-- State management organization
-- Reusability patterns
-
---------------------------------------------------
-2. Front-End Architecture
---------------------------------------------------
-
-Evaluate:
-
-- Overall architecture quality
-- Component hierarchy
-- Smart vs dumb components
-- Coupling between UI and services
-- Scalability
-- Extensibility
-- Maintainability
+==================================================
+1. Repository Overview
+==================================================
 
 Identify:
 
-- Architecture smells
-- Tight coupling
-- Over-complex components
-- Feature ownership concerns
+- Repository purpose
+- Main modules
+- AI architecture components
+- Search components
+- Retrieval components
+- LLM integrations
+- Vector search integrations
+- Prompt management approach
 
---------------------------------------------------
-3. UI Component Quality
---------------------------------------------------
+Explain how the repository appears to operate.
+
+==================================================
+2. RAG Architecture Review
+==================================================
 
 Evaluate:
 
-- Component size
-- Readability
-- Reusability
-- Naming conventions
-- Styling consistency
-- Form implementations
-- Validation logic
-- User interaction quality
+- Retrieval architecture
+- Context construction
+- Chunk retrieval
+- Search orchestration
+- Multi-step retrieval
+- Query processing
+- Ranking strategy
+- Re-ranking strategy
+- Context assembly process
 
 Identify:
 
-- Duplicated UI logic
-- Anti-patterns
-- Large components
-- Repeated code
+- Architecture weaknesses
+- Scalability concerns
+- Retrieval bottlenecks
 
---------------------------------------------------
-4. State Management
---------------------------------------------------
+==================================================
+3. Knowledge Retrieval Review
+==================================================
 
 Evaluate:
 
-- State handling strategy
-- Local state usage
-- Global state usage
-- State consistency
-- Data flow clarity
+- Retrieval quality assumptions
+- Metadata usage
+- Filtering mechanisms
+- Search relevance
+- Search explainability
+- Search consistency
 
 Identify:
 
-- State duplication
-- Unnecessary complexity
-- Potential synchronization issues
+- Missing controls
+- Retrieval risks
 
---------------------------------------------------
-5. API Integration Review
---------------------------------------------------
+Determine whether retrieval appears likely to return the most relevant information.
 
-Identify all integrations with:
-
-- regpack-api
-- regpack-rag-api
-- regpack-ods-client
-- regpack-scott-client
+==================================================
+4. Chunking Strategy Review
+==================================================
 
 Evaluate:
 
-- Service abstraction
-- Error handling
-- Retry logic
-- Timeout handling
-- Response validation
-- User feedback behavior
-- API dependency coupling
+- Chunk sizing approach
+- Chunk overlap strategy
+- Metadata preservation
+- Context fragmentation risks
 
 Identify:
 
-- Fragile integrations
-- Missing validation
-- Error propagation issues
+- Risks of losing context
+- Risks of oversized chunks
+- Risks of poor retrieval precision
 
---------------------------------------------------
-6. User Experience Review
---------------------------------------------------
+==================================================
+5. Prompt Engineering Review
+==================================================
+
+Focus especially on:
+
+core/preamble_config.py
 
 Evaluate:
 
-- Navigation flow
-- User guidance
-- Error messaging
-- Loading states
-- Empty states
-- Confirmation messages
-- Accessibility of workflows
+- System prompt design
+- Prompt structure
+- Prompt clarity
+- Prompt maintainability
+- Prompt modularity
+- Prompt decomposition
+- Prompt consistency
 
 Identify:
 
-- Confusing experiences
-- Missing feedback
-- High-friction workflows
+- Hardcoded instructions
+- Prompt sprawl
+- Conflicting instructions
 
---------------------------------------------------
-7. Accessibility Review
---------------------------------------------------
-
-Evaluate:
-
-- Accessibility readiness
-- Semantic HTML usage
-- Keyboard navigation
-- Form accessibility
-- Screen-reader friendliness
-- Color dependency risks
-- Focus management
-
-Classify findings.
-
---------------------------------------------------
-8. Performance Review
---------------------------------------------------
+==================================================
+6. Grounding Review
+==================================================
 
 Evaluate:
 
-- Large bundles
-- Lazy loading
-- Code splitting
-- Rendering efficiency
-- Network request efficiency
-- Caching opportunities
+- Source grounding
+- Context grounding
+- Citation enforcement
+- Evidence requirements
+- Source attribution
 
-Identify:
+Determine whether the LLM is forced to stay grounded in retrieved content.
 
-- Performance bottlenecks
-- Unnecessary re-renders
-- Heavy components
+Identify risks of:
 
---------------------------------------------------
-9. Security Review
---------------------------------------------------
+- Hallucination
+- Unsupported statements
+- Unsupported summarization
+
+==================================================
+7. Hallucination Control Review
+==================================================
 
 Evaluate:
 
-- Token handling
-- Session handling
-- Local storage usage
-- Sensitive data exposure
-- XSS risks
-- Injection risks
-- Unsafe rendering
-- Client-side validation assumptions
+- Explicit hallucination controls
+- Response constraints
+- Unknown-answer behavior
+- Fallback behavior
+- Citation requirements
 
-Identify:
+Determine whether the system is capable of refusing unsupported answers.
 
-- Security weaknesses
-- Sensitive information exposure
+Identify weaknesses.
 
---------------------------------------------------
-10. GenAI User Experience Review
---------------------------------------------------
+==================================================
+8. Prompt Injection & Security Review
+==================================================
 
-Identify any UI functionality related to:
+Evaluate:
 
-- AI responses
-- Prompt submission
-- Search experience
-- RAG results
-- Generated content
-- Citations
-- AI recommendations
+- Prompt injection resilience
+- Context injection risks
+- Retrieval poisoning risks
+- User instruction override risks
+- Jailbreak exposure
+
+Determine whether:
+
+- Retrieved documents can manipulate prompts
+- User prompts can bypass controls
+
+Identify security concerns.
+
+==================================================
+9. Responsible AI Review
+==================================================
 
 Evaluate:
 
 - Explainability
-- User trust
 - Transparency
-- Error handling
-- Hallucination visibility
-- Source attribution
-- Feedback mechanisms
+- User trust
+- Human oversight readiness
+- Auditability
 
-Determine whether the UI provides enough information for users to understand AI-generated outputs.
+Determine whether the implementation aligns with enterprise Responsible AI expectations.
 
---------------------------------------------------
-11. Logging & Observability
---------------------------------------------------
+==================================================
+10. Model Usage Review
+==================================================
 
 Evaluate:
 
-- Client-side logging
-- Error tracking
-- Monitoring readiness
+- Model configuration
+- Temperature usage
+- Token management
+- Context window usage
+- Cost awareness
+- Latency awareness
+
+Identify:
+
+- Inefficient patterns
+- Cost risks
+- Runtime risks
+
+==================================================
+11. Citation Strategy Review
+==================================================
+
+Evaluate:
+
+- Citation generation
+- Source attribution
+- Traceability
+- Reference quality
+
+Determine:
+
+Can a user verify where an answer originated?
+
+==================================================
+12. Observability Review
+==================================================
+
+Evaluate:
+
+- AI logging
+- Retrieval logging
+- Prompt logging
+- Response tracking
 - Traceability
 
 Identify:
 
-- Missing telemetry
 - Missing diagnostics
+- Missing observability
 
---------------------------------------------------
-12. Testing Strategy
---------------------------------------------------
-
-Evaluate:
-
-- Unit tests
-- Component tests
-- UI tests
-- Integration tests
-- End-to-end tests
-
-Identify:
-
-- Missing critical coverage
-- Untested workflows
-- High-risk areas
-
---------------------------------------------------
-13. Dependency Review
---------------------------------------------------
+==================================================
+13. Testing Review
+==================================================
 
 Evaluate:
 
-- Dependency management
-- Unused libraries
-- Outdated packages
-- Front-End security concerns
+- Prompt tests
+- Retrieval tests
+- Regression tests
+- Evaluation datasets
+- Grounding validation
+- Hallucination testing
 
 Identify:
 
-- Risks
-- Technical debt
+- Missing test coverage
 
---------------------------------------------------
-Output Requirements
---------------------------------------------------
+==================================================
+14. AI Governance Readiness
+==================================================
 
-Generate a Markdown report named:
+Evaluate readiness for:
 
-review-regpack-ui.md
+- Model governance
+- Prompt governance
+- Change control
+- Audit support
+- Explainability
+- Risk management
 
-The report must include:
+==================================================
+OUTPUT REQUIREMENTS
+==================================================
 
-# regpack-ui – Front-End Engineering Review
+Generate:
 
-## 1. Executive Summary
+review-regpack-rag-api.md
+
+Structure:
+
+# regpack-rag-api – RAG & GenAI Engineering Review
+
+## 1 Executive Summary
 
 Provide:
 
-- Overall assessment
-- Front-End maturity level
+- Overall maturity assessment
+- RAG maturity level
 - Main strengths
-- Main risks
-- Recommended priority actions
+- Main concerns
+- Recommended priorities
 
 --------------------------------------------------
 
-## 2. Scope Reviewed
+## 2 Repository Overview
 
-List:
+Describe:
 
-- Main folders reviewed
-- Components reviewed
-- Services reviewed
-- Integrations identified
-
---------------------------------------------------
-
-## 3. Front-End Architecture Assessment
-
-Assess:
-
-- Architecture quality
-- Scalability
-- Maintainability
-- Extensibility
-
-Provide findings.
+- Purpose
+- Main components
+- AI architecture
 
 --------------------------------------------------
 
-## 4. User Experience Assessment
+## 3 RAG Architecture Assessment
 
 Evaluate:
 
-- Navigation
-- Usability
-- Feedback mechanisms
-- Error handling
-- Accessibility
+- Retrieval quality
+- Scalability
+- Maintainability
 
 --------------------------------------------------
 
-## 5. API Integration Assessment
+## 4 Prompt Engineering Assessment
 
-Document:
+Focus on:
 
-- Backend dependencies
-- Integration quality
+core/preamble_config.py
+
+Assess:
+
+- Prompt quality
 - Risks
+- Governance readiness
 
 --------------------------------------------------
 
-## 6. Security Assessment
+## 5 Hallucination Risk Assessment
 
-Document:
+Assess:
 
-- Security findings
-- Severity
+- Likelihood of hallucination
+- Missing controls
+- Mitigation opportunities
+
+--------------------------------------------------
+
+## 6 Prompt Injection Risk Assessment
+
+Assess:
+
+- Security posture
+- Weaknesses
 - Recommendations
 
 --------------------------------------------------
 
-## 7. GenAI Experience Assessment
+## 7 Citation & Grounding Assessment
 
 Evaluate:
 
-- AI interaction patterns
+- Evidence quality
+- Traceability
 - Source attribution
-- User transparency
-- Explainability
-- Trustworthiness
 
 --------------------------------------------------
 
-## 8. Key Findings Summary
+## 8 Responsible AI Assessment
 
-Create a table:
+Evaluate:
+
+- Transparency
+- Explainability
+- Human oversight readiness
+
+--------------------------------------------------
+
+## 9 Key Findings Summary
+
+Create table:
 
 | ID | Severity | Category | Finding | Impact | Recommendation | Evidence |
 
@@ -390,21 +389,22 @@ Severity:
 
 Categories:
 
-- Architecture
-- UX
-- Accessibility
-- Security
-- Performance
+- RAG Architecture
+- Retrieval
+- Prompt Engineering
+- Hallucination Control
+- Prompt Security
+- Responsible AI
+- Governance
+- Observability
 - Testing
-- API Integration
-- GenAI Experience
-- Dependency Management
+- Citation Strategy
 
 --------------------------------------------------
 
-## 9. Detailed Findings
+## 10 Detailed Findings
 
-For every finding include:
+Include:
 
 - Finding ID
 - Severity
@@ -417,38 +417,30 @@ For every finding include:
 
 --------------------------------------------------
 
-## 10. Testing Gaps
+## 11 Questions for Hexaware
 
-Identify:
-
-- Missing tests
-- Weak coverage
-- High-risk workflows
+Generate clarification questions.
 
 --------------------------------------------------
 
-## 11. Questions for Hexaware
+## 12 Recommended Next Steps
 
-Create a list of questions requiring clarification.
-
---------------------------------------------------
-
-## 12. Recommended Next Steps
-
-Classify actions:
+Classify:
 
 - Immediate
 - Short Term
 - Medium Term
 
---------------------------------------------------
+==================================================
 
 Important Instructions
 
 - Do not modify code.
-- Do not create fixes.
+- Do not generate code fixes.
 - Do not speculate.
-- If evidence is not present, state:
-  "Not evident from repository."
-- Use file references whenever possible.
-- Keep feedback professional and constructive.
+- Use evidence.
+- If something cannot be verified, state:
+
+"Not evident from repository."
+
+- Focus on enterprise-grade GenAI review.
