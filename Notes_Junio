@@ -1,70 +1,237 @@
-You are acting as an Engineering Review Board.
+Act as a Principal Front-End Architect, Data Visualization Expert, Executive Reporting Specialist, and Enterprise Dashboard Designer.
 
 Input:
 
-engineering-review-normalized.json
+executive-review-dashboard.json
 
 Objective:
 
-Create a dashboard-ready executive JSON.
+Generate a production-ready executive dashboard for HSBC Engineering.
+
+The dashboard will be used for:
+
+* Engineering Review Sessions
+* Architecture Review Board
+* Vendor Review Meetings
+* GenAI Governance Reviews
+* Leadership Updates
+
+Vendor Reviewed:
+
+Hexaware
+
+Review Scope:
+
+Regulatory Pack Phase 1.5
+
+==================================================
+OUTPUT FILES
 
 Generate:
 
+index.html
+
+styles.css
+
+app.js
+
+==================================================
+DESIGN STYLE
+
+Style:
+
+* Executive Consulting
+* McKinsey
+* Gartner
+* Enterprise Architecture Review Board
+
+Visual Characteristics:
+
+* Premium
+* Modern
+* Clean
+* Highly Professional
+* Executive Ready
+
+No toy-like visuals.
+
+No startup style.
+
+No flashy colors.
+
+Focus on enterprise credibility.
+
+==================================================
+DATA SOURCE
+
+The dashboard must load and render data dynamically from:
+
 executive-review-dashboard.json
 
-Structure:
+Do not hardcode values.
 
-{
-“executive_summary”: {
-“overall_engineering_score”: 0,
-“overall_genai_score”: 0,
-“overall_risk_score”: 0,
-“repositories_reviewed”: 0,
-“total_findings”: 0,
-“critical_findings”: 0,
-“high_findings”: 0,
-“medium_findings”: 0,
-“low_findings”: 0
-},
+==================================================
+SECTIONS
 
-“severity_distribution”: [],
+1. Executive Overview
 
-“repository_scores”: [],
+Display:
 
-“genai_scores”: [],
+* Repositories Reviewed
+* Total Findings
+* Critical Findings
+* High Findings
+* Overall Engineering Score
+* Overall GenAI Score
+* Overall Risk Score
 
-“risk_matrix”: [],
+⸻
 
-“top_risks”: [],
+2. Repository Health Matrix
 
-“architecture_summary”: {},
+Display repository score comparison.
 
-“security_summary”: {},
+⸻
 
-“testing_summary”: {},
+3. Engineering Maturity Assessment
 
-“genai_summary”: {},
+Render radar chart.
 
-“rag_summary”: {},
+Domains:
 
-“responsible_ai_summary”: {},
+* Architecture
+* Security
+* Testing
+* Maintainability
+* Observability
+* Performance
+* Documentation
 
-“questions_for_hexaware”: [],
+⸻
 
-“recommended_actions”: {
-“immediate”: [],
-“next_30_days”: [],
-“next_90_days”: []
-}
-}
+4. GenAI Maturity Assessment
 
-Requirements:
+Render radar chart.
 
-* Calculate all totals.
-* Calculate severity distribution.
-* Calculate category distribution.
-* Calculate repository maturity.
-* Calculate GenAI maturity.
-* Create risk matrix entries.
-* Prepare data specifically for HTML dashboards.
-* Output valid JSON only.
+Domains:
+
+* Prompt Engineering
+* Grounding
+* Hallucination Controls
+* Citation Strategy
+* Prompt Security
+* Governance
+* Explainability
+
+⸻
+
+5. Severity Distribution
+
+Render:
+
+* Critical
+* High
+* Medium
+* Low
+
+⸻
+
+6. Findings by Repository
+
+Render comparative chart.
+
+⸻
+
+7. Top Risks
+
+Interactive table.
+
+Columns:
+
+* ID
+* Repository
+* Severity
+* Category
+* Risk
+* Recommendation
+
+⸻
+
+8. Architecture Assessment
+
+Render executive summary and findings.
+
+⸻
+
+9. Security Assessment
+
+Render executive summary and findings.
+
+⸻
+
+10. GenAI Assessment
+
+Render executive summary and findings.
+
+⸻
+
+11. RAG Assessment
+
+Render executive summary and findings.
+
+⸻
+
+12. Responsible AI Assessment
+
+Render executive summary and findings.
+
+⸻
+
+13. Questions for Hexaware
+
+Render expandable section.
+
+⸻
+
+14. Recommended Actions
+
+Group by:
+
+* Immediate
+* Next 30 Days
+* Next 90 Days
+
+==================================================
+FEATURES
+
+Include:
+
+* Search
+* Filters
+* Severity filters
+* Repository filters
+* Expand/collapse findings
+* Sticky navigation
+* Print mode
+* Export-to-PDF friendly layout
+
+==================================================
+TECHNICAL REQUIREMENTS
+
+* Pure HTML
+* Pure CSS
+* Vanilla JavaScript
+
+No external dependencies.
+
+No CDN libraries.
+
+No frameworks.
+
+Responsive design.
+
+Accessible design.
+
+Production-ready quality.
+
+Generate complete code.
