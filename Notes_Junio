@@ -1,459 +1,215 @@
-You are acting as a Principal Integration Engineer, Backend Architect, Security Reviewer, Data Integration Reviewer, and Software Quality Reviewer.
+You are acting as an HSBC Engineering Review Board.
 
-Context:
+You have received multiple engineering review reports generated from independent repository assessments.
 
-This repository is part of the Regulatory Pack Phase 1.5 delivery reviewed by HSBC Engineering.
+Your objective is to create a consolidated executive assessment.
 
-Vendor:
-Hexaware
+This is NOT an audit report.
 
-This review is NOT a formal audit.
+This is a collaborative engineering review intended to provide constructive feedback to the vendor team (Hexaware).
 
-The objective is to perform a constructive technical review of this integration client repository and generate actionable engineering feedback, risks, observations, and recommendations.
+Review all Markdown reports provided.
 
-Repository under review:
+Analyze:
 
-regpack-scott-client
-
-Assumption:
-This repository appears to act as an integration/client layer for SCOTT or an external source system. Validate this assumption from the repository. If this is not evident, explicitly state it.
-
-Primary objective:
-
-Evaluate the quality, robustness, maintainability, security, data handling, and enterprise readiness of the SCOTT integration client.
-
-Analyze the entire repository.
+- Common findings
+- Repeated risks
+- Architectural concerns
+- Security concerns
+- GenAI concerns
+- Prompt engineering concerns
+- Testing gaps
+- Operational concerns
 
 ==================================================
-1. Repository Overview
+REPORTS TO ANALYZE
 ==================================================
+
+review-regpack-api.md
+
+review-regpack-ui.md
+
+review-regpack-rag-api.md
+
+review-regpack-ods-client.md
+
+review-regpack-scott-client.md
+
+==================================================
+CONSOLIDATION RULES
+==================================================
+
+Group findings by:
+
+- Architecture
+- Security
+- Testing
+- Observability
+- Integration
+- Prompt Engineering
+- RAG
+- Responsible AI
+- Governance
+- Maintainability
 
 Identify:
 
-- Repository purpose
-- Main modules
-- Entry points
-- Client classes
-- External systems integrated
-- Configuration files
-- Data models
-- API contracts
-- Runtime assumptions
+- Cross-repository patterns
+- Systemic risks
+- Shared weaknesses
+- Shared strengths
 
-Explain how the repository appears to operate.
+Calculate:
 
-==================================================
-2. Integration Architecture Review
-==================================================
+- Total findings
+- Critical findings
+- High findings
+- Medium findings
+- Low findings
 
-Evaluate:
-
-- Client abstraction
-- Separation of concerns
-- Service boundaries
-- External dependency handling
-- API contract clarity
-- Coupling with upstream/downstream systems
-- Reusability of client logic
-- Ownership of data transformation logic
-
-Identify:
-
-- Architecture risks
-- Tight coupling
-- Missing abstractions
-- Maintainability concerns
+Generate severity distribution.
 
 ==================================================
-3. SCOTT Client Quality Review
-==================================================
-
-Evaluate:
-
-- Request construction
-- Response parsing
-- HTTP method usage or protocol usage
-- Headers management
-- Status code handling
-- Error response handling
-- Timeout configuration
-- Retry strategy
-- Circuit breaker/fallback mechanisms, if any
-- Pagination handling, if applicable
-- Large response handling
-
-Identify:
-
-- Fragile API calls
-- Missing resiliency patterns
-- Inconsistent error handling
-- Risky assumptions
-
-==================================================
-4. Data Contract & Mapping Review
-==================================================
-
-Evaluate:
-
-- Request payload mapping
-- Response payload mapping
-- DTO/model usage
-- Schema validation
-- Null handling
-- Optional fields
-- Type safety
-- Data normalization
-- Backward compatibility assumptions
-- Data quality controls
-
-Identify:
-
-- Mapping risks
-- Schema drift risks
-- Data quality issues
-- Potential runtime failures
-- Ambiguous transformations
-
-==================================================
-5. Security Review
-==================================================
-
-Evaluate:
-
-- Credential handling
-- Token handling
-- Secrets in code
-- Sensitive data exposure
-- PII handling
-- TLS/SSL assumptions
-- Authentication headers
-- Authorization assumptions
-- Logging of sensitive information
-- Input validation
-- Injection risks
-
-Identify:
-
-- Security gaps
-- Compliance concerns
-- Data leakage risks
-
-==================================================
-6. Configuration Management Review
-==================================================
-
-Evaluate:
-
-- Environment variable usage
-- Endpoint configuration
-- Timeout configuration
-- Retry configuration
-- Auth configuration
-- Environment-specific values
-- Hardcoded URLs or credentials
-- Safe defaults
-
-Identify:
-
-- Configuration drift risks
-- Environment promotion risks
-- Operational risks
-
-==================================================
-7. Error Handling & Resilience Review
-==================================================
-
-Evaluate:
-
-- Exception handling
-- Error propagation
-- User-safe errors
-- Technical error logging
-- Retryable vs non-retryable errors
-- Timeout handling
-- Downstream failure behavior
-- Graceful degradation
-- Partial failure behavior
-
-Identify:
-
-- Runtime risks
-- Operational blind spots
-- Failure-mode weaknesses
-
-==================================================
-8. Logging & Observability Review
-==================================================
-
-Evaluate:
-
-- Logging quality
-- Correlation IDs
-- Request IDs
-- Traceability across services
-- Metrics readiness
-- Diagnostics for failed integrations
-- Whether sensitive data could be logged
-
-Identify:
-
-- Missing observability
-- Hard-to-troubleshoot flows
-
-==================================================
-9. Performance & Scalability Review
-==================================================
-
-Evaluate:
-
-- Connection reuse
-- Request batching
-- Caching, if applicable
-- Rate limit handling
-- Large payload handling
-- Memory usage risks
-- Latency impact
-- Concurrency handling
-
-Identify:
-
-- Scalability risks
-- Performance bottlenecks
-
-==================================================
-10. Testing Review
-==================================================
-
-Evaluate:
-
-- Unit tests
-- Integration tests
-- Mocked external service tests
-- Contract tests
-- Negative tests
-- Timeout/retry tests
-- Error scenario tests
-- Data mapping tests
-- Schema drift tests
-
-Identify:
-
-- Missing test coverage
-- High-risk untested paths
-
-==================================================
-11. Dependency Review
-==================================================
-
-Evaluate:
-
-- Dependency management
-- Version pinning
-- Unused dependencies
-- Vulnerable dependency indicators
-- Runtime compatibility
-
-Identify:
-
-- Technical debt
-- Upgrade risks
-
-==================================================
-12. Operational Readiness Review
-==================================================
-
-Evaluate:
-
-- Readiness for production support
-- Runbook indicators
-- Troubleshooting guidance
-- Failure modes
-- Alerting assumptions
-- Operational ownership clarity
-
-Identify:
-
-- Support risks
-- Missing documentation
-
-==================================================
-OUTPUT REQUIREMENTS
+OUTPUT
 ==================================================
 
 Generate:
 
-review-regpack-scott-client.md
+executive-review-report.md
 
 Structure:
 
-# regpack-scott-client – Integration Client Engineering Review
+# Regulatory Pack Phase 1.5
+# Engineering & GenAI Review
+
+Prepared by:
+HSBC Engineering
+
+Vendor:
+Hexaware
+
+Date:
+<Current Date>
+
+--------------------------------------------------
 
 ## 1 Executive Summary
 
 Provide:
 
 - Overall assessment
+- Overall engineering maturity
+- Overall GenAI maturity
 - Main strengths
 - Main concerns
-- Recommended priority actions
 
-## 2 Scope Reviewed
+--------------------------------------------------
 
-List:
+## 2 Scope of Review
 
-- Main folders reviewed
-- Main client classes/modules
-- Config files reviewed
-- Test files reviewed
-- External integrations identified
+List repositories reviewed.
 
-## 3 Repository Overview
+--------------------------------------------------
 
-Describe:
+## 3 Executive Scorecard
 
-- Purpose
-- Main components
-- How the client appears to work
+| Domain | Score |
+|----------|----------|
+| Architecture | |
+| Security | |
+| Testing | |
+| Observability | |
+| Maintainability | |
+| Integration Quality | |
+| GenAI Readiness | |
+| Responsible AI | |
 
-## 4 Integration Architecture Assessment
+--------------------------------------------------
 
-Assess:
+## 4 Findings Summary
 
-- Client design
-- Coupling
-- Maintainability
-- Reusability
-- Operational readiness
+Provide:
 
-## 5 API / Protocol Client Assessment
+Total Findings
 
-Assess:
+Critical
 
-- Calling patterns
-- Contract handling
-- Status/error handling
-- Request/response validation
+High
 
-## 6 Data Contract & Mapping Assessment
+Medium
 
-Assess:
+Low
 
-- Mapping quality
-- Null handling
-- Type safety
-- Schema validation
-- Schema drift risks
+Observation
+
+--------------------------------------------------
+
+## 5 Cross Repository Findings
+
+Group by category.
+
+--------------------------------------------------
+
+## 6 Architecture Assessment
+
+--------------------------------------------------
 
 ## 7 Security Assessment
 
-Assess:
+--------------------------------------------------
 
-- Secrets
-- Tokens
-- PII
-- Logging risks
-- Input validation
-- Authentication/authorization assumptions
+## 8 Testing Assessment
 
-## 8 Resilience & Observability Assessment
+--------------------------------------------------
 
-Assess:
+## 9 GenAI Assessment
 
-- Timeouts
-- Retries
-- Failure behavior
-- Logging
-- Traceability
-- Supportability
+Include:
 
-## 9 Key Findings Summary
+Prompt Engineering
 
-Create table:
+Grounding
 
-| ID | Severity | Category | Finding | Impact | Recommendation | Evidence |
+Hallucination Controls
 
-Severity:
+Prompt Security
 
-- Critical
-- High
-- Medium
-- Low
-- Observation
+Citation Strategy
 
-Categories:
+Governance
 
-- Integration Architecture
-- API Client
-- Contract Management
-- Data Mapping
-- Security
-- Configuration
-- Error Handling
-- Observability
-- Performance
-- Testing
-- Dependency Management
-- Operational Readiness
+--------------------------------------------------
 
-## 10 Detailed Findings
+## 10 RAG Assessment
 
-For every finding include:
+--------------------------------------------------
 
-- Finding ID
-- Severity
-- Category
-- Title
-- Description
-- Technical Impact
-- Business/Operational Impact
-- Recommendation
-- Evidence
+## 11 Responsible AI Assessment
 
-## 11 Testing Gaps
+--------------------------------------------------
 
-Identify missing or weak tests, especially for:
+## 12 Top Risks
 
-- External service failure
-- Timeout handling
-- Retry behavior
-- Data mapping
-- Invalid response schemas
-- Authentication failures
-- Authorization failures
-- Rate limiting
-- Large payloads
-- Schema drift
+Top 10 risks.
 
-## 12 Questions for Hexaware
+--------------------------------------------------
 
-Create questions HSBC should ask the vendor team, such as:
+## 13 Questions for Hexaware
 
-- What SCOTT endpoints or services are consumed?
-- Are API/data contracts formally documented?
-- Are retries/timeouts aligned with platform standards?
-- What happens if SCOTT is unavailable?
-- Are there contract tests against SCOTT?
-- How is sensitive data protected in logs?
-- Are schema changes from SCOTT backward compatible?
-- Is there a runbook for SCOTT integration failures?
+Consolidated questions.
 
-## 13 Recommended Next Steps
+--------------------------------------------------
 
-Classify actions:
+## 14 Recommendations
 
-- Immediate
-- Short Term
-- Medium Term
+Immediate
 
-==================================================
+30 Days
 
-Important Instructions:
+90 Days
 
-- Do not modify code.
-- Do not create fixes.
-- Do not speculate.
-- If something cannot be verified, state:
-  "Not evident from repository."
-- Use file references wherever possible.
-- Keep feedback constructive and professional.
-- Focus on actionable engineering findings.
+--------------------------------------------------
+
+## 15 Conclusion
+
+Overall review conclusion.
