@@ -1,215 +1,158 @@
-You are acting as an HSBC Engineering Review Board.
+You are acting as an Engineering Review Data Normalization Engine.
 
-You have received multiple engineering review reports generated from independent repository assessments.
+Your objective is to transform multiple repository review reports into a single normalized JSON document.
 
-Your objective is to create a consolidated executive assessment.
+Input Documents:
 
-This is NOT an audit report.
-
-This is a collaborative engineering review intended to provide constructive feedback to the vendor team (Hexaware).
-
-Review all Markdown reports provided.
-
-Analyze:
-
-- Common findings
-- Repeated risks
-- Architectural concerns
-- Security concerns
-- GenAI concerns
-- Prompt engineering concerns
-- Testing gaps
-- Operational concerns
+* review-regpack-api.md
+* review-regpack-ui.md
+* review-regpack-rag-api.md
+* review-regpack-ods-client.md
+* review-regpack-scott-client.md
 
 ==================================================
-REPORTS TO ANALYZE
-==================================================
+OBJECTIVE
 
-review-regpack-api.md
+Convert all findings, scores, risks, recommendations, questions, and observations into a structured machine-readable JSON document.
 
-review-regpack-ui.md
+Do not summarize.
 
-review-regpack-rag-api.md
+Do not omit findings.
 
-review-regpack-ods-client.md
-
-review-regpack-scott-client.md
+Preserve all evidence references.
 
 ==================================================
-CONSOLIDATION RULES
-==================================================
+NORMALIZATION RULES
 
-Group findings by:
+1. Every finding must have:
 
-- Architecture
-- Security
-- Testing
-- Observability
-- Integration
-- Prompt Engineering
-- RAG
-- Responsible AI
-- Governance
-- Maintainability
+id
+repository
+severity
+category
+title
+description
+technical_impact
+business_impact
+recommendation
+evidence
 
-Identify:
+2. Normalize severities into:
 
-- Cross-repository patterns
-- Systemic risks
-- Shared weaknesses
-- Shared strengths
+Critical
+High
+Medium
+Low
+Observation
 
-Calculate:
+3. Normalize categories into:
 
-- Total findings
-- Critical findings
-- High findings
-- Medium findings
-- Low findings
+Architecture
+Security
+Testing
+Observability
+Integration
+Performance
+Maintainability
+Prompt Engineering
+RAG
+Responsible AI
+Governance
+Documentation
+Configuration
+Dependency Management
+UX
+Accessibility
 
-Generate severity distribution.
+4. Preserve repository scorecards.
+5. Preserve GenAI scorecards.
 
 ==================================================
 OUTPUT
+
+Generate a single JSON file:
+
+engineering-review-normalized.json
+
+Use the following schema:
+
+{
+“review_metadata”: {
+“review_name”: “Regulatory Pack Phase 1.5 Engineering Review”,
+“vendor”: “Hexaware”,
+“review_type”: “Engineering Review”,
+“generated_date”: “”,
+“repositories_reviewed”: []
+},
+
+“repositories”: [
+{
+“repository_name”: “”,
+“repository_type”: “”,
+“overall_score”: 0,
+
+  "scorecard": {
+    "architecture": 0,
+    "maintainability": 0,
+    "security": 0,
+    "testing": 0,
+    "observability": 0,
+    "performance": 0,
+    "documentation": 0
+  },
+  "genai_scorecard": {
+    "prompt_engineering": 0,
+    "grounding": 0,
+    "hallucination_controls": 0,
+    "citation_strategy": 0,
+    "prompt_security": 0,
+    "governance": 0,
+    "explainability": 0
+  },
+  "summary": {
+    "strengths": [],
+    "concerns": [],
+    "recommended_actions": []
+  },
+  "findings": []
+}
+
+],
+
+“findings”: [
+{
+“id”: “”,
+“repository”: “”,
+“severity”: “”,
+“category”: “”,
+“title”: “”,
+“description”: “”,
+“technical_impact”: “”,
+“business_impact”: “”,
+“recommendation”: “”,
+“evidence”: []
+}
+],
+
+“questions_for_vendor”: [],
+
+“recommendations”: {
+“immediate”: [],
+“short_term”: [],
+“medium_term”: []
+}
+}
+
 ==================================================
+QUALITY REQUIREMENTS
 
-Generate:
-
-executive-review-report.md
-
-Structure:
-
-# Regulatory Pack Phase 1.5
-# Engineering & GenAI Review
-
-Prepared by:
-HSBC Engineering
-
-Vendor:
-Hexaware
-
-Date:
-<Current Date>
-
---------------------------------------------------
-
-## 1 Executive Summary
-
-Provide:
-
-- Overall assessment
-- Overall engineering maturity
-- Overall GenAI maturity
-- Main strengths
-- Main concerns
-
---------------------------------------------------
-
-## 2 Scope of Review
-
-List repositories reviewed.
-
---------------------------------------------------
-
-## 3 Executive Scorecard
-
-| Domain | Score |
-|----------|----------|
-| Architecture | |
-| Security | |
-| Testing | |
-| Observability | |
-| Maintainability | |
-| Integration Quality | |
-| GenAI Readiness | |
-| Responsible AI | |
-
---------------------------------------------------
-
-## 4 Findings Summary
-
-Provide:
-
-Total Findings
-
-Critical
-
-High
-
-Medium
-
-Low
-
-Observation
-
---------------------------------------------------
-
-## 5 Cross Repository Findings
-
-Group by category.
-
---------------------------------------------------
-
-## 6 Architecture Assessment
-
---------------------------------------------------
-
-## 7 Security Assessment
-
---------------------------------------------------
-
-## 8 Testing Assessment
-
---------------------------------------------------
-
-## 9 GenAI Assessment
-
-Include:
-
-Prompt Engineering
-
-Grounding
-
-Hallucination Controls
-
-Prompt Security
-
-Citation Strategy
-
-Governance
-
---------------------------------------------------
-
-## 10 RAG Assessment
-
---------------------------------------------------
-
-## 11 Responsible AI Assessment
-
---------------------------------------------------
-
-## 12 Top Risks
-
-Top 10 risks.
-
---------------------------------------------------
-
-## 13 Questions for Hexaware
-
-Consolidated questions.
-
---------------------------------------------------
-
-## 14 Recommendations
-
-Immediate
-
-30 Days
-
-90 Days
-
---------------------------------------------------
-
-## 15 Conclusion
-
-Overall review conclusion.
+* Output valid JSON only.
+* No markdown.
+* No explanations.
+* No comments.
+* No placeholders.
+* Preserve all findings.
+* Preserve all scores.
+* Preserve all repository names.
+* Preserve all evidence references.
+* Ensure JSON can be consumed directly by a dashboard application.
