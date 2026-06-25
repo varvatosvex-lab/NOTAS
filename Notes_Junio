@@ -1,59 +1,18 @@
-Hola César,
+Asunto: RE: LEAP: Seguimiento a documentación funcional para implementación Step Function
 
-Gracias por el seguimiento.
+Hola Arch,
 
-Con relación a los puntos que nos comentas:
+Gracias por levantar este punto.
 
-1. Pipeline de integración (Docker → Sonar → Cyberflows → Publish)
+@Daniel Hernández, ¿nos podrías apoyar, por favor, con el detalle funcional del modelado de datos para DynamoDB, específicamente con la definición de los catálogos, estructuras de datos, relaciones y reglas de negocio que requiere este flujo? Entendemos que esta información actualmente no está detallada en la SPEC (o al menos no la hemos localizado) y es necesaria para que Arch pueda diseñar correctamente las tablas de DynamoDB, así como las referencias, consultas y operaciones que utilizará la Step Function durante la implementación.
 
-Comparto como referencia el pipeline base que estaremos utilizando para el proyecto:
+@Evelyn Calvo, ¿nos ayudas también a validar que este modelado y la información funcional queden alineados con el proceso de negocio y que la documentación refleje completamente el comportamiento esperado?
 
-URL:
-Asimismo, adjunto el diagrama de referencia correspondiente.
+Arch, cualquier duda o escenario que no esté suficientemente documentado, por favor coordínalo directamente con Daniel y Evelyn para asegurar que la documentación quede lo más completa y detallada posible.
 
-Actualmente este pipeline continúa en proceso de adecuación para incorporar las integraciones y configuraciones requeridas por la plataforma del banco. La recomendación es que puedan comenzar a revisarlo desde este momento para familiarizarse con el flujo de integración, las herramientas involucradas y la forma en que se realizará el proceso de construcción, análisis y publicación.
+De igual forma, si durante la implementación identificas cualquier otro vacío o información faltante en esta SPEC, por favor háznoslo saber para incorporarlo oportunamente y evitar retrabajos en las siguientes etapas del desarrollo.
 
-Si no se presentan bloqueos adicionales, estimamos que hacia finales de esta semana (aproximadamente el viernes) podremos contar con el pipeline completamente integrado para iniciar las validaciones correspondientes.
-
-⸻
-
-2. Pattern de desarrollo para AWS Lambda y Step Functions
-
-Actualmente no tenemos identificado un estándar corporativo publicado que defina un patrón específico para el desarrollo de AWS Lambda y AWS Step Functions.
-
-Lo que sí debe seguirse son los estándares y herramientas aprobadas por HSBC, particularmente:
-
-* Uso de Terraform para el aprovisionamiento de infraestructura.
-* Uso de los repositorios corporativos y flujo de trabajo definidos por GitHub Enterprise.
-* Uso exclusivo de componentes, librerías y herramientas autorizadas por el banco.
-* Integración con el pipeline corporativo para los procesos de calidad, seguridad y despliegue.
-
-Entendemos que previamente ya se compartieron los repositorios y la base de código de Terraform que servirán como referencia para este proyecto.
-
-Asimismo, les recomendamos apoyarse con el POD de Ingeniería para adoptar las prácticas de desarrollo ya establecidas dentro del banco (estructura de repositorios, estrategia de ramas, Pull Requests, revisiones de código, pipelines y demás lineamientos de GitHub Enterprise).
-
-Como referencia, para el proyecto de Inversiones estamos separando claramente el código de infraestructura (Terraform) del código de aplicación, práctica que estaremos manteniendo durante la implementación.
-
-Aprovechando este punto, ¿nos podrían ayudar a precisar qué tipo de pattern están buscando? Por ejemplo, si se refieren a una guía de arquitectura, estructura de repositorios, convenciones de desarrollo, lineamientos de codificación o algún framework específico. Esto nos ayudará a orientarlos de forma más puntual.
-
-⸻
-
-3. Estrategia de ambientes y repositorios
-
-Adicionalmente, nos gustaría comentar un punto que consideramos importante revisar antes de iniciar el desarrollo de CAN e Hipotecario.
-
-Actualmente el roadmap del equipo está enfocado en la entrega de Inversiones, cuya salida a producción está comprometida para el 15 de agosto.
-
-Por ello, estamos evaluando junto con Daniel Pachón la estrategia más conveniente para habilitar el desarrollo de CAN e Hipotecario sin afectar el avance del proyecto de Inversiones.
-
-Desde nuestro punto de vista, la mejor práctica sería que ambos frentes puedan trabajar en ambientes y repositorios que permitan aislar sus ciclos de desarrollo, evitando interferencias en despliegues, infraestructura, publicación de código y evolución de funcionalidades.
-
-En este momento aún estamos evaluando la alternativa más adecuada; sin embargo, consideramos importante revisar esta estrategia de manera conjunta para minimizar riesgos de integración, despliegue y coordinación entre los distintos proyectos.
-
-Si les parece bien, proponemos agendar una sesión con Daniel Pachón, Carlos Barrera, Cuauhtémoc Morales, Liliana García y los equipos involucrados para revisar esta estrategia y acordar el modelo de trabajo que nos permita avanzar de forma coordinada y sin generar impactos entre iniciativas.
-
-Quedamos atentos a sus comentarios.
+Muchas gracias a todos por el apoyo.
 
 Saludos,
-
 Jonatan García
