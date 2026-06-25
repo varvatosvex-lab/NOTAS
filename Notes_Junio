@@ -1,18 +1,24 @@
-Asunto: RE: LEAP: Seguimiento a documentación funcional para implementación Step Function
+Hola,
 
-Hola Arch,
+Claro, con gusto los apoyamos.
 
-Gracias por levantar este punto.
+Para estos dos frentes (FrontEnd & Cloud Deployment y Serverless, Integration & Data), vamos a consolidar y compartir las referencias técnicas que les pueden servir como guía.
 
-@Daniel Hernández, ¿nos podrías apoyar, por favor, con el detalle funcional del modelado de datos para DynamoDB, específicamente con la definición de los catálogos, estructuras de datos, relaciones y reglas de negocio que requiere este flujo? Entendemos que esta información actualmente no está detallada en la SPEC (o al menos no la hemos localizado) y es necesaria para que Arch pueda diseñar correctamente las tablas de DynamoDB, así como las referencias, consultas y operaciones que utilizará la Step Function durante la implementación.
+En el caso de FrontEnd & Cloud Deployment, ya les habíamos compartido los pipelines correspondientes. De cualquier forma, los volveremos a integrar para que los tengan como referencia, incluyendo:
 
-@Evelyn Calvo, ¿nos ayudas también a validar que este modelado y la información funcional queden alineados con el proceso de negocio y que la documentación refleje completamente el comportamiento esperado?
+* Pipeline de despliegue del FrontEnd.
+* Pipeline de infraestructura con Terraform.
+* Código de referencia del FrontEnd.
 
-Arch, cualquier duda o escenario que no esté suficientemente documentado, por favor coordínalo directamente con Daniel y Evelyn para asegurar que la documentación quede lo más completa y detallada posible.
+Para Serverless, Integration & Data, les compartiremos un ejemplo representativo del código de una Lambda, junto con la estructura y las recomendaciones que estamos utilizando en el proyecto.
 
-De igual forma, si durante la implementación identificas cualquier otro vacío o información faltante en esta SPEC, por favor háznoslo saber para incorporarlo oportunamente y evitar retrabajos en las siguientes etapas del desarrollo.
+Mientras preparamos este material, si nos pueden adelantar las dudas puntuales que tienen, nos ayudará a enfocarnos en los temas que realmente necesitan y resolverlos con mayor rapidez.
 
-Muchas gracias a todos por el apoyo.
+De momento, les pediría que centralicemos las consultas conmigo. Hoy y mañana estaré dando seguimiento a estos dos frentes; si alguna duda requiere involucrar a alguien de mi equipo o realizar una sesión técnica, con gusto la coordinamos.
+
+Si las preguntas son pocas y muy específicas, pueden enviármelas por correo y las vamos atendiendo conforme las recibamos.
+
+La idea es que puedan seguir avanzando mientras nosotros continuamos liberando y documentando el entorno.
 
 Saludos,
 Jonatan García
