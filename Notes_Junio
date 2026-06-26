@@ -1,1 +1,41 @@
-eee
+Hola Gregorio,
+
+Durante las pruebas de integración con DSP identificamos un escenario para el cual requerimos su apoyo.
+
+Adjuntamos un diagrama que resume las validaciones realizadas.
+
+Hallazgos
+
+* Estamos consumiendo el endpoint de autenticación de DSP mediante un HTTP POST desde nuestro ambiente en AWS Cloud.
+* Cuando la solicitud se realiza desde nuestro dominio de Cloud, la petición es bloqueada por CORS, indicando que el Origin no está autorizado (No Access-Control-Allow-Origin header).
+* Como validación, realizamos la misma prueba utilizando un dominio que actualmente se encuentra autorizado y la autenticación respondió correctamente (HTTP 200 con recepción del token).
+
+Con estas pruebas entendemos que el endpoint, el método de autenticación y la conectividad funcionan correctamente. El comportamiento observado apunta a una restricción de autorización del origen desde el cual se realiza la llamada.
+
+¿Nos podrían apoyar revisando cuál es el mecanismo esperado para habilitar este escenario?
+
+En particular, agradeceríamos confirmar:
+
+* Si es necesario agregar nuestros dominios de AWS Cloud dentro de la whitelist de DSP.
+* Si existe algún procedimiento específico para habilitar consumos desde ambientes Cloud.
+* O bien, si para este tipo de integraciones debe utilizarse un patrón diferente al que estamos siguiendo.
+
+Este punto representa actualmente un bloqueo para continuar con la integración, por lo que agradeceríamos su apoyo para definir el camino correcto.
+
+Quedamos atentos a sus comentarios.
+
+Muchas gracias.
+
+Hola Daniel, Liliana.
+
+Les compartimos el correo que estaremos enviando al equipo de DSP para solicitar apoyo con el escenario de CORS que identificamos.
+
+De nuestra parte, la evidencia apunta a que el endpoint funciona correctamente; el único bloqueo observado es la autorización del origen desde AWS Cloud.
+
+Les agradeceríamos su apoyo para dar seguimiento a este tema, ya que es un punto importante para la continuidad de la integración.
+
+Adicionalmente, ¿nos podrían compartir cuáles son los dominios oficiales que utiliza el ambiente de Cloud (COA)? Esto nos ayudará a validar si esos son los dominios que, en caso de requerirse una whitelist, deberían considerarse para su autorización.
+
+Nuestra principal inquietud es confirmar si únicamente se trata de incorporar dichos dominios o si el patrón de integración esperado para ambientes Cloud es diferente.
+
+Quedamos atentos y muchas gracias por el apoyo.
