@@ -1,1 +1,777 @@
-AWS Lambda establece límites diferentes según el mecanismo de despliegue. Para paquetes ZIP, el límite es de 50 MB comprimidos en carga directa y 250 MB descomprimidos, incluyendo código, dependencias y Layers. Para imágenes de contenedor, el límite máximo es de 10 GB sin comprimir.
+
+# LEAP CAN – Application Engineering Support Scope
+## Detailed Service Breakdown for Commercial Support Allocation
+
+**Document status:** Working Draft  
+**Scope focus:** Application Engineering Support  
+**Program:** LEAP – CAN Integration  
+**Reference platform:** LEAP Investment production implementation  
+
+---
+
+> ## Purpose
+>
+> This document defines the detailed scope of the **Application Engineering Support** service required to integrate the CAN workstream into the LEAP production platform established by the Investment implementation.
+>
+> The commercial allocation between **Infrastructure Support** and **Application Support** will be confirmed separately. This document focuses exclusively on the **Application Support** portion and describes the activities, execution model, responsibilities, deliverables and expected outcomes associated with that service.
+
+> ## Important Scope Boundary
+>
+> This service is not limited to incident resolution or operational support. It provides specialized application engineering support across architecture, security, frontend, backend, orchestration, integration, testing, release readiness and production stabilization.
+>
+> Infrastructure ownership, networking, landing zone, cloud account configuration and platform-level operational activities remain subject to validation by the Infrastructure and DevOps leads.
+
+---
+
+# 1. Service Objective
+
+The Application Engineering Support service provides specialized technical guidance and hands-on support to safely integrate CAN application components into an existing production platform.
+
+The service is intended to:
+
+- Protect the stability of the Investment production implementation.
+- Reduce integration and release risk.
+- Validate that CAN application components follow the established LEAP engineering model.
+- Support the integration of frontend, backend, APIs, Lambda functions and Step Functions.
+- Ensure application-level security, observability, testing and operational readiness.
+- Support controlled production releases and post-release stabilization.
+- Transfer platform-specific knowledge to the CAN delivery team.
+
+---
+
+# 2. Business and Technical Context
+
+The CAN delivery team is developing application capabilities that will later be incorporated into the LEAP platform.
+
+At the time of integration:
+
+- Investment will already be deployed and operating in production.
+- Shared application services, cloud patterns and deployment mechanisms will already exist.
+- CAN will introduce new screens, backend services, workflow orchestration and system integrations.
+- The integration will require controlled changes to application code, shared components and release artifacts.
+- The application integration must avoid regressions or disruption to the Investment production workload.
+- Application components must align with the architecture, security, testing and operational standards established by the reference implementation.
+
+This creates a higher level of complexity than an isolated or greenfield application deployment.
+
+---
+
+# 3. Application Support Operating Model
+
+The Application Engineering Support team acts as a multidisciplinary SME function covering the following domains:
+
+| Domain | Primary Focus |
+|---|---|
+| Application Architecture | Solution integrity, component boundaries, integration patterns and technical decisions |
+| Application Security | Secure coding, authorization, sensitive data handling and vulnerability remediation |
+| Frontend Engineering | Screen integration, frontend-backend contracts, navigation and error handling |
+| Backend Engineering | APIs, business services, Lambda functions, shared libraries and integrations |
+| Workflow Orchestration | Step Functions, screen orchestration, state management, retries and exception flows |
+| Quality Engineering | Test strategy, integration validation, regression coverage and release evidence |
+| Observability | Application logs, metrics, traces, alarms and production diagnostics |
+| Release Support | Production readiness, release validation, rollback and hypercare |
+
+---
+
+# 4. Detailed Activity Breakdown
+
+## 4.1 Application Discovery and Integration Assessment
+
+### Objective
+
+Establish a complete understanding of the CAN application scope, integration points, dependencies and changes required to incorporate CAN into the LEAP production platform.
+
+### Activities
+
+- Review the CAN functional scope and delivery backlog.
+- Identify frontend, backend and orchestration components to be integrated.
+- Review existing CAN code repositories and branch strategy.
+- Identify shared libraries, common services and reusable components.
+- Compare CAN components against the Investment reference implementation.
+- Identify differences in coding conventions, frameworks and dependency versions.
+- Map all application dependencies.
+- Identify external API dependencies.
+- Identify synchronous and asynchronous integration points.
+- Identify data persistence and state management requirements.
+- Identify configuration, secrets and environment-specific dependencies.
+- Identify application changes that may affect existing Investment functionality.
+- Identify technical debt and incomplete components before integration.
+- Identify release sequencing constraints.
+- Identify migration or compatibility requirements.
+- Identify required application-level changes for Dev, Test, UAT and Production.
+- Produce an initial integration risk register.
+
+### Execution Approach
+
+The activity is executed through repository reviews, specification reviews, technical workshops, architecture walkthroughs and dependency mapping sessions with the CAN delivery team.
+
+### Deliverables
+
+- Application Integration Assessment.
+- Application Dependency Map.
+- Component Inventory.
+- Integration Risk Register.
+- Initial Integration Backlog.
+- Open Questions and Decision Log.
+
+### Completion Criteria
+
+- All major application components are inventoried.
+- Critical integration dependencies are identified.
+- High-risk compatibility issues are documented.
+- Integration activities are converted into an actionable backlog.
+
+---
+
+## 4.2 Specification and Functional Flow Review
+
+### Objective
+
+Ensure that CAN business flows are sufficiently defined before application integration and development changes are introduced.
+
+### Activities
+
+- Review available business flows and process documentation.
+- Validate screen sequencing and user navigation.
+- Validate functional rules and decision points.
+- Validate input and output data for each screen.
+- Validate user actions and expected system responses.
+- Validate alternate, exception and rejection flows.
+- Validate timeout, retry and cancellation scenarios.
+- Validate dependencies on external systems.
+- Validate API requirements for each functional step.
+- Validate state transitions across the end-to-end journey.
+- Validate frontend, backend and orchestration responsibilities.
+- Review acceptance criteria.
+- Identify missing or ambiguous requirements.
+- Confirm traceability between process, specification, implementation and tests.
+- Support the refinement of functional and technical specifications.
+- Validate that application changes are versioned and approved.
+
+### Execution Approach
+
+The support team conducts specification review sessions using the CAN journey, screen flows, API contracts and orchestration requirements as the baseline.
+
+### Deliverables
+
+- Specification Review Report.
+- Functional Flow Findings.
+- Requirements Clarification Log.
+- Traceability Matrix.
+- Updated Acceptance Criteria.
+- Technical Decision Log.
+
+### Completion Criteria
+
+- Critical business flows are fully mapped.
+- Application behavior is defined for happy path and exception scenarios.
+- Technical implementation can be traced to approved specifications.
+
+---
+
+## 4.3 Application Architecture Review
+
+### Objective
+
+Validate that the CAN application design is compatible with the LEAP production architecture and does not introduce unmanaged technical risk.
+
+### Activities
+
+- Review application component boundaries.
+- Review service responsibilities.
+- Validate separation of frontend, backend and orchestration concerns.
+- Validate microservice or modular design decisions.
+- Review backend-for-frontend responsibilities where applicable.
+- Review shared services and common application components.
+- Validate synchronous versus asynchronous processing decisions.
+- Validate event-driven integration where applicable.
+- Review state management design.
+- Validate transaction boundaries.
+- Validate idempotency requirements.
+- Validate resiliency and fault isolation.
+- Validate retry and timeout strategies.
+- Validate error propagation.
+- Review API dependency chains.
+- Review performance-sensitive application paths.
+- Review application scalability assumptions.
+- Review compatibility with existing Investment services.
+- Review impact on shared production components.
+- Record and govern architecture decisions.
+- Support resolution of architecture exceptions.
+
+### Execution Approach
+
+Architecture reviews are conducted at defined checkpoints before implementation, integration testing and production release.
+
+### Deliverables
+
+- Application Architecture Assessment.
+- Architecture Review Findings.
+- Architecture Decision Records.
+- Remediation Action Plan.
+- Architecture Approval Recommendation.
+
+### Completion Criteria
+
+- No unresolved critical architecture finding remains.
+- Application integration patterns are documented.
+- Shared component impacts are understood.
+- Architecture decisions are formally recorded.
+
+---
+
+## 4.4 Frontend Engineering Support
+
+### Objective
+
+Ensure that CAN frontend components integrate consistently and safely with the LEAP application experience and backend services.
+
+### Activities
+
+- Review frontend application structure.
+- Review component organization and reuse strategy.
+- Review screen routing and navigation.
+- Review screen orchestration behavior.
+- Validate frontend-backend API contracts.
+- Validate request and response models.
+- Review form validation.
+- Review mandatory and optional field behavior.
+- Validate state persistence between screens.
+- Validate refresh and session recovery behavior.
+- Review user-facing error handling.
+- Review timeout and retry behavior.
+- Validate loading, pending and failure states.
+- Review authentication and authorization integration.
+- Validate token handling.
+- Review handling of sensitive information in the browser.
+- Validate that sensitive data is not written to browser logs.
+- Review frontend observability and diagnostic logging.
+- Review compatibility with deployment and runtime configuration.
+- Support integration defect analysis.
+- Review accessibility and usability impacts where applicable.
+- Validate frontend regression coverage.
+
+### Deliverables
+
+- Frontend Technical Review.
+- Frontend Integration Findings.
+- API Contract Findings.
+- Frontend Defect and Remediation Backlog.
+- Frontend Readiness Checklist.
+
+### Completion Criteria
+
+- Critical frontend-backend contracts are validated.
+- Navigation and state behavior are stable.
+- No critical sensitive-data exposure is identified.
+- Frontend integration tests are completed.
+
+---
+
+## 4.5 Backend Engineering Support
+
+### Objective
+
+Provide detailed technical support for backend services, business APIs, Lambda functions and shared application logic.
+
+### Activities
+
+- Review backend service decomposition.
+- Review Lambda function responsibilities.
+- Validate that functions have a clear and bounded purpose.
+- Review handler structure and business logic separation.
+- Review request and response validation.
+- Review domain model implementation.
+- Review shared library usage.
+- Review dependency management.
+- Review exception handling.
+- Review retry handling.
+- Review timeout configuration.
+- Review concurrency considerations.
+- Review idempotency implementation.
+- Review transaction consistency.
+- Review connection management.
+- Review database access patterns.
+- Review external API consumption.
+- Review API client resilience.
+- Review response mapping and error normalization.
+- Review application configuration handling.
+- Validate secrets are not embedded in code.
+- Review logging strategy.
+- Validate sensitive values are masked.
+- Review code quality findings.
+- Support remediation of defects.
+- Support complex debugging.
+- Review unit test implementation.
+- Review package size and deployment dependency considerations.
+- Validate compatibility with the production runtime.
+
+### Deliverables
+
+- Backend Code Review Report.
+- Lambda Technical Assessment.
+- Backend Remediation Backlog.
+- Unit Test Review.
+- Application Configuration Review.
+- Backend Production Readiness Checklist.
+
+### Completion Criteria
+
+- Critical code findings are remediated.
+- Backend services meet agreed quality standards.
+- Error handling and resiliency patterns are implemented.
+- Unit tests cover critical logic.
+
+---
+
+## 4.6 Step Functions and Screen Orchestration Support
+
+### Objective
+
+Ensure that CAN workflow orchestration supports the full screen journey, business state transitions and integration dependencies in a controlled and observable manner.
+
+### Activities
+
+- Review the end-to-end orchestration model.
+- Map business steps to state machine states.
+- Review screen-to-screen transitions.
+- Review state persistence strategy.
+- Validate workflow input and output contracts.
+- Review Choice, Task, Wait, Pass, Parallel and Map state usage.
+- Review Lambda integration patterns.
+- Review direct AWS service integrations where applicable.
+- Validate retry policies.
+- Validate catch handlers.
+- Validate timeout configuration.
+- Validate fallback and compensation flows.
+- Validate partial failure behavior.
+- Validate resume and recovery scenarios.
+- Validate duplicate request behavior.
+- Validate idempotent execution.
+- Review execution history and diagnostic requirements.
+- Review workflow versioning.
+- Review deployment compatibility.
+- Validate state machine changes against existing production flows.
+- Review orchestration performance.
+- Review payload size and state data considerations.
+- Validate integration with DynamoDB or application state stores.
+- Review asynchronous callback or wait-for-task-token patterns where applicable.
+- Review EventBridge-based asynchronous interactions where applicable.
+- Validate operational alarms for failed or delayed executions.
+- Support local and integrated workflow testing.
+- Support production execution troubleshooting.
+
+### Deliverables
+
+- Workflow Orchestration Assessment.
+- Step Functions Review Findings.
+- State Transition Matrix.
+- Error and Retry Strategy.
+- Workflow Test Scenarios.
+- Production Monitoring Requirements.
+- Orchestration Readiness Checklist.
+
+### Completion Criteria
+
+- Happy path, alternate path and exception flows are implemented.
+- Retry and catch behavior is validated.
+- State transitions are traceable to specifications.
+- Workflow monitoring is available.
+- No critical production-impacting orchestration issue remains.
+
+---
+
+## 4.7 API and Integration Support
+
+### Objective
+
+Validate that application integrations are reliable, secure, traceable and compatible with the LEAP platform.
+
+### Activities
+
+- Review API contracts.
+- Review request and response schemas.
+- Validate mandatory fields.
+- Validate error code mapping.
+- Validate versioning strategy.
+- Validate backward compatibility.
+- Review API Gateway integration behavior.
+- Review authentication and authorization requirements.
+- Review service-to-service authentication.
+- Validate correlation identifiers.
+- Validate traceability across integration layers.
+- Review retry behavior.
+- Review timeout behavior.
+- Review rate and throughput assumptions.
+- Review dependency failure behavior.
+- Review mock and stub strategies.
+- Validate integration with legacy and external services.
+- Review data transformations.
+- Review canonical model usage where applicable.
+- Validate sensitive field handling.
+- Validate masking requirements.
+- Support contract testing.
+- Support integration defect resolution.
+- Validate production endpoint and configuration readiness.
+
+### Deliverables
+
+- API Contract Review.
+- Integration Matrix.
+- Error Mapping Catalog.
+- Contract Test Evidence.
+- Integration Readiness Report.
+- External Dependency Risk Log.
+
+### Completion Criteria
+
+- Critical API contracts are approved.
+- Integration errors are consistently handled.
+- External dependencies are testable and traceable.
+- Production endpoints and configurations are validated.
+
+---
+
+## 4.8 Application Security Support
+
+### Objective
+
+Ensure that application components meet secure development and production security requirements.
+
+### Activities
+
+- Review authentication flows.
+- Review authorization enforcement.
+- Review role and permission handling at application level.
+- Review sensitive data handling.
+- Validate encryption requirements.
+- Validate data masking.
+- Validate secrets management usage.
+- Review input validation.
+- Review output encoding.
+- Review injection risks.
+- Review insecure direct object reference risks.
+- Review data exposure through logs.
+- Review error message exposure.
+- Review dependency vulnerabilities.
+- Review static analysis findings.
+- Review security scan findings.
+- Support remediation of high and critical findings.
+- Review API security requirements.
+- Review frontend token and session handling.
+- Review backend credential handling.
+- Validate secure configuration across environments.
+- Participate in security readiness reviews.
+- Maintain application security evidence.
+
+### Deliverables
+
+- Application Security Assessment.
+- Security Findings Register.
+- Vulnerability Remediation Plan.
+- Secure Coding Review.
+- Security Evidence Package.
+- Application Security Readiness Checklist.
+
+### Completion Criteria
+
+- No unresolved critical security finding remains.
+- High-risk findings have an agreed remediation plan.
+- Sensitive information is protected.
+- Required security evidence is available.
+
+---
+
+## 4.9 Quality Engineering and Testing Support
+
+### Objective
+
+Ensure that application changes are validated at all relevant levels before production release.
+
+### Activities
+
+- Review test strategy.
+- Review test scope.
+- Validate traceability from specifications to test cases.
+- Review unit test coverage.
+- Review frontend component tests.
+- Review backend unit tests.
+- Review Lambda unit tests.
+- Review Step Functions workflow tests.
+- Review API contract tests.
+- Review integration tests.
+- Review end-to-end tests.
+- Review regression testing.
+- Review negative testing.
+- Review error path testing.
+- Review security testing.
+- Review performance testing.
+- Review concurrency testing.
+- Review retry and timeout testing.
+- Review production-like environment testing.
+- Review mock service behavior.
+- Review test data management.
+- Review defect severity and prioritization.
+- Support complex defect analysis.
+- Validate closure of release-blocking defects.
+- Review smoke test coverage.
+- Review post-deployment validation.
+- Consolidate test evidence.
+
+### Deliverables
+
+- Application Test Strategy Review.
+- Test Traceability Matrix.
+- Test Evidence Package.
+- Defect Readiness Assessment.
+- Regression Readiness Report.
+- Release Quality Recommendation.
+
+### Completion Criteria
+
+- Critical specifications have test coverage.
+- Release-blocking defects are closed or formally accepted.
+- Integration and regression testing are completed.
+- Test evidence supports the release decision.
+
+---
+
+## 4.10 Application Observability and Monitoring Support
+
+### Objective
+
+Provide sufficient application-level visibility to detect, diagnose and resolve production issues.
+
+### Activities
+
+- Define application logging standards.
+- Validate structured logging.
+- Validate correlation IDs.
+- Validate transaction traceability.
+- Review Lambda logs.
+- Review Step Functions execution logging.
+- Review API error logging.
+- Validate masking of sensitive data.
+- Define application metrics.
+- Define functional and technical alerts.
+- Review dashboard requirements.
+- Review Splunk integration where applicable.
+- Review AppDynamics integration where applicable.
+- Review CloudWatch metrics and alarms.
+- Define failure thresholds.
+- Define operational notification requirements.
+- Validate log retention and accessibility.
+- Validate troubleshooting procedures.
+- Define production support queries.
+- Support monitoring validation during release.
+- Review observability gaps after incidents.
+
+### Deliverables
+
+- Application Observability Requirements.
+- Logging and Monitoring Checklist.
+- Application Dashboard Requirements.
+- Alert Matrix.
+- Production Diagnostic Guide.
+- Observability Readiness Assessment.
+
+### Completion Criteria
+
+- Critical application flows are traceable.
+- Failures generate actionable diagnostic information.
+- Sensitive data is not exposed in logs.
+- Required alerts and dashboards are available.
+
+---
+
+## 4.11 Release Readiness and Production Deployment Support
+
+### Objective
+
+Support a controlled integration and release of CAN components into the existing LEAP production platform.
+
+### Activities
+
+- Review release scope.
+- Review application release dependencies.
+- Review sequencing of frontend, backend and orchestration changes.
+- Validate compatibility with Investment production components.
+- Review release branch and versioning.
+- Review deployment artifacts.
+- Validate environment configuration.
+- Validate feature toggles where applicable.
+- Review database and state compatibility.
+- Review API compatibility.
+- Review rollback plan.
+- Validate recovery procedures.
+- Review production smoke tests.
+- Participate in release readiness meetings.
+- Validate unresolved defects and risks.
+- Support deployment execution.
+- Support technical validation after deployment.
+- Monitor critical application flows.
+- Support rollback decision if required.
+- Record production deployment evidence.
+- Support stakeholder communication from a technical perspective.
+
+### Deliverables
+
+- Application Release Plan Review.
+- Application Release Readiness Checklist.
+- Go-Live Risk Assessment.
+- Deployment Validation Report.
+- Smoke Test Evidence.
+- Post-Deployment Validation Report.
+
+### Completion Criteria
+
+- Release dependencies are confirmed.
+- Rollback procedures are validated.
+- Critical application smoke tests pass.
+- Production behavior is stable after deployment.
+
+---
+
+## 4.12 Hypercare and Production Stabilization
+
+### Objective
+
+Provide specialized support during the stabilization period following the CAN production release.
+
+### Activities
+
+- Monitor application behavior after release.
+- Review production errors.
+- Analyze failed workflows.
+- Analyze integration failures.
+- Analyze frontend and backend defects.
+- Support incident triage.
+- Support root cause analysis.
+- Recommend remediation actions.
+- Support emergency fixes.
+- Validate hotfixes.
+- Review repeated failure patterns.
+- Track stabilization actions.
+- Review operational feedback.
+- Update runbooks.
+- Update monitoring requirements.
+- Capture lessons learned.
+- Transfer recurrent support knowledge to the operational team.
+
+### Deliverables
+
+- Hypercare Daily or Weekly Status.
+- Incident Analysis.
+- Root Cause Analysis.
+- Stabilization Backlog.
+- Updated Runbooks.
+- Lessons Learned Report.
+- Hypercare Exit Assessment.
+
+### Completion Criteria
+
+- Critical incidents are resolved.
+- Recurring issues have corrective actions.
+- Application stability is demonstrated.
+- Operational teams have sufficient knowledge to continue support.
+
+---
+
+# 5. Core Application Support Deliverables
+
+| Deliverable | Purpose |
+|---|---|
+| Application Integration Assessment | Establish application scope, dependencies and integration risks |
+| Specification Review Report | Confirm that functional and technical behavior is sufficiently defined |
+| Application Architecture Assessment | Validate solution design and compatibility with the production platform |
+| Frontend Technical Review | Validate frontend integration, navigation, contracts and user-facing behavior |
+| Backend Code Review Report | Validate backend design, code quality, resilience and maintainability |
+| Workflow Orchestration Assessment | Validate Step Functions design, state transitions and failure handling |
+| API Contract Review | Validate integration contracts, error behavior and compatibility |
+| Application Security Assessment | Validate application-level security and remediation readiness |
+| Test Readiness Assessment | Confirm that adequate test coverage and evidence exist |
+| Observability Readiness Assessment | Validate monitoring, logging, traceability and diagnostics |
+| Application Release Readiness Checklist | Support the Go-Live decision |
+| Deployment Validation Report | Record application release execution and technical validation |
+| Hypercare Report | Summarize production stabilization and remaining actions |
+| Root Cause Analysis | Document material production incidents and corrective actions |
+| Lessons Learned | Capture improvements for subsequent LEAP workstreams |
+
+---
+
+# 6. Suggested Application Support Work Packages
+
+The Application Support effort may be organized into the following work packages for planning and commercial allocation purposes:
+
+| Work Package | Indicative Scope |
+|---|---|
+| WP1 – Application Discovery and Planning | Scope assessment, dependency mapping, integration backlog and risk identification |
+| WP2 – Specification and Architecture Governance | Specification reviews, design validation and technical decisions |
+| WP3 – Frontend and Backend Engineering Support | Code reviews, defect resolution, integration support and technical guidance |
+| WP4 – Workflow and API Integration Support | Step Functions, API contracts, state management and external integrations |
+| WP5 – Application Security and Quality | Secure coding, vulnerability remediation, test strategy and release evidence |
+| WP6 – Observability and Operational Readiness | Logging, monitoring, dashboards, alerts and production diagnostics |
+| WP7 – Release and Hypercare Support | Release readiness, deployment support, stabilization and RCA |
+
+---
+
+# 7. Responsibility Boundary
+
+## Included
+
+- Application architecture reviews.
+- Frontend and backend engineering support.
+- Lambda and Step Functions reviews.
+- API and integration support.
+- Application security validation.
+- Quality and testing support.
+- Application-level observability.
+- Release readiness support.
+- Hypercare and production stabilization.
+- Knowledge transfer related to application components.
+
+## Not Included Unless Explicitly Agreed
+
+- Full ownership of CAN feature delivery.
+- L1 service desk support.
+- Business process ownership.
+- End-user support.
+- Infrastructure account administration.
+- Landing zone ownership.
+- Core network operations.
+- Platform-level 24x7 operations.
+- Full application managed service.
+- Unplanned feature development outside the agreed integration scope.
+
+---
+
+# 8. Assumptions
+
+- Investment will provide the production reference implementation.
+- The CAN delivery team remains accountable for its application backlog and primary development execution.
+- Application repositories, specifications and test evidence will be available for review.
+- Delivery teams will address findings within agreed timelines.
+- Infrastructure-specific scope will be reviewed separately by the Infrastructure and DevOps leads.
+- Security teams will validate final control and compliance requirements.
+- Release windows, environments and external dependencies will be available according to the program plan.
+
+---
+
+# 9. Review Note for the Delivery Team
+
+> **Infrastructure and DevOps Review Required**
+>
+> Cuauhtémoc Morales and Liliana García should review the complementary Infrastructure Support scope, including platform engineering, networking, cloud account configuration, CI/CD infrastructure, environment operations, infrastructure monitoring, capacity, cost optimization, availability and platform incident support.
+>
+> This document intentionally provides the detailed baseline for the **Application Support** portion of the proposed support service.
+
+---
+
+# 10. Final Service Statement
+
+The Application Engineering Support service is designed to provide the specialized expertise required to integrate CAN into the LEAP production platform without compromising application stability, security, quality or operational readiness.
+
+The service covers the complete application integration lifecycle—from discovery and specification review through architecture, frontend, backend, workflow orchestration, API integration, application security, testing, release readiness and hypercare.
+
+Its primary purpose is to reduce the technical and production risks associated with introducing a significant new application workstream into an already operational platform.
+
